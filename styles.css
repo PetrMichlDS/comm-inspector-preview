@@ -1,0 +1,1993 @@
+/* =================================================================
+   AI Communication Inspector — landing page
+   DataSentics, a Bull company
+
+   Design system: Bull DNA, enterprise-software execution.
+   - Brand tokens only (colour / type / logo / tone) from the brand skill.
+   - Modern product-page execution: tight radii, hairline borders,
+     restrained motion, monospace for metrics + regulatory tokens.
+   ================================================================= */
+
+/* -----------------------------------------------------------------
+   Tosh A — brand headline face (self-hosted from Assets/Fonts).
+   Three shipped weights: Light (300), Medium (500), Black (900).
+   Headlines use 900 (Black); subsection titles use 500 (Medium).
+   Roboto remains the declared fallback in --font-display.
+   ----------------------------------------------------------------- */
+@font-face {
+  font-family: "Tosh A";
+  src: url("Assets/Fonts/ToshA-Light.woff2") format("woff2"),
+       url("Assets/Fonts/ToshA-Light.woff") format("woff");
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Tosh A";
+  src: url("Assets/Fonts/ToshA-Medium.woff2") format("woff2"),
+       url("Assets/Fonts/ToshA-Medium.woff") format("woff");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Tosh A";
+  src: url("Assets/Fonts/ToshA-Black.woff2") format("woff2"),
+       url("Assets/Fonts/ToshA-Black.woff") format("woff");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* --- Identity carriers (KEEP) --- */
+  --orange: #FF5539;          /* Bull Orange — single accent, CTA + sparing emphasis */
+  --orange-hover: #e6492f;
+  --orange-tint: #FFE4DF;     /* Bull orange tint — warm accent band (trust strip) */
+  --tint-50: #FFF7F5;         /* lightest warm tint — section alternate (à la claimsense) */
+  --blue-deep: #001f63;       /* deep blue — footer band only */
+
+  /* --- Neutrals (≈75% of the page) --- */
+  --white: #ffffff;
+  --grey-50: #f7f8fa;         /* light-grey alternating band */
+  --grey-100: #eef1f5;
+  --hairline: #E5E7EB;        /* 1px hairline borders */
+  --ink: #0d1b3e;             /* near-black text on light */
+  --ink-soft: #475069;        /* secondary text on light */
+  --on-blue: #ffffff;         /* text on the blue footer */
+  --on-blue-soft: #b9c6ec;    /* secondary text on the blue footer */
+  --hairline-blue: rgba(255,255,255,0.16);
+
+  /* --- Functional signal colours (product visuals ONLY) --- */
+  --sig-revenue: #1f9d6b;     /* green  */
+  --sig-risk: #d9822b;        /* amber/red */
+  --sig-life: #2f6df0;        /* blue */
+  --sig-comp: #7a4fd0;        /* competitive */
+
+  /* --- Type --- */
+  --font-body: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Tosh A", "Roboto", system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* --- Body/prose type scale --- */
+  --fs-body: 16px;      /* primary reading prose + lead/primer sentences */
+  --fs-compact: 15px;   /* dense contexts: worked-example transcript & AI analysis, compact card bodies */
+  --fs-meta: 14px;      /* secondary meta (footer, form labels, table values) */
+  --fs-eyebrow: 13px;   /* section eyebrows (lifted from 12px) */
+  --lh-prose: 1.625;    /* airy prose line-height, matches Bull's 16/26 */
+
+  /* --- Radius system (tightened: product, not marketing) --- */
+  --r-btn: 8px;
+  --r-chip: 10px;
+  --r-card: 12px;
+  --r-card-lg: 18px;          /* Bull-style module cards */
+  --r-media: 14px;
+
+  /* --- Elevation (very subtle) --- */
+  --shadow-sm: 0 1px 2px rgba(13,27,62,.06);
+  --shadow-md: 0 6px 24px rgba(13,27,62,.08);
+
+  /* --- Rhythm --- */
+  --maxw: 1140px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --section-y: clamp(56px, 6.5vw, 96px);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+/* -----------------------------------------------------------------
+   Reset & base
+   ----------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  line-height: 1.55;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.container { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+
+.skip-link {
+  position: absolute; left: 12px; top: -48px;
+  background: var(--orange); color: #000; font-weight: 700;
+  padding: 10px 16px; border-radius: var(--r-btn); z-index: 200;
+  transition: top .2s var(--ease);
+}
+.skip-link:focus { top: 12px; }
+
+.mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1; letter-spacing: -.01em; }
+.accent { color: var(--orange); }
+
+/* Thin display lead-in (Tosh A Light, 300). Used as the quiet half of a
+   recurring "light lead-in → heavy payoff" headline motif — never enlarges
+   type, only shifts weight. Slightly opened tracking keeps the thin weight
+   from looking fragile at display sizes. */
+.t-light { font-weight: 300; letter-spacing: -.012em; }
+
+/* -----------------------------------------------------------------
+   Icon system — one open line family (Lucide), inline SVG on a shared
+   24px grid + 2px stroke. Icons inherit `currentColor`, so a single SVG
+   source recolours per context from tokens (no duplicate colour art).
+   .icon-chip is the one tile treatment used identically across the
+   delivers / flow / stack sections; only the surface re-themes on blue.
+   ----------------------------------------------------------------- */
+.icon { display: block; width: 24px; height: 24px; }
+.icon-chip {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  border-radius: var(--r-chip);
+  background: var(--grey-100);
+  border: 1px solid var(--hairline);
+  color: var(--orange);          /* drives the inline SVG via currentColor */
+}
+/* -----------------------------------------------------------------
+   Section scaffolding + alternating backgrounds
+   ----------------------------------------------------------------- */
+.section { padding-block: var(--section-y); position: relative; }
+.section--white { background: var(--white); }
+.section--grey { background: var(--grey-50); }
+.section--tint { background: var(--tint-50); }
+.section--blue-deep { background: var(--blue-deep); color: var(--on-blue); padding-block: clamp(80px, 9vw, 128px); }
+
+.section__title {
+  font-family: var(--font-display);
+  font-weight: 500;                 /* Tosh A Medium — section H2s match Bull's own headline weight; Black (900) is reserved for the hero H1 */
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  font-size: clamp(25px, 3.2vw, 40px);
+  color: var(--ink);
+  max-width: 18ch;
+}
+.section__sub {
+  margin-top: 14px;
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--ink-soft);
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+.section__head-center { text-align: center; margin-inline: auto; margin-bottom: clamp(32px, 4.5vw, 52px); display: flex; flex-direction: column; align-items: center; }
+.section__head-center .section__title { max-width: 22ch; }
+
+/* Left-aligned head variant — used on the white/grey content bands so the
+   page isn't an unbroken column of centred boxes. The centred heads are
+   then reserved for the blue signature panels, reading as intentional
+   punctuation rather than a default cadence. */
+.section__head { margin-bottom: clamp(32px, 4.5vw, 52px); }
+.section__head .section__title { max-width: 20ch; }
+
+/* -----------------------------------------------------------------
+   Buttons — built once, reused. Orange fill + black bold label,
+   8px radius, outline-on-hover.
+   ----------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-body); font-weight: 600; font-size: 16px;
+  line-height: 1; cursor: pointer;
+  border: 2px solid transparent; border-radius: var(--r-btn);
+  padding: 14px 22px;
+  transition: background .2s var(--ease), color .2s var(--ease),
+              border-color .2s var(--ease), box-shadow .2s var(--ease);
+  text-align: center;
+}
+.btn--primary {
+  background: var(--orange);
+  color: #000;
+  box-shadow: var(--shadow-sm);
+}
+.btn--primary:hover {
+  background: transparent;
+  color: #000;
+  border-color: var(--orange);
+}
+.btn--lg { padding: 17px 30px; font-size: 17px; }
+.btn--block { width: 100%; }
+
+/* -----------------------------------------------------------------
+   Eyebrow / trust signals — ALL CAPS, letter-spaced, small
+   ----------------------------------------------------------------- */
+.eyebrow-trust {
+  list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px 14px;
+  text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 700;
+  color: var(--ink-soft);
+}
+.eyebrow-trust li { display: inline-flex; align-items: center; }
+.eyebrow-trust li::before {
+  content: ""; width: 6px; height: 6px; margin-right: 9px; border-radius: 50%;
+  background: var(--orange);
+}
+
+/* =================================================================
+   HEADER / NAV
+   ================================================================= */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid var(--hairline);
+}
+.site-header.is-scrolled { box-shadow: var(--shadow-sm); }
+.nav { display: flex; align-items: center; gap: 24px; min-height: 68px; }
+
+.nav__brand { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.nav__logo { height: 20px; width: auto; }
+.nav__divider { width: 1px; height: 22px; background: var(--hairline); }
+.nav__byline { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.nav__backed { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--ink-soft); }
+.nav__bull { height: 18px; width: auto; }
+
+.nav__links { display: flex; align-items: center; gap: 28px; margin-left: auto; }
+.nav__links a { font-size: 15px; color: var(--ink-soft); font-weight: 500; transition: color .2s var(--ease); }
+.nav__links a:hover { color: var(--ink); }
+
+.nav__cta { flex-shrink: 0; padding: 11px 18px; }
+
+.nav__toggle { display: none; flex-direction: column; gap: 5px; background: none; border: 0; padding: 8px; cursor: pointer; }
+.nav__toggle span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: .2s var(--ease); }
+
+.mobile-nav { display: none; flex-direction: column; gap: 2px; padding: 12px var(--gutter) 22px; border-bottom: 1px solid var(--hairline); background: var(--white); }
+.mobile-nav a { padding: 12px; border-radius: 10px; font-size: 16px; color: var(--ink); transition: background .2s var(--ease), color .2s var(--ease); }
+/* Rounded tint + accent-orange text on tap/hover, matching the desktop
+   dropdown links. Excludes the CTA button, which keeps its own .btn hover. */
+.mobile-nav a:not(.btn):hover { background: rgba(255,85,57,.08); color: var(--orange); }
+.mobile-nav a:last-child { margin-top: 10px; }
+.mobile-nav .btn { color: #000; }
+
+/* Desktop "Modules" dropdown — click-toggle, reuses the card tokens
+   (border / --r-card-lg / --shadow-md) so it reads as the same surface
+   family as .module-card. Shown/hidden via .is-open on .nav__dropdown
+   (a CSS class, no inline styles) so the panel can fade+slide. */
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: inherit; font-size: 15px; font-weight: 500;
+  color: var(--ink-soft); background: none; border: 0; padding: 0;
+  cursor: pointer; transition: color .2s var(--ease);
+}
+.nav__dropdown-toggle:hover { color: var(--ink); }
+.nav__dropdown-chevron { width: 15px; height: 15px; transition: transform .2s var(--ease); }
+.nav__dropdown-toggle[aria-expanded="true"] .nav__dropdown-chevron { transform: rotate(180deg); }
+
+.nav__dropdown-menu {
+  position: absolute; top: calc(100% + 14px); left: 50%;
+  min-width: 248px; padding: 8px;
+  display: flex; flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card-lg);
+  box-shadow: var(--shadow-md);
+  opacity: 0; visibility: hidden;
+  transform: translateX(-50%) translateY(-6px);
+  /* opacity/transform fade; visibility flips at 0s but is delayed .2s on
+     close so the fade-out stays visible, then hides (keeps it out of the
+     tab order when closed). Transitioning visibility over a duration is
+     unreliable, so it's stepped at 0s. */
+  transition: opacity .2s var(--ease), transform .2s var(--ease), visibility 0s linear .2s;
+  z-index: 200;
+}
+.nav__dropdown.is-open .nav__dropdown-menu {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity .2s var(--ease), transform .2s var(--ease), visibility 0s linear 0s;
+}
+.nav__dropdown-menu a {
+  padding: 10px 12px; border-radius: 10px; white-space: nowrap;
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+.nav__dropdown-menu a:hover { background: rgba(255,85,57,.08); color: var(--orange); }
+
+/* Mobile drawer: "Modules" group — uppercase eyebrow label + the four
+   module links, then a divider before the remaining nav links. */
+.mobile-nav__label {
+  padding: 10px 12px 2px; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em; color: #9aa3b5;
+}
+.mobile-nav__divider { height: 1px; background: var(--hairline); margin: 10px 8px 4px; }
+
+/* =================================================================
+   1 — HERO
+   ================================================================= */
+/* overflow:hidden is a backstop against any sideways scroll from the
+   illustration column at narrow widths. */
+.hero { position: relative; padding-block: clamp(40px, 5.5vw, 80px); overflow: hidden; }
+/* Two-column hero: copy left, decorative illustration right. No max-width
+   override — .hero__inner uses the full --maxw container, so the copy's left
+   edge sits on the container gutter, flush with the header logo. */
+.hero__inner {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.38fr) minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(24px, 4vw, 56px);
+}
+.hero__copy {
+  margin: 0;
+}
+/* Illustration column — right-aligned to the container gutter, never bleeding
+   past it. Decorative only (see aria-hidden in the markup). */
+.hero__viz { display: flex; justify-content: flex-end; }
+.hero__viz-img {
+  display: block;
+  width: 100%;
+  /* Sized (not just capped) so the photo's own height — driven purely by
+     this width via its locked aspect ratio, no cropping — sits inside the
+     copy column's own vertical span. .hero__inner centers the two columns
+     (align-items: center), so as long as the photo is shorter than the
+     copy block, centering alone keeps its top above the eyebrow row and
+     its bottom above the CTA — no separate top/bottom rules needed. */
+  max-width: clamp(260px, 27vw, 330px);
+  height: auto;
+  border-radius: var(--r-card-lg);         /* rounded corners to match the Bull photo (~16–20px) */
+  object-fit: cover;
+  box-shadow: var(--shadow-md);            /* subtle depth for the framed look — drop if you prefer flat */
+}
+.hero__h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(30px, 4.4vw, 50px);
+  line-height: 1.06;
+  letter-spacing: -.025em;
+  margin: 10px 0 0 0;   /* eyebrow hugs the headline it labels */
+  color: var(--ink);
+  text-wrap: balance;
+}
+.hero__subhead { margin: 18px 0 0 0; font-size: clamp(16px, 1.5vw, 18px); color: var(--ink-soft); max-width: 54ch; }
+
+/* Outcomes checklist — makes the four results tangible at first glance.
+   Opens into its own beat (26px) so it reads as a scannable proof block,
+   not a fourth line of prose. */
+.hero__outcomes {
+  list-style: none; padding: 0; margin: 26px 0 0 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 13px 24px;
+  max-width: 56ch;
+}
+.hero__outcomes li { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 400; color: var(--ink); }
+/* Bull-style check: orange stroke check (no filled circle). Same glyph +
+   fixed size across the site (hero / feature lists / comparison) so every
+   listicle check reads identically — see .feature-list__tick, .ba__tick. */
+.hero__tick { flex-shrink: 0; width: 22px; height: 22px; color: var(--orange); }
+/* The action gets the largest break — net hero rhythm: 10 / 18 / 26 / 30. */
+.hero__cta { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+/* Secondary CTA — quiet text link, clearly subordinate to the button. */
+.hero__cta-alt {
+  font-size: 14px; font-weight: 500; color: var(--ink-soft);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--hairline);
+  transition: color .2s var(--ease), text-decoration-color .2s var(--ease);
+}
+.hero__cta-alt:hover { color: var(--orange); text-decoration-color: var(--orange); }
+
+/* Signal chips — used by the "worked example" analysis-row section. */
+.sig { font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 6px; }
+.sig::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: middle; background: currentColor; }
+/* Light-tint chip + solid dark text of the same signal hue (AA on white). */
+.sig--revenue { background: rgba(31,157,107,.12); color: #177a53; }
+.sig--risk { background: rgba(217,130,43,.14); color: #a05a10; }
+.sig--life { background: rgba(47,109,240,.12); color: #2456c4; }
+.sig--comp { background: rgba(122,79,208,.12); color: #633faa; }
+
+/* =================================================================
+   2 — BUILT BY BULL (vendor trust strip)
+   Warm Bull-tint band with dark-ink figures; the one orange-tinted
+   surface on an otherwise white/grey page. No blue (footer only).
+   ================================================================= */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+/* Bull trust bar — matched 1:1 to claimsense.app's shared Bull trust bar
+   (same background, navy logo at 46px, eyebrow / number / divider colours). */
+.trust { background: var(--orange-tint); padding-block: 36px; }
+.trust__inner {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: clamp(16px, 2.6vw, 38px);
+  align-items: center;
+}
+.trust__eyebrow {
+  display: inline-block; font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .12em; color: #9a4434;
+}
+.trust__logo { height: 46px; width: auto; margin: 12px 0; }
+.trust__desc { font-size: var(--fs-compact); color: #6b7280; line-height: 1.5; max-width: 340px; }
+.trust__stat { border-left: 1px solid rgba(154,68,52,.22); padding-left: clamp(16px, 2.6vw, 38px); }
+.trust__num {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(28px, 4vw, 40px); line-height: 1; letter-spacing: -.02em;
+  color: #000;   /* matches the Bull wordmark (the logo SVG has no fill → renders black) */
+}
+.trust__label { margin-top: 10px; font-size: 14px; color: #6b7280; }
+
+/* =================================================================
+   3 — BEFORE -> WITH
+   ================================================================= */
+.ba {
+  margin-top: clamp(36px, 5vw, 56px);
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--hairline); border-radius: var(--r-card);
+  overflow: hidden; background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+.ba__head { padding: 16px 24px; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; }
+.ba__head--today { color: var(--ink-soft); background: var(--grey-100); }
+.ba__head--with { color: #000; background: var(--orange); }
+.ba__cell {
+  padding: 20px 24px; font-size: clamp(15px, 1.6vw, 17px);
+  border-top: 1px solid var(--hairline);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.ba__cell--today { color: var(--ink-soft); background: var(--white); }
+.ba__cell--with { color: var(--ink); background: #fbfcfe; font-weight: 500; border-left: 1px solid var(--hairline); }
+.ba__icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--grey-100); color: #9aa3b5; display: grid; place-items: center; font-weight: 700; font-size: 16px; line-height: 1; }
+.ba__tick { flex-shrink: 0; width: 22px; height: 22px; color: var(--orange); }
+.ba__cell--with strong { font-weight: 700; }
+
+/* =================================================================
+   4 — MODULES (Bull-style use-case cards)
+   Photo-topped card language from bull.com: graphic media header,
+   title + orange chevron, description, "best for" footer. Whole card
+   is the link; hover lifts the card and turns the title orange.
+   ================================================================= */
+.eyebrow-label {
+  display: inline-block; font-size: var(--fs-eyebrow); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .18em; color: var(--orange);
+  margin-bottom: 14px;
+}
+.section__title--xl { font-size: clamp(25px, 3.2vw, 40px); max-width: 24ch; text-wrap: pretty; }  /* section H2 = 40px, same scale as every other H2 */
+
+.modules { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 1.8vw, 24px); }
+.module-card {
+  display: flex; flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  color: inherit;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.module-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+/* Graphic media header — per-module brand colour + white line icon.
+   Swap the flat colour for a real photo later; markup stays the same. */
+.module-card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.module-card__glyph { position: relative; z-index: 1; width: 120px; height: auto; color: #fff; object-fit: contain; object-position: center; }
+.module-card__media--comm .module-card__glyph { width: 60px; }
+.module-card__media--call .module-card__glyph { width: 120px; }
+.module-card__media--qa .module-card__glyph { width: 187px; }
+.module-card__media--coach .module-card__glyph { width: 172px; }
+.module-card:hover .module-card__media { }
+.module-card__media--comm  { background: var(--orange); }
+.module-card__media--call  { background: #00B290; }
+.module-card__media--qa    { background: #FFB600; }
+.module-card__media--coach { background: #3a3b49; }
+
+.module-card__body { padding: clamp(18px, 2vw, 24px); display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.module-card__title {
+  font-family: var(--font-display); font-weight: 500; font-size: 19px;
+  color: var(--ink); line-height: 1.2;
+  display: flex; align-items: center; gap: 7px;
+  transition: color .2s var(--ease);
+}
+.module-card__chevron { color: var(--orange); font-size: 1.15em; line-height: 1; transition: transform .2s var(--ease); }
+.module-card:hover .module-card__title { color: var(--orange); }
+.module-card:hover .module-card__chevron { transform: translateX(3px); }
+.module-card__desc { font-size: var(--fs-body); color: var(--ink-soft); line-height: var(--lh-prose); }
+.module-card__desc .mono { color: var(--ink); font-size: .92em; }
+
+/* Modules on the dark band: 2px white frame so the dark AI Coach banner
+   (#3a3b49) never melts into the deep-blue section. */
+.section--blue-deep .module-card { border-color: transparent; box-shadow: 0 0 0 2px #fff, 0 16px 36px -20px rgba(0,0,0,.55); }
+.section--blue-deep .module-card:hover { box-shadow: 0 0 0 2px #fff, 0 26px 50px -22px rgba(0,0,0,.6); }
+/* Quiet springboard link that keeps the eye moving DOWN the funnel — no
+   horizontal/pinned motion: the 4 modules are peer products a buyer wants
+   to compare, so they stay a static, scannable grid. */
+.modules__more { text-align: center; margin-top: clamp(32px, 4vw, 52px); }
+.modules__more-link { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 500; font-size: 15px; color: var(--on-blue); transition: color .2s var(--ease); }
+.modules__more-text { border-bottom: 1px solid var(--hairline-blue); padding-bottom: 3px; transition: border-color .2s var(--ease); }
+.modules__more-arrow { display: block; line-height: 0; }
+.modules__more-arrow svg { width: 26px; height: 26px; animation: cue-bob 1.8s var(--ease) infinite; }
+.modules__more-link:hover { color: #fff; }
+.modules__more-link:hover .modules__more-text { border-color: rgba(255,255,255,.55); }
+/* Pull the springboard toward the blue section's bottom edge (it points down). */
+#delivers { padding-bottom: clamp(36px, 4vw, 56px); }
+
+/* Quiet "there's more below" affordance under The shift table — same soft
+   chevron + bob as the Modules springboard, recoloured per background. */
+.scroll-cue { display: flex; justify-content: center; margin-top: clamp(28px, 4vw, 48px); color: var(--ink-soft); }
+.scroll-cue svg { width: 26px; height: 26px; opacity: .5; animation: cue-bob 1.8s var(--ease) infinite; }
+
+@keyframes cue-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue svg, .modules__more-arrow svg { animation: none; } }
+.module-card__bestfor { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--hairline); }
+.module-card__bestfor-label { display: block; margin-bottom: 7px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #9aa3b5; }
+.module-card__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.module-card__tag { background: var(--grey-100); border-radius: 6px; padding: 3px 9px; font-size: 11px; font-weight: 600; color: var(--ink-soft); }
+
+/* =================================================================
+   5 — HOW IT WORKS (horizontal flow)
+   ================================================================= */
+.flow { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: stretch; gap: 0; }
+.flow__step {
+  border: 1px solid var(--hairline); border-radius: var(--r-card);
+  padding: clamp(22px, 2.4vw, 30px); background: var(--white);
+  display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.flow__head { display: flex; flex-direction: row-reverse; align-items: center; justify-content: space-between; gap: 12px; }  /* icon left, step number right */
+.flow__num { font-size: 13px; font-weight: 600; color: var(--orange); letter-spacing: .08em; }
+.flow__title { font-family: var(--font-display); font-weight: 500; font-size: 21px; color: var(--ink); }
+.flow__body { font-size: var(--fs-body); color: var(--ink-soft); line-height: var(--lh-prose); }
+.flow__connector { align-self: center; width: 38px; height: 2px; position: relative; background: linear-gradient(90deg, var(--hairline), #cdd4e0); }
+.flow__connector::after { content: ""; position: absolute; right: -2px; top: 50%; transform: translateY(-50%); border: 5px solid transparent; border-left-color: #cdd4e0; }
+
+/* -----------------------------------------------------------------
+   Worked example showcase: transcript -> AI analysis -> business value.
+   Reuses tokens + .sig + .icon-chip so it reads as one product language.
+   ----------------------------------------------------------------- */
+.showcase { margin-top: 0; }
+.showcase__head { text-align: center; margin-bottom: 0; }
+.showcase__head .eyebrow-label { margin-bottom: 10px; }
+.showcase__title { font-family: var(--font-display); font-weight: 500; font-size: clamp(25px, 3.2vw, 40px); line-height: 1.08; letter-spacing: -.02em; color: var(--ink); }
+/* Single-column interleaved sequence — same layout at every width. */
+.showcase__seq { display: flex; flex-direction: column; gap: 12px; max-width: 680px; margin: 0 auto; }
+.showcase__caption-steps {
+  list-style: none; margin: 10px 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center;
+  column-gap: 22px; row-gap: 10px;
+}
+.showcase__caption-steps li { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 400; color: var(--ink); }
+.showcase__caption-sentence { font-size: var(--fs-body); color: var(--ink-soft); max-width: 35ch; margin-inline: auto; line-height: var(--lh-prose); margin-block: clamp(28px, 4.5vw, 48px); }
+
+/* Insight cluster — machine annotation, broken out of the bubble alignment
+   and tied to the line above by an orange left rule + a downward cue. */
+.insight { align-self: stretch; position: relative; margin: 2px 0 8px; padding: 2px 0 2px 18px; border-left: 2px solid var(--orange); margin-left: clamp(40px, 10%, 88px); }
+.insight__cue { position: absolute; left: 4px; top: -2px; color: var(--orange); font-size: 15px; line-height: 1; font-weight: 700; }
+/* Header line above the chips marking the block as machine output — orange, so
+   it's unambiguously the source of the analysis below, not a caption on the
+   bubble above. Same treatment at every width. */
+.insight__label { display: block; margin-bottom: 10px; color: var(--orange); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; line-height: 1.3; }
+.insight__rows { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; }
+
+/* Bridge line handing off into the business-value section below. Sits lower,
+   and the gap into #business-value is tightened so the arrow reads as a
+   direct hand-off to the centred heading rather than floating in empty grey. */
+.showcase__bridge { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: clamp(48px, 6.5vw, 72px); text-align: center; }
+.showcase__bridge-arrow { color: var(--orange); }
+.showcase__bridge-arrow svg { display: block; width: 22px; height: 22px; }
+.showcase__bridge-text { margin: 0; font-size: var(--fs-body); font-weight: 500; color: var(--ink-soft); line-height: var(--lh-prose); }
+#worked-example { padding-bottom: clamp(24px, 3vw, 40px); }
+#business-value { padding-top: clamp(20px, 2.6vw, 36px); }
+
+/* Staggered reveal cascade (~60ms/step, ≤540ms). Inert under
+   reduced-motion because .reveal transition is none there. */
+.showcase__seq > .reveal:nth-child(1) { transition-delay: 0ms; }
+.showcase__seq > .reveal:nth-child(2) { transition-delay: 60ms; }
+.showcase__seq > .reveal:nth-child(3) { transition-delay: 120ms; }
+.showcase__seq > .reveal:nth-child(4) { transition-delay: 180ms; }
+.showcase__seq > .reveal:nth-child(5) { transition-delay: 240ms; }
+.showcase__seq > .reveal:nth-child(6) { transition-delay: 300ms; }
+.showcase__seq > .reveal:nth-child(7) { transition-delay: 360ms; }
+.showcase__seq > .reveal:nth-child(8) { transition-delay: 420ms; }
+.showcase__seq > .reveal:nth-child(9) { transition-delay: 480ms; }
+.showcase__seq > .reveal:nth-child(n+10) { transition-delay: 540ms; }
+
+/* Chat-bubble transcript */
+.chat { display: flex; flex-direction: column; gap: 10px; background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-card); padding: 16px; box-shadow: var(--shadow-sm); flex: 1; }
+.chat__bubble { max-width: 90%; border-radius: 12px; padding: 10px 13px; font-size: var(--fs-compact); line-height: 1.5; }
+.chat__bubble--agent { align-self: flex-start; background: var(--grey-100); color: var(--ink); border-bottom-left-radius: 4px; }
+.chat__bubble--client { align-self: flex-start; background: var(--white); border: 1px solid var(--hairline); color: var(--ink); border-bottom-left-radius: 4px; }
+.chat__speaker { display: block; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 3px; }
+.chat__text { margin: 0; }
+.chat__hl { background: rgba(255,85,57,.14); color: #a0301a; border-radius: 4px; padding: 0 3px; font-weight: 600; }
+
+/* Insight rows — the chip + value pair, reused inside .insight clusters. */
+.analysis-row { display: flex; flex-direction: column; gap: 5px; }
+.analysis-row .sig { align-self: flex-start; }
+.analysis-row__val { font-size: var(--fs-compact); color: var(--ink); line-height: 1.5; }
+.analysis-row__val .mono { color: var(--ink-soft); font-size: .92em; }
+
+/* Business value list (reuses .icon-chip) */
+.value-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+/* Full-width standalone #business-value section: 2 × 2 grid with the most
+   important outcome (.value-item--feature) placed last, spanning both columns
+   and centred under them — echoing the section head's centred alignment. */
+.value-list--grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 2.6vw, 34px) clamp(28px, 5vw, 72px); align-items: start; }
+.value-item--feature { grid-column: 1 / -1; justify-content: center; }
+.value-item { display: flex; gap: 12px; align-items: flex-start; }
+.value-item .icon-chip { width: 40px; height: 40px; }
+.value-item .icon { width: 20px; height: 20px; }
+.value-item__title { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-body); color: var(--ink); line-height: 1.2; }
+.value-item__body { font-size: var(--fs-compact); color: var(--ink-soft); margin-top: 3px; line-height: 1.5; }
+
+/* =================================================================
+   6 — FITS YOUR STACK
+   ================================================================= */
+/* Card grid — 3 cols × 2 rows (six cards). This section is the page's
+   SCALE REFERENCE. Its container (1140px), section padding (80px) and H2
+   (40px) now come from the shared global tokens (--maxw, --section-y,
+   .section__title), so no #stack-scoped overrides are needed. The card
+   values below (24px gap, 32px padding, 40px icon tile, 21px title, 16px
+   body) are the reference the rest of the page was aligned to. Scale only —
+   colours / fonts / card treatment are unchanged from the shared tokens. */
+.stack { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.stack__item { border: 1px solid var(--hairline); border-radius: var(--r-card); padding: 32px; background: var(--grey-50); display: flex; flex-direction: column; }
+.stack__item .icon-chip { width: 40px; height: 40px; margin-bottom: 20px; }   /* 40px tile, 20px gap → title */
+.stack__item .icon-chip .icon { width: 20px; height: 20px; }
+/* #stack's cards dropped their icon-chips (title-only now), so they need
+   less padding than the sub-pages' 3-up capability cards, which keep the
+   icon and the base 32px. Scoped to #stack only — .stack__item/.icon-chip
+   stay untouched for the sub-pages. */
+#stack .stack__item { padding: 24px; }
+.stack__title { font-family: var(--font-display); font-weight: 500; font-size: 21px; color: var(--ink); margin-bottom: 10px; }
+.stack__body { font-size: 16px; color: var(--ink-soft); line-height: var(--lh-prose); }
+/* Keep card bodies full on the first line (greedy), only avoiding a lone
+   last word — `pretty`, not `balance` (balance shortens line 1 to equalize
+   and orphans words that would still fit). Scoped to #stack so the sub-page
+   .cards that reuse .stack__body are untouched. */
+#stack .stack__body { text-wrap: pretty; }
+
+@media (max-width: 1023px) { .stack { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 639px)  { .stack { grid-template-columns: 1fr; } }
+
+/* =================================================================
+   8 — FINAL CTA + form
+   ================================================================= */
+.final-cta__inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 72px); align-items: center; }
+.final-cta .section__title { max-width: 16ch; }
+
+/* CTA points — ClaimSense-style numbered "what you'll get on the call"
+   list, replacing the old presenter card. Semantic <ol>: the order is
+   meaningful, so the number badges themselves are aria-hidden. */
+.cta-points {
+  list-style: none; padding: 0; margin: clamp(24px, 3vw, 32px) 0 0;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.cta-point { display: flex; gap: 14px; align-items: flex-start; }
+.cta-point__num {
+  flex: none;
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  background: var(--orange); border-radius: 7px;
+  color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 13px;
+}
+.cta-point__body { display: flex; flex-direction: column; gap: 3px; }
+.cta-point__title { font-weight: 700; color: var(--ink); font-size: 15px; }
+.cta-point__desc { font-size: var(--fs-compact); color: var(--ink-soft); line-height: 1.5; }
+/* Quiet trust line — hairline separation, no icon, no colour emphasis. */
+.cta-trust {
+  margin-top: clamp(20px, 2.6vw, 28px); padding-top: 18px; border-top: 1px solid var(--hairline);
+  font-size: 13px; color: var(--ink-soft); line-height: 1.5;
+}
+.demo-form { background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-card); padding: clamp(24px, 3vw, 34px); box-shadow: var(--shadow-md); }
+.demo-form__row { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+.demo-form label { font-size: 14px; font-weight: 600; color: var(--ink); }
+.demo-form .optional { font-weight: 400; color: var(--ink-soft); }
+.demo-form input, .demo-form textarea {
+  font-family: var(--font-body); font-size: 16px; color: var(--ink);
+  border: 1px solid var(--hairline); border-radius: var(--r-btn);
+  padding: 12px 14px; background: var(--white); width: 100%;
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.demo-form input:focus, .demo-form textarea:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,85,57,.15); }
+.demo-form textarea { resize: vertical; }
+.demo-form__note { margin-top: 14px; font-size: 14px; min-height: 1em; }
+.demo-form__note.is-ok { color: var(--sig-revenue); }
+.demo-form__note.is-err { color: #c0392b; }
+
+/* Success state: on submit, .demo-form__fields is hidden and this
+   replaces it entirely — no leftover button or fields sitting above
+   the confirmation copy. */
+.demo-form__success { text-align: center; padding: 40px 10px; }
+.demo-form__success-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(31, 157, 107, .12); color: var(--sig-revenue);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+.demo-form__success-title {
+  font-family: var(--font-display); font-weight: 700; font-size: 22px;
+  color: var(--ink); margin: 0 0 8px;
+}
+.demo-form__success-sub { font-size: 16px; color: var(--ink-soft); margin: 0; line-height: 1.6; }
+.demo-form__privacy {
+  margin-top: 12px; font-family: "Roboto", sans-serif; font-style: normal;
+  font-weight: 400; font-size: 12px; line-height: 18px; color: rgb(154, 144, 139);
+}
+.demo-form__privacy a { color: inherit; text-decoration: underline; }
+
+/* =================================================================
+   FOOTER
+   One shared four-column footer markup (.footer__grid), used on every
+   page — homepage and every sub-page alike. The former split (rich
+   footer on index.html vs. a simpler .footer__inner one duplicated on
+   sub-pages) has been retired; those rules are gone.
+   ================================================================= */
+.site-footer { padding-top: clamp(48px, 6vw, 72px); background: #06122b; }
+.footer__link { font-size: 14px; color: #d6deff; transition: color .2s var(--ease); }
+.footer__link:hover { color: var(--orange); }
+.footer__link--subtle { font-size: 13px; color: var(--on-blue-soft); }
+.footer__base { border-top: 1px solid var(--hairline-blue); padding-block: 22px; font-size: 13px; color: var(--on-blue-soft); }
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  padding-bottom: clamp(36px, 5vw, 56px);
+}
+.footer__logo-mark { height: 22px; width: auto; }
+.footer__tagline { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--on-blue-soft); max-width: 36ch; }
+.footer__rule { display: block; height: 1px; background: var(--hairline-blue); margin: 22px 0; max-width: 300px; }
+.footer__built { display: flex; align-items: center; gap: 12px; font-size: 13px; line-height: 1.5; color: var(--on-blue-soft); max-width: 40ch; }
+.footer__built .footer__bull { flex-shrink: 0; height: 26px; }
+.footer__bull-link { display: inline-flex; flex-shrink: 0; border-radius: var(--r-chip); transition: opacity .2s var(--ease); }
+.footer__bull-link:hover { opacity: .78; }
+.footer__heading { font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--on-blue); margin-bottom: 16px; }
+.footer__list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.footer__base-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
+
+/* =================================================================
+   SUB-PAGES (module detail pages)
+   Shared header/footer + a light hero, back link, and feature list.
+   ================================================================= */
+.subpage-hero { padding-block: clamp(40px, 5vw, 72px); background: var(--white); }
+.backlink {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--orange); margin-bottom: 22px;
+  transition: color .2s var(--ease);
+}
+.backlink:hover { text-decoration: underline; text-underline-offset: 3px; }
+.backlink__chevron { color: var(--orange); }
+.subpage-hero__eyebrow { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; color: var(--orange); margin-bottom: 14px; }
+.subpage-hero__title {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(30px, 4.4vw, 50px); line-height: 1.06; letter-spacing: -.025em;
+  color: var(--ink); max-width: 20ch;
+}
+.subpage-hero__lead { margin-top: 16px; font-size: clamp(16px, 1.5vw, 19px); color: var(--ink-soft); max-width: 62ch; }
+.subpage-hero__cta { margin-top: 26px; }
+
+/* Legal / privacy-policy content — plain, readable prose with a
+   numbered clause list. Narrower measure than .container's full width
+   for readability, centred within it. */
+.legal { max-width: 74ch; }
+.legal__intro { font-size: var(--fs-body); color: var(--ink-soft); line-height: var(--lh-prose); margin-bottom: 18px; }
+.legal__list { list-style: none; margin-top: 36px; padding: 0; counter-reset: legal; }
+.legal__item {
+  counter-increment: legal;
+  padding: 26px 0; border-top: 1px solid var(--hairline);
+}
+.legal__item:first-child { border-top: 1px solid var(--hairline); }
+.legal__title {
+  display: flex; align-items: baseline; gap: 12px;
+  font-family: var(--font-display); font-weight: 700; font-size: 20px;
+  color: var(--ink); margin-bottom: 12px;
+}
+.legal__title::before {
+  content: counter(legal); flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--orange-tint); color: var(--orange);
+  font-size: 13px; font-weight: 700;
+}
+.legal__item p { font-size: var(--fs-body); color: var(--ink-soft); line-height: var(--lh-prose); margin-bottom: 12px; }
+.legal__item p:last-child { margin-bottom: 0; }
+.legal__item a { color: var(--orange); text-decoration: underline; text-underline-offset: 2px; }
+.legal__sublist { margin: 0 0 12px; padding-left: 20px; font-size: var(--fs-body); color: var(--ink-soft); line-height: var(--lh-prose); }
+.legal__sublist li { margin-bottom: 8px; }
+.legal__sublist li:last-child { margin-bottom: 0; }
+
+/* Feature list — reuses the hero orange-check pattern (.hero__tick).
+   Two columns on wide viewports, single column on phones. */
+.feature-list { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px clamp(24px, 4vw, 48px); }
+.feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; color: var(--ink); line-height: var(--lh-prose); }
+.feature-list__tick {
+  flex-shrink: 0; width: 22px; height: 22px; color: var(--orange); margin-top: 1px;
+}
+/* Single flex item for the label text — without this, .feature-list li's
+   flex/gap treats every inline .mono span inside as its own flex item,
+   scattering multi-term labels and inserting the gap between them. */
+.feature-list__text { flex: 1; min-width: 0; }
+
+/* 3-up capability cards on sub-pages (reuse .stack__item visuals) */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 24px); }
+@media (max-width: 820px) { .cards { grid-template-columns: 1fr; } }
+
+/* "Why we built it" — human-voice quote + demo-video facade
+   (ai-call-inspector.html only). Namespaced .voice rather than .quote:
+   .quote is already the pricing page's dark conversion panel.
+
+   .voice is itself the <figure> — avatar, blockquote and figcaption are
+   its three direct grid children, in that DOM order (unchanged from
+   before: quote still precedes its caption). Placement is done purely
+   with grid-column/grid-row so the photo+attribution read as one left
+   column without touching source order. */
+.voice {
+  display: grid; grid-template-columns: 1fr 2fr; grid-template-rows: auto auto;
+  column-gap: clamp(40px, 5vw, 56px); row-gap: 12px;
+  align-content: start;
+  margin: clamp(28px, 4vw, 40px) 0 0;
+}
+.voice__avatar { grid-column: 1; grid-row: 1; align-self: start; }
+.voice__body { grid-column: 2; grid-row: 1 / span 2; align-self: start; margin: 0; }
+.voice__by { grid-column: 1; grid-row: 2; align-self: start; }
+@media (max-width: 767px) {
+  .voice { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+  .voice__avatar, .voice__body, .voice__by { grid-column: 1; }
+  .voice__avatar { grid-row: 1; justify-self: center; }
+  .voice__body { grid-row: 2; }
+  .voice__by { grid-row: 3; }
+}
+.voice__avatar img { display: block; width: clamp(160px, 14vw, 180px); height: clamp(160px, 14vw, 180px); border-radius: 50%; object-fit: cover; border: 1px solid var(--hairline); }
+@media (max-width: 767px) {
+  .voice__avatar img { width: 112px; height: 112px; }
+}
+.voice__body { max-width: 62ch; }
+.voice__body > p { font-size: var(--fs-body); color: var(--ink); line-height: var(--lh-prose); margin: 0 0 16px; }
+.voice__list { list-style: none; padding: 0; margin: 20px 0 22px; display: flex; flex-direction: column; gap: 8px; }
+.voice__list li { display: flex; align-items: flex-start; gap: 12px; font-size: var(--fs-body); color: var(--ink); line-height: var(--lh-prose); }
+/* Cross mark for the quote's three pain points — same box/weight recipe
+   as .bpb-card__icon, but kept as its own class: that one belongs to
+   the homepage Build/Partner/Buy cards and must stay isolated. */
+.voice__icon {
+  flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--ink); font-weight: 700; font-size: 14px; line-height: 1;
+}
+.voice__by { display: flex; flex-direction: column; gap: 2px; }
+.voice__by cite { font-style: normal; font-weight: 700; font-size: 15px; color: var(--ink); }
+.voice__by cite a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.voice__by cite a:hover { color: var(--orange); }
+.voice__role { font-size: 13px; color: var(--ink-soft); }
+
+/* Video facade: a plain <button> + poster image until clicked (see
+   script.js) — no iframe/cookie request fires before the visitor asks
+   for it. aspect-ratio holds the box so there's no layout shift either
+   way. */
+.voice__video { max-width: 880px; margin: clamp(64px, 8vw, 96px) auto 0; }
+.voice__video-frame { position: relative; aspect-ratio: 16 / 9; border-radius: var(--r-card); overflow: hidden; background: var(--ink); box-shadow: var(--shadow-md); }
+.voice__video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.voice__video-play { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; display: block; }
+.voice__video-poster { width: 100%; height: 100%; object-fit: cover; display: block; }
+.voice__video-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: transform .2s var(--ease); }
+.voice__video-play:hover .voice__video-icon, .voice__video-play:focus-visible .voice__video-icon { transform: translate(-50%, -50%) scale(1.08); }
+.voice__video-caption { margin: 14px 0 0; text-align: center; font-size: 14px; color: var(--ink-soft); }
+.voice__video-duration { font-weight: 600; color: var(--ink); }
+
+/* Centred CTA band closing each sub-page */
+.cta-band { text-align: center; }
+.cta-band .section__title { margin-inline: auto; max-width: 22ch; }
+.cta-band__sub { margin: 14px auto 0; max-width: 54ch; font-size: clamp(15px, 1.4vw, 18px); color: var(--ink-soft); }
+.cta-band__actions { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 14px 24px; justify-content: center; align-items: center; }
+.cta-band__link { font-weight: 700; color: var(--ink); border-bottom: 2px solid var(--orange); padding-bottom: 2px; transition: color .2s var(--ease); }
+.cta-band__link:hover { color: var(--orange); }
+
+/* =================================================================
+   Scroll-reveal (subtle, 200ms-family). Disabled if reduced-motion.
+   ================================================================= */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* =================================================================
+   RESPONSIVE
+   ================================================================= */
+@media (max-width: 1080px) {
+  .modules { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 920px) {
+  .nav__links { display: none; }
+  .nav__toggle { display: flex; }
+  .nav__cta { display: none; }
+  .site-header.is-open .nav__toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .site-header.is-open .nav__toggle span:nth-child(2) { opacity: 0; }
+  .site-header.is-open .nav__toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-nav { display: none; }
+  .site-header.is-open .mobile-nav { display: flex; }
+
+  /* Hero drops to one column; the illustration is decorative, so it goes. */
+  .hero__inner { display: block; }
+  .hero__viz { display: none; }
+
+  /* Trust strip: brand on its own row, three stats beneath it. */
+  .trust__inner { grid-template-columns: repeat(3, 1fr); row-gap: 24px; }
+  .trust__brand { grid-column: 1 / -1; }
+  .trust__stat--first { border-left: 0; padding-left: 0; }
+  /* Bull trust bar (not pricing): match claimsense.app on mobile — centre the
+     credibility block + stats, drop the vertical dividers, and keep the three
+     short stats on one row (they shrink; labels wrap) instead of the awkward
+     2+1 with a lone stat below. */
+  .trust:not(#pricing) .trust__inner { text-align: center; column-gap: 28px; row-gap: 34px; }
+  .trust:not(#pricing) .trust__brand { text-align: center; }
+  .trust:not(#pricing) .trust__logo { margin-inline: auto; }
+  .trust:not(#pricing) .trust__desc { margin-inline: auto; }
+  .trust:not(#pricing) .trust__stat { border-left: 0; padding-left: 0; text-align: center; }
+
+  .flow { grid-template-columns: 1fr; gap: 0; }
+  .flow__connector { width: 2px; height: 30px; justify-self: center; background: linear-gradient(180deg, var(--hairline), #cdd4e0); margin: 6px 0; }
+  .flow__connector::after { right: 50%; top: auto; bottom: -2px; transform: translateX(50%); border-left-color: transparent; border-top-color: #cdd4e0; }
+
+  .final-cta__inner { grid-template-columns: 1fr; }
+  .final-cta .section__title { max-width: none; }
+  .final-cta__title-break { display: none; }
+}
+
+@media (max-width: 620px) {
+  body { font-size: 16px; }
+  .ba { grid-template-columns: 1fr; }
+  .ba__head--today { display: none; }
+  .ba__cell--with { border-left: 0; }
+  .ba__cell--today { background: var(--grey-50); }
+  .ba__break { display: none; }
+  .bpb__sub-break { display: none; }
+  .bpb__title-break { display: none; }
+  .delivers__title-break { display: none; }
+  .delivers__sub-break { display: none; }
+  .voice__role-break { display: none; }
+  .nav__byline { display: none; }
+  .nav__divider { display: none; }
+  .modules { grid-template-columns: 1fr; }
+  .feature-list { grid-template-columns: 1fr; }
+  .hero__outcomes { grid-template-columns: 1fr; gap: 10px; }
+  .eyebrow-trust { gap: 8px 12px; font-size: 11px; }
+  .footer__grid { grid-template-columns: 1fr; }
+  /* Business-value outcomes stack to one column; the feature item is no
+     longer centred (nothing to centre it under). */
+  .value-list--grid { grid-template-columns: 1fr; }
+  .value-item--feature { grid-column: auto; justify-content: flex-start; }
+}
+
+/* =================================================================
+   PATCH — branding fix + new content sections + section-rhythm fix
+   Appended by Claude per Petr's review; see chat for rationale.
+   Reuses the site's own tokens (--ink, --orange, --grey-50,
+   --blue-deep, --font-display/body, --r-card, --hairline-blue, …)
+   throughout, rather than introducing parallel hardcoded values.
+   ================================================================= */
+
+/* --- Header: "built by Bull" byline, moved next to the CTA --- */
+.nav__byline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.nav__backed {
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.2;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.nav__bull {
+  height: 26px;
+  width: auto;
+}
+.nav__cta-divider {
+  width: 1px;
+  align-self: stretch;
+  min-height: 26px;
+  background: var(--hairline);
+  margin: 0 20px;
+}
+
+/* --- Footer: Bull symbol watermark --- */
+.site-footer {
+  position: relative;
+  overflow: hidden;
+}
+.footer__watermark {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  width: 220px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* --- Hero: subtle warm tint instead of flat white, per claimsense.app --- */
+.hero.section--white {
+  background: linear-gradient(180deg, #FFF7F5 0%, var(--white) 70%);
+}
+
+/* --- Positioning callout — sits between "The impact" and "Modules",
+   setting up "who benefits" ahead of "what it does". White keeps this
+   band on-brand with Bull's white-forward palette; the --tint-50
+   section above and the --blue-deep Modules band below still bracket
+   it in clearly distinct colour. --- */
+.positioning-bar {
+  background: var(--white);
+  padding: clamp(28px, 4vw, 44px) 0;
+}
+/* Label sits in its own fixed column, top-aligned to the first line of copy
+   (the text is now multi-paragraph, so centring would float the label into
+   the middle of the block). */
+.positioning-bar__inner {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  column-gap: 24px;
+  align-items: start;
+}
+.positioning-bar__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--orange);
+  white-space: nowrap;
+  /* Optical nudge: aligns the 13px label's cap-height to the first line of the
+     16px copy beside it (matching cap tops, not line-box tops). */
+  padding-top: 2px;
+}
+.positioning-bar__text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink);
+  margin: 0;
+}
+.positioning-bar__text + .positioning-bar__text { margin-top: 14px; }
+/* Kept here (not in the shared ≤620px block further up the file) so it lands
+   after the base rule above and actually wins the cascade. */
+@media (max-width: 620px) {
+  .positioning-bar__inner { grid-template-columns: 1fr; row-gap: 10px; }
+  .positioning-bar__label { padding-top: 0; }
+}
+
+/* --- 2b. Proof bar (4 cards, after the Built-by-Bull strip) ---
+   3 tracks so the featured card spans the full width and the remaining
+   three sit in one clean row beneath it (a 2-track grid would strand the
+   fourth card alone on its own row). */
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+  align-items: start;
+}
+.proof-card {
+  background: var(--grey-50);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  padding: 24px;
+}
+.proof-card--featured {
+  grid-column: 1 / -1;
+}
+/* Whole-card link. The visible affordance is just the small CTA at the
+   bottom, but its ::after is stretched over the card so the entire tile is
+   the hit area - one anchor, so no nested-link or duplicate-announcement
+   problem for screen readers. */
+.proof-card--linked { position: relative; }
+.proof-card__cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 14px;
+  font-size: var(--fs-meta); font-weight: 700; color: var(--orange);
+  transition: gap .2s var(--ease);
+}
+.proof-card__cta::after { content: ""; position: absolute; inset: 0; }
+.proof-card--linked:hover { border-color: var(--orange); }
+.proof-card--linked:hover .proof-card__cta { gap: 10px; }
+/* The stretched ::after swallows the anchor's own outline, so the focus
+   ring has to be drawn on the card instead. */
+.proof-card--linked:focus-within { outline: 3px solid var(--orange); outline-offset: 2px; }
+.proof-card__label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.proof-card__title {
+  font-family: var(--font-display);
+  margin: 0 0 8px;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.proof-card--featured .proof-card__title {
+  font-weight: 900;
+  font-size: clamp(26px, 3vw, 34px);
+}
+.proof-card:not(.proof-card--featured) .proof-card__title {
+  font-weight: 500;
+  font-size: clamp(20px, 2.2vw, 26px);
+}
+.proof-card__lead {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-body);
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.proof-card__body {
+  font-family: var(--font-body);
+  font-size: var(--fs-compact);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0;
+}
+@media (max-width: 860px) {
+  .proof-grid { grid-template-columns: 1fr; }
+  .proof-card--featured { grid-column: 1; }
+}
+
+/* --- 5b. Proven Results: case study + secondary reference --- */
+.case-study__meta {
+  font-family: var(--font-body);
+  font-size: var(--fs-compact);
+  color: var(--ink-soft);
+  margin: 8px 0 32px;
+}
+.case-study {
+  margin-top: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.case-study__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 0;
+}
+.case-study__col {
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  padding: 20px;
+}
+.case-study__col--result {
+  border: none;
+  background: rgba(255, 140, 74, 0.08);
+}
+.case-study__col p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-prose);
+  color: var(--ink-soft);
+  margin: 0;
+}
+/* Real paragraph gap where a column body is split into two beats —
+   plain margin:0 above would leave them visually run-together. */
+.case-study__col p + p { margin-top: 10px; }
+.case-study__label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.case-study__col--result .case-study__label {
+  color: var(--orange);
+}
+.case-study__claim {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-body);
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.secondary-reference {
+  margin-top: 32px;
+  padding: 20px 24px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  background: var(--grey-50);
+}
+.secondary-reference__tag {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 8px;
+  display: block;
+}
+.secondary-reference__headline {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--ink);
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+.secondary-reference__subline {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-body);
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.secondary-reference__body {
+  font-family: var(--font-body);
+  font-size: var(--fs-compact);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+@media (max-width: 860px) {
+  .case-study__grid { grid-template-columns: 1fr; }
+  .case-study__col--result {
+    margin: 0;
+    padding: 20px;
+  }
+}
+
+/* --- 6b. Stack section re-themed as a dark "signature panel" —
+   this was already the stated design intent (see the .section__head
+   comment above: "the centred heads are then reserved for the blue
+   signature panels"), just never implemented for any section.
+   .stack uses .section__head-center, so it was the one section
+   already earmarked for this treatment. --- */
+.section--blue-deep .section__title { color: var(--on-blue); }
+.section--blue-deep .section__sub { color: var(--on-blue-soft); }
+.section--blue-deep .stack__item {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--hairline-blue);
+}
+.section--blue-deep .stack__title { color: var(--on-blue); }
+.section--blue-deep .stack__body { color: var(--on-blue-soft); }
+.section--blue-deep .icon-chip {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--hairline-blue);
+  color: var(--orange);
+}
+
+/* --- 7a. Build vs. Partner vs. Buy — three-card comparison, one visually
+   elevated. Pro/con rows reuse the .ba tick/minus language (orange tick =
+   pro, grey minus = con-or-neutral) — no red/green/amber anywhere here;
+   "Pay for usage" gets the same grey minus as a hard con, there is no
+   third colour state. The middle card is lifted with an orange border +
+   shadow + pill, not a full dark card, so "recommended" reads through
+   border/shadow/label, never colour alone. --- */
+/* Only "partner" is orange in this section's eyebrow (via the shared
+   .accent utility) — the shared .eyebrow-label rule stays untouched
+   everywhere else on the page. */
+.eyebrow-label--bpb { color: var(--ink-soft); }
+.bpb__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.4vw, 32px);
+  align-items: start;
+}
+.bpb-card {
+  position: relative;
+  display: flex; flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  padding: clamp(24px, 2.4vw, 32px);
+}
+.bpb-card--featured {
+  background: var(--blue-deep);
+  border: 1px solid var(--orange);
+  border-radius: var(--r-card-lg);
+  box-shadow: var(--shadow-md);
+  padding-top: clamp(32px, 3vw, 40px);
+}
+/* Floating "OUR WAY" label — text-bearing, not a colour-only cue. */
+.bpb-card__pill {
+  position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
+  background: var(--orange); color: #000;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 999px; white-space: nowrap;
+}
+.bpb-card__title { font-family: var(--font-display); font-weight: 500; font-size: 21px; color: var(--ink); margin-bottom: 10px; }
+.bpb-card__lead { font-size: 15px; color: var(--ink-soft); line-height: var(--lh-prose); margin: 0 0 20px; }
+.bpb-card__list {
+  list-style: none; margin: 0 0 20px; padding: 18px 0 0; border-top: 1px solid var(--hairline);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.bpb-card__list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.bpb-card__tick { flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px; color: var(--orange); }
+/* Cross mark matching ClaimSense's own con-icon: bold glyph, fixed box so
+   list text still starts at the same x-position as a tick row. */
+.bpb-card__icon {
+  flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--ink); font-weight: 700; font-size: 14px; line-height: 1;
+}
+.bpb-card__why { margin: 0 0 20px; padding: 14px 16px; background: var(--grey-50); border-radius: var(--r-chip); }
+.bpb-card__why-label { display: block; margin-bottom: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--orange); }
+.bpb-card__why-body { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+.bpb-card__why-body strong { color: var(--ink); font-weight: 700; }
+/* Pinned to the card bottom (margin-top: auto in a flex column) so the
+   rating row lines up across all three cards regardless of list length —
+   same trick .module-card__bestfor already uses. */
+.bpb-card__rating { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--hairline); display: flex; align-items: center; justify-content: center; gap: 12px; }
+.bpb-card__rating-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); }
+.value-rating { display: flex; gap: 6px; }
+.value-rating__dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid #cdd4e0; background: transparent; }
+.value-rating__dot.is-filled { background: var(--orange); border-color: var(--orange); }
+
+/* Featured card goes dark navy — reuse the same light-on-dark recipe
+   .section--blue-deep already establishes for .stack__item, scoped here
+   instead since the section itself stays .section--grey. */
+.bpb-card--featured .bpb-card__title { color: var(--orange); }
+.bpb-card--featured .bpb-card__lead { color: var(--on-blue-soft); }
+/* This card's list also gets distinctly more breathing room than the
+   side cards' compact spacing. */
+.bpb-card--featured .bpb-card__list { border-top-color: var(--hairline-blue); padding-top: 32px; margin-bottom: 32px; }
+.bpb-card--featured .bpb-card__list li { color: var(--on-blue); }
+.bpb-card--featured .bpb-card__why {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--hairline-blue);
+}
+.bpb-card--featured .bpb-card__why-body { color: var(--on-blue-soft); }
+.bpb-card--featured .bpb-card__why-body strong { color: var(--on-blue); }
+.bpb-card--featured .bpb-card__rating { border-top-color: var(--hairline-blue); }
+.bpb-card--featured .bpb-card__rating-label { color: var(--on-blue-soft); }
+.bpb-card--featured .value-rating__dot:not(.is-filled) { border-color: var(--hairline-blue); }
+
+@media (max-width: 860px) {
+  .bpb__grid { grid-template-columns: 1fr; }
+}
+
+/* --- 7b. FAQ — click-to-expand accordions, 4 of 12 shown by default.
+   Both disclosure layers are gated behind .js (set before first paint),
+   so with JS off every question and answer renders open and the toggle
+   controls stay hidden rather than becoming dead buttons. --- */
+.faq__list { max-width: 820px; }
+.faq__item { border-top: 1px solid var(--hairline); }
+.faq__q {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  width: 100%; padding: 20px 0;
+  background: none; border: 0; cursor: pointer; text-align: left;
+  font-family: var(--font-display); font-weight: 500; font-size: 18px;
+  line-height: 1.3; color: var(--ink);
+  transition: color .2s var(--ease);
+}
+.faq__q:hover { color: var(--orange); }
+.faq__icon {
+  flex-shrink: 0; width: 18px; height: 18px; color: var(--orange);
+  transition: transform .2s var(--ease);
+}
+.faq__a {
+  padding-bottom: 20px; max-width: 72ch;
+  font-size: var(--fs-body); line-height: var(--lh-prose); color: var(--ink-soft);
+}
+
+.faq__toggle, .faq__collapse {
+  align-items: center; gap: 8px; margin-top: 22px;
+  background: none; border: 0; cursor: pointer; padding: 0;
+  font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--orange);
+}
+.faq__toggle:hover, .faq__collapse:hover { color: var(--orange-hover); }
+.faq__chevron { width: 18px; height: 18px; }
+.faq__chevron--up { transform: rotate(180deg); }
+
+/* Accordion state — independent per item (multiple can be open at once). */
+.js .faq__a { display: none; }
+.js .faq__item.is-open .faq__a { display: block; }
+.js .faq__item.is-open .faq__icon { transform: rotate(180deg); }
+
+/* List disclosure — items 5–12 stay collapsed and the two controls only
+   appear once JS is present, so they can never render as dead buttons. */
+.faq__toggle, .faq__collapse { display: none; }
+.js .faq__more { display: none; }
+.js .faq--expanded .faq__more { display: block; }
+.js .faq__toggle { display: inline-flex; }
+.js .faq--expanded .faq__toggle { display: none; }
+.js .faq--expanded .faq__collapse { display: inline-flex; }
+
+/* =================================================================
+   PRICING PAGE (pricing.html)
+   ================================================================= */
+/* Reserved tier-table slot note — centred, quiet, until real figures
+   land in the TIER TABLE SLOT comment above it. */
+.pricing-tier-note {
+  text-align: center; max-width: 60ch; margin: clamp(32px, 4vw, 48px) auto 0;
+  font-size: var(--fs-body); color: var(--ink-soft); line-height: var(--lh-prose);
+}
+
+/* --- "Let's talk pricing" conversion section: dark panel, a faded Bull
+   monogram bleeding off the bottom-right corner (same recipe as
+   .footer__watermark), two columns — copy+ticks, then the quote form. --- */
+.quote { position: relative; overflow: hidden; }
+.quote__monogram {
+  position: absolute; right: -20px; bottom: -20px;
+  width: 240px; opacity: .12; pointer-events: none;
+}
+@media (max-width: 768px) {
+  .quote__monogram { width: 120px; opacity: .07; }
+}
+.quote__grid {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 64px); align-items: start;
+}
+@media (max-width: 820px) { .quote__grid { grid-template-columns: 1fr; } }
+.quote__ticks { list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-direction: column; gap: 14px; }
+.quote__ticks li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--on-blue); line-height: var(--lh-prose); }
+.quote__ticks .hero__tick { margin-top: 1px; }
+
+/* Heading inside the white .demo-form card — the form itself already
+   supplies the card's border/radius/shadow, this just labels it. */
+.quote-form__heading { font-family: var(--font-display); font-weight: 500; font-size: 20px; color: var(--ink); margin: 0 0 18px; }
+
+/* Modules-of-interest checkboxes, reusing .demo-form's field language.
+   <fieldset> ships browser default border/padding/margin — reset both
+   so it sits flush like every other .demo-form__row. */
+/* Higher specificity than .demo-form__row (class+element beats class
+   alone), so the reset must restate the row's own bottom margin rather
+   than zeroing it out — otherwise the next row (the message textarea)
+   crowds straight up against the last checkbox. Slightly more than the
+   other rows' 16px, since this block is visually denser. */
+.demo-form fieldset { border: 0; padding: 0; margin: 0 0 24px; }
+.demo-form legend { padding: 0; font-size: 14px; font-weight: 600; color: var(--ink); }
+.demo-form__hint { margin: 4px 0 10px; font-size: 13px; color: var(--ink-soft); }
+.checkbox-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 15px; font-weight: 400; color: var(--ink); cursor: pointer; }
+.checkbox-row input[type="checkbox"] { flex-shrink: 0; width: 16px; height: 16px; accent-color: var(--orange); }
+
+/* =================================================================
+   ARCHITECTURE PAGE (architecture.html)
+   Two new blocks: the .eco ecosystem diagram and a five-step .flow
+   variant. Both are additive — the shared .flow used by the homepage
+   #how section (four steps) is left untouched.
+   ================================================================= */
+
+/* --- Ecosystem diagram — "Where it fits".
+   A real responsive grid of cards rather than a fixed-coordinate SVG, so
+   it reflows to one column on phones. Cards reuse the translucent-on-blue
+   recipe already established for .section--blue-deep .stack__item; the
+   one solid-orange card is the deliberate single exception, marking where
+   our product sits in the client's own stack. --- */
+.eco { display: flex; flex-direction: column; }
+.eco__card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--hairline-blue);
+  border-radius: var(--r-card);
+  padding: clamp(16px, 1.8vw, 22px);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.eco__card-title { font-family: var(--font-display); font-weight: 500; font-size: 18px; line-height: 1.25; color: var(--on-blue); }
+.eco__card-note { font-size: var(--fs-meta); color: var(--on-blue-soft); line-height: 1.5; }
+.eco__card-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 5px; font-size: var(--fs-meta); color: var(--on-blue-soft); line-height: 1.45; }
+
+/* The product card: solid orange, the only card that is not translucent.
+   Its text is the page's own navy rather than white — that carries the
+   surrounding background colour inside the card so it reads as
+   encapsulated, and it clears AA on orange (~4.8:1) where white does
+   not (~3.2:1). */
+.eco__card--accent { background: var(--orange); border-color: var(--orange); }
+.eco__card--accent .eco__card-title,
+.eco__card--accent .eco__card-note,
+.eco__card--accent .eco__card-list { color: var(--blue-deep); }
+
+/* Nested card (Customer 360 inside the warehouse card) — one step further
+   in, so it stays translucent but drops to the smaller radius. */
+.eco__subcard {
+  margin-top: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--hairline-blue);
+  border-radius: var(--r-btn);
+  padding: 10px 12px;
+}
+.eco__subcard-title { font-size: var(--fs-meta); font-weight: 500; color: var(--on-blue); }
+
+/* Dashed boundary = the client's own infrastructure. The label is a
+   <fieldset>/<legend>-style tag straddling the top border: it carries the
+   section's own background so it interrupts the dashed line itself. Sat
+   inside the top-right corner previously, where it read as a caption for
+   the card beneath it rather than for the whole boundary. Sentence case,
+   not all-caps, so the "IT" acronym stands out from its neighbours. */
+.eco__infra {
+  position: relative;
+  /* Was 1px of --hairline-blue (0.16 alpha), near invisible on --blue-deep.
+     2px rather than 1.5px because fractional border widths get snapped
+     inconsistently, and a brighter line: 0.38 alpha resolves to roughly
+     #61749E over that background. */
+  border: 2px dashed rgba(255, 255, 255, .38);
+  border-radius: var(--r-card-lg);
+  padding: clamp(26px, 3vw, 34px) clamp(14px, 2vw, 24px) clamp(18px, 2.2vw, 26px);
+  display: flex; flex-direction: column; gap: clamp(4px, 1vw, 10px);
+}
+/* Sits fully outside the frame, above its top-right corner. Inside the
+   frame it read as a caption for whichever box it happened to touch;
+   completely outside, it can only refer to the boundary itself. */
+.eco__infra-label {
+  position: absolute;
+  bottom: calc(100% + 7px); right: 2px;
+  font-family: var(--font-body); font-weight: 400; font-size: 13px; line-height: 20px;
+  color: var(--on-blue-soft);
+  white-space: nowrap;
+}
+.eco__primary { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; }
+.eco__support { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 24px); }
+.eco__support-item { display: flex; flex-direction: column; }
+
+/* Connectors. Line and arrowhead both inherit currentColor, so a single
+   modifier recolours the whole connector: orange for the primary
+   Communication -> product -> database flow, muted for supporting feeds. */
+.eco__link { display: block; position: relative; background: currentColor; }
+.eco__link--h { align-self: center; width: clamp(18px, 2.4vw, 34px); height: 2px; margin-inline: clamp(8px, 1.2vw, 14px); }
+.eco__link--h::after {
+  content: ""; position: absolute; right: -2px; top: 50%; transform: translateY(-50%);
+  border: 5px solid transparent; border-left-color: currentColor;
+}
+.eco__link--v { align-self: center; width: 2px; height: 26px; margin-block: 10px; }
+.eco__link--down::after {
+  content: ""; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: currentColor;
+}
+.eco__link--up::after {
+  content: ""; position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-bottom-color: currentColor;
+}
+.eco__link--primary { color: var(--orange); }
+.eco__link--muted { color: var(--on-blue-soft); opacity: .55; }
+
+/* Contact centre's gap band holds two independently-placed arrows rather
+   than one centred connector: the primary flow's entry (down, at the
+   Communication/AI seam) and its return leg (up, from Knowledge base).
+   Absolutely positioned within their own relative wrapper so each gets an
+   exact x-position regardless of the other - a plain flex/block layout
+   can't put two items at two arbitrary points in the same row. Percentages
+   measured live against .eco's width: the seam sits at 33%, Knowledge
+   base's horizontal centre at 74.34%. */
+.eco__gap { position: relative; height: 26px; margin-block: 10px; }
+.eco__gap .eco__link--v {
+  position: absolute; top: 0; margin: 0;
+  left: 0; transform: translateX(-50%);
+}
+.eco__gap .eco__link--down { left: 33%; }
+/* Was 74.34% (Knowledge base's horizontal centre) - a misreading of the
+   reference mockup. The actual rule, confirmed against the KB->AI arrow's
+   own live position, is: same offset from Knowledge base's left edge as
+   that arrow already uses (37px of a 484px tile = 7.5%, i.e. the same
+   7.5% margin .eco__support-item:last-child .eco__link--up gets). In
+   .eco's own coordinate space that lands at 54.7% (measured: 571px of
+   1044px) - directly above the KB->AI arrow, so the two now stack. */
+.eco__gap .eco__link--to-contact { left: 54.7%; }
+
+@media (max-width: 860px) {
+  /* No left/right relationship once the diagram is a single column, so
+     the two arrows sit as a centred, symmetric pair instead of at their
+     desktop landmarks. */
+  .eco__gap .eco__link--down { left: 42%; }
+  .eco__gap .eco__link--to-contact { left: 58%; }
+}
+
+/* Below the site's own phone breakpoint the 42%/58% pair sits close enough
+   together that the right-aligned label (still floating above the frame)
+   collides with it - confirmed overlapping at 375px. Dropping the label
+   into normal flow removes the possibility of overlap altogether, rather
+   than chasing a narrower arrow split: it becomes the frame's first line,
+   below the arrows and above Communication, left-aligned. */
+@media (max-width: 620px) {
+  .eco__infra-label {
+    position: static;
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+    white-space: normal;
+  }
+}
+
+/* The two supporting feeds have to land in the body of the product card.
+   Their support columns (1fr each) are far wider than the card (the middle
+   1fr of a 5-track row), so centring each arrow in its own column dropped
+   them on the seams with the neighbouring boxes instead. Pulling each one
+   in from its inner edge by a proportional offset puts it on the card's
+   near third; percentage rather than px so it holds as the grid scales. */
+.eco__support-item:first-child .eco__link--up { align-self: flex-end; margin-right: 7.5%; }
+.eco__support-item:last-child .eco__link--up { align-self: flex-start; margin-left: 7.5%; }
+
+/* Identical type treatment to .eco__infra-label - both are the same kind
+   of quiet annotation text, so opacity is dropped rather than stacking a
+   second dimming on top of --on-blue-soft's own contrast. */
+.eco__disclaimer { margin-top: clamp(16px, 2vw, 22px); font-family: var(--font-body); font-weight: 400; font-size: 13px; line-height: 20px; color: var(--on-blue-soft); }
+
+
+/* Single column on phones. DOM order already is the intended mobile
+   reading order (contact centre -> communication -> product -> database
+   -> warehouse -> knowledge base), so nothing needs reordering; the
+   horizontal arrows just stand up and point down, same trick as
+   .flow__connector. */
+@media (max-width: 860px) {
+  .eco__primary, .eco__support { grid-template-columns: 1fr; }
+  /* Stacked, each feed sits directly above its target, so the offset that
+     aimed it at the product card in the two-column layout is dropped.
+     Selectors match the base rules' specificity so this actually wins.
+     This is also the no-JS fallback for the long routed connectors below:
+     a short centred arrow, same as today, if script.js never runs. */
+  .eco__support-item:first-child .eco__link--up,
+  .eco__support-item:last-child .eco__link--up { align-self: center; margin-inline: 0; }
+  .eco__link--h {
+    width: 2px; height: 26px; justify-self: center;
+    margin-inline: auto; margin-block: 10px;
+  }
+  .eco__link--h::after {
+    right: auto; left: 50%; top: auto; bottom: -2px;
+    transform: translateX(-50%);
+    border-left-color: transparent; border-top-color: currentColor;
+  }
+
+  /* Lanes for the long connectors below are cut out of the tiles
+     themselves, not the frame's padding: routing them at the frame edge
+     left them visually stranded, too far from the boxes to read as
+     connected to anything. Each tile is inset only as far as the arrows
+     that actually have to get past it, so the insets are staggered rather
+     than uniform - Comms Inspector database sits between both feeds and
+     their target, Data warehouse only blocks Knowledge base's, and
+     Knowledge base blocks nothing and keeps full width. */
+  .eco__primary > .eco__card:last-child { margin-right: 48px; }
+  .eco__support-item:first-child .eco__card { margin-right: 24px; }
+}
+
+/* Data warehouse and Knowledge base's feeds into the product card: once
+   the diagram is a single column, Comms Inspector database sits between
+   each of them and their target, so a short arrow just points into empty
+   space. script.js measures the real gap (card heights are content-driven
+   and not predictable from CSS alone) and stretches each arrow - via a
+   .eco__link--long class it adds - into a long line running through the
+   side lane above, left for Data warehouse and right for Knowledge base
+   mirroring their desktop positions, reaching up to the product card's
+   bottom edge. Position/height are set inline by JS; this just neutralises
+   the base .eco__link--v rule's own margin, which would otherwise offset
+   an absolutely positioned element away from its computed top. */
+.eco__link--long { margin: 0 !important; }
+
+@media (max-width: 860px) {
+  /* Restores the gap the arrow used to supply by occupying flow height
+     above Data warehouse's card - only when JS has actually pulled it out
+     of flow (see the .has-long-connectors toggle in script.js), so the
+     no-JS fallback above isn't left with a doubled-up gap. */
+  .eco__support.has-long-connectors { margin-top: 22px; }
+}
+
+/* --- Five-step .flow variant. The base .flow grid is hard-wired to
+   4 steps + 3 connectors, so this adds the two extra tracks instead of
+   changing it. Five cards get tight at desktop widths, hence the smaller
+   padding/title here and the wrap below 1024px, where the connectors are
+   dropped (an arrow that wraps mid-row points nowhere). That wrap rule
+   also supersedes the shared 860px single-column rule for this variant,
+   which is fine — auto-fit lands on one column on phones anyway. --- */
+.flow--five { grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr; }
+.flow--five .flow__step { padding: clamp(16px, 1.6vw, 22px); gap: 10px; }
+.flow--five .flow__title { font-size: 18px; line-height: 1.25; }
+.flow--five .flow__body { font-size: var(--fs-meta); }
+.flow--five .flow__connector { width: clamp(14px, 1.6vw, 24px); }
+
+@media (max-width: 1024px) {
+  .flow--five { grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); gap: clamp(14px, 2vw, 20px); }
+  .flow--five .flow__connector { display: none; }
+}
+
+/* --- Pipeline trace: one-shot draw-on following the 01 -> 05 order.
+   This section is a genuine chronological sequence, which is why it gets
+   the trace and the ecosystem diagram (concurrent primary and supporting
+   flows, not a timeline) does not.
+
+   Two simple pieces rather than one continuous path: each card is a
+   closed rounded rect drawn clockwise from its top-left, and each
+   connector is a bar grown with scaleX. Timing alone chains them, with
+   the connector starting just before its card finishes so the handover
+   has no visible gap — enough for a strictly linear chain.
+
+   Injected and measured by script.js, so it follows the live grid and is
+   skipped entirely under prefers-reduced-motion. Decorative only:
+   aria-hidden, pointer-events none, and card text never waits on it. --- */
+.flow-trace { position: relative; }
+.flow-trace__svg { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: visible; }
+.flow-trace__svg path {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Orange overlay grown across the static connector beneath it. */
+.flow-trace__link {
+  position: absolute;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Compact supporting bullets under a flow step's body. Muted and dotted
+   rather than ticked — these are mechanics, not selling points, so they
+   must not borrow the orange tick reserved for positive listicles. */
+.flow__list { list-style: none; padding: 0; margin: 2px 0 0; display: flex; flex-direction: column; gap: 7px; }
+.flow__list li { position: relative; padding-left: 14px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; }
+.flow__list li::before {
+  content: ""; position: absolute; left: 0; top: .58em;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--orange); opacity: .5;
+}
+
+/* =================================================================
+   PRICING MODEL (pricing.html)
+   Navy figure card beside the five numbered inclusions, with the
+   volume limits called out full-width beneath. Its own grid class
+   rather than reusing .quote__grid, which the "Let's talk pricing"
+   panel further down the same page already owns.
+   ================================================================= */
+/* Pulled up close to the hero: the hero's own bottom padding already
+   supplies the breathing room, and with no CTA button in the hero and no
+   price figure in the card, a full --section-y on top of that left an
+   obviously empty band between the lead line and the card. Top only —
+   the section keeps its standard bottom padding. */
+.price-model { padding-top: clamp(8px, 2vw, 24px); }
+
+/* center, not stretch: the card keeps its own compact height and sits
+   centred against the taller inclusions list. Stretching it instead would
+   force navy over the leftover height, turning the slack into dead space
+   inside the coloured block; centred, that slack is just section
+   background above and below it. */
+.price-model__grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 64px); align-items: center;
+}
+@media (max-width: 820px) { .price-model__grid { grid-template-columns: 1fr; } }
+
+/* Navy card. The shared .section__title defaults to --ink, which would be
+   all but invisible here, so it is restated for the dark ground. The
+   orange eyebrow clears AA on navy (4.8:1) and is left alone. */
+.price-model__card {
+  background: var(--blue-deep); color: var(--on-blue);
+  border-radius: var(--r-card);
+  padding: clamp(28px, 3.4vw, 40px);
+}
+.price-model__card .section__title { color: var(--on-blue); max-width: 22ch; }
+.price-model__cta { margin-top: clamp(20px, 2.6vw, 28px); }
+.price-model__sub { margin-top: 16px; font-size: var(--fs-meta); color: var(--on-blue-soft); line-height: var(--lh-prose); }
+
+.price-model__included-title {
+  font-family: var(--font-display); font-weight: 500; font-size: 21px;
+  color: var(--ink); margin-bottom: clamp(18px, 2vw, 24px);
+}
+.price-item-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: clamp(16px, 1.8vw, 22px); }
+/* stretch so the colour block runs the full height of the row it labels,
+   title and body together. */
+.price-item { display: flex; align-items: stretch; gap: 20px; }
+
+/* Numbered block, one colour per step: a tall bar with the numeral centred
+   in it, not a small square pinned to the top. No fixed height — the
+   stretch above sizes it to the sibling content. 20px/700 so the numeral
+   counts as large text, where 3:1 is the AA bar; orange (3.18) and teal
+   (3.45) pass there but would fail the 4.5:1 normal-text bar. */
+.price-item__num {
+  flex-shrink: 0;
+  width: 48px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-body); font-weight: 700; font-size: 20px; line-height: 1;
+  color: #fff;
+}
+.price-item__num--1 { background: var(--orange); }
+.price-item__num--2 { background: var(--blue-deep); }
+.price-item__num--3 { background: var(--sig-revenue); }
+/* Gold is too light to carry a white numeral (2.03:1), so this one takes
+   the navy treatment instead (7.5:1) rather than being darkened away from
+   the intended colour. */
+.price-item__num--4 { background: #F5A623; color: var(--blue-deep); }
+.price-item__num--5 { background: #2F4FDB; }
+
+.price-item__title { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.35; }
+.price-item__body { margin-top: 5px; font-size: var(--fs-meta); color: var(--ink-soft); line-height: var(--lh-prose); }
+
+/* Limits band. The eyebrow drops to --ink here: orange on --orange-tint is
+   only 2.63:1, following the same per-context recolour as
+   .eyebrow-label--bpb. */
+.price-model__limits {
+  margin-top: clamp(36px, 4.5vw, 56px);
+  background: var(--orange-tint);
+  border-radius: var(--r-card);
+  padding: clamp(22px, 2.6vw, 30px) clamp(22px, 3vw, 34px);
+}
+.price-model__limits .eyebrow-label { color: var(--ink); margin-bottom: 10px; }
+/* Deliberately a supporting fact, not a second headline — it must not
+   compete with the annual figure in the navy card. */
+.price-model__limits-body { margin-top: 6px; font-size: 16px; font-weight: 600; color: var(--ink); line-height: var(--lh-prose); }
+.price-model__footnote { margin-top: 14px; font-size: 13px; font-style: italic; color: var(--ink-soft); }
+
+/* =================================================================
+   CASE STUDIES (case-studies.html)
+   ================================================================= */
+
+/* Testimonial card, same shape as the Tuito/Pillow cards on
+   claimsense.app: tinted panel, oversized quote mark, divider, then
+   portrait and attribution. Their panel sits on #FFF7F5, which is our own
+   --tint-50, so it maps onto our palette exactly. */
+.testimonial {
+  background: var(--tint-50);
+  border-radius: var(--r-card);
+  padding: clamp(28px, 3.5vw, 40px);
+  max-width: 640px;
+  margin: clamp(32px, 4vw, 48px) 0 0;
+}
+.testimonial__mark {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--orange);
+  opacity: .5;
+  margin-bottom: 8px;
+}
+.testimonial__quote { margin: 0; }
+.testimonial__quote p {
+  font-size: var(--fs-body);
+  color: var(--ink);
+  line-height: var(--lh-prose);
+  margin: 0;
+}
+.testimonial__divider {
+  height: 1px;
+  background: var(--hairline);
+  margin: 24px 0 20px;
+}
+.testimonial__by { display: flex; align-items: center; gap: 14px; }
+.testimonial__avatar { flex: 0 0 auto; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; display: block; }
+.testimonial__name { font-style: normal; font-weight: 700; font-size: 16px; color: var(--ink); display: block; }
+.testimonial__role { font-size: 14px; color: var(--ink-soft); }
+
+/* Case study header: pill and headline left, client logo right. The logo
+   sits in a fixed box rather than being sized directly, so client marks of
+   different proportions all take up the same footprint once there is more
+   than one case study. */
+.case-study__header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: clamp(24px, 4vw, 48px); flex-wrap: wrap;
+}
+.case-study__header-text { flex: 1; min-width: 280px; }
+.case-study__header-text .module-card__tag { display: inline-block; margin-bottom: 12px; }
+.case-study__header-logo {
+  flex-shrink: 0;
+  width: 160px; height: 70px;
+  display: flex; align-items: center; justify-content: center;
+}
+.case-study__header-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+@media (max-width: 640px) {
+  .case-study__header { flex-direction: column; align-items: flex-start; }
+}
+
+/* The scale figure that sits inside the narrative rather than in the grid
+   above, so it needs its own vertical rhythm. */
+.case-body__stat { margin: clamp(24px, 3vw, 32px) 0; }
+
+/* Warm gradient hero, same recipe as the homepage's .hero.section--white.
+   A modifier rather than a change to .subpage-hero, which every other
+   subpage shares and which stays flat white. */
+.subpage-hero--tint {
+  background: linear-gradient(180deg, #FFF7F5 0%, var(--white) 70%);
+}
+
+/* Groups the solution's capability list into one panel so it reads as a
+   block of what was built, rather than loose bullets under the paragraph. */
+.solution-tile {
+  background: var(--grey-50);
+  border-radius: var(--r-card);
+  padding: clamp(28px, 3.5vw, 36px);
+  margin-top: 20px;
+}
+/* Label-to-list gap matched to .proof-card__label's 8px, rather than the
+   eyebrow's default 14px stacking on top of the list's own 18px top
+   margin. Three classes on the second rule so it wins over
+   `.case-body .feature-list` regardless of which comes first in the file. */
+.solution-tile .eyebrow-label { margin-bottom: 8px; }
+.case-body .solution-tile .feature-list { margin-top: 0; }
+/* Scoped row-gap bump - .feature-list itself stays untouched since
+   ai-coach.html reuses the same class. */
+.solution-tile .feature-list { gap: 24px clamp(24px, 4vw, 48px); }
+
+/* Figures carry the argument in these two paragraphs, so they lift to full
+   --ink out of the surrounding --ink-soft. Scoped rather than a global
+   `strong` rule: the site has none today, and a global one would restyle
+   every existing <strong> on the one-pager, homepage and privacy policy. */
+.case-body__text strong { font-weight: 700; color: var(--ink); }
+
+/* Narrative body. Same measure as the privacy page's .legal block - long
+   prose needs a shorter line than the full container gives it. */
+.case-body { max-width: 74ch; margin-top: clamp(32px, 4vw, 48px); }
+.case-body__heading {
+  font-family: var(--font-display); font-weight: 500; font-size: 21px;
+  color: var(--ink); margin: clamp(26px, 3vw, 34px) 0 10px;
+}
+.case-body__heading:first-child { margin-top: 0; }
+/* Sits inside a .case-body__heading section rather than starting a new
+   one - bold at body size, not the display font, so it reads as a
+   subordinate label rather than competing with the h3 above it. */
+.case-body__subhead {
+  font-family: var(--font-body); font-weight: 700; font-size: 17px;
+  color: var(--ink); margin: 32px 0 8px;
+}
+.case-body__text { font-size: var(--fs-body); color: var(--ink-soft); line-height: var(--lh-prose); }
+.case-body .feature-list { margin-top: 18px; }
+
+/* The module tag reused as a link back to the relevant module. Scoped to
+   the anchor so the base .module-card__tag (homepage module cards) is
+   untouched. */
+a.module-card__tag {
+  display: inline-block; margin-bottom: 14px;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+a.module-card__tag:hover { background: var(--orange-tint); color: var(--orange); }
+
+/* =================================================================
+   FOUNDER NOTE  (#founder-note)
+   David Vopelka half-quote / half-commentary card with the personal
+   CTA. Photo is a transparent cut-out, so it stands on the orange
+   tint panel. Reuses site tokens only; body copy is regular weight
+   and wraps with text-wrap: pretty (see CLAUDE.md).
+   ================================================================= */
+.founder-card {
+  display: grid; grid-template-columns: minmax(240px, 340px) 1fr;
+  gap: clamp(28px, 5vw, 64px); align-items: stretch;
+  background: var(--white); border: 1px solid var(--hairline);
+  border-radius: var(--r-card-lg); box-shadow: var(--shadow-md);
+  padding: clamp(20px, 3vw, 36px);
+}
+.founder-card__media {
+  position: relative; margin: 0; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  background: var(--orange-tint); border-radius: var(--r-card);
+  padding: clamp(24px, 3vw, 36px) 0 0;   /* no side padding: the photo sits flush against the panel's left edge */
+}
+.founder-card__photo { align-self: flex-start; width: 90.6%; height: auto; aspect-ratio: 486 / 608; object-fit: contain; object-position: bottom; }
+.founder-card__caption {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 14px clamp(24px, 3vw, 36px);
+  background: var(--white); border-top: 1px solid var(--hairline);
+}
+.founder-card__name { font-family: var(--font-display); font-weight: 500; font-size: 18px; color: var(--ink); }
+.founder-card__role { font-size: var(--fs-meta); color: var(--ink-soft); }
+.founder-card__copy { align-self: center; padding-block: clamp(4px, 1vw, 12px); }
+.founder-card__title { max-width: 20ch; text-wrap: balance; }
+.founder-card__body { margin-top: 20px; max-width: 58ch; font-size: clamp(16px, 1.3vw, 18px); font-weight: 400; line-height: var(--lh-prose); color: var(--ink-soft); text-wrap: pretty; }
+.founder-card__action { margin-top: clamp(24px, 3vw, 32px); display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.founder-card__micro { font-size: var(--fs-meta); color: var(--ink-soft); }
+@media (max-width: 860px) {
+  .founder-card { grid-template-columns: 1fr; }
+  .founder-card__media { max-width: 320px; }
+}

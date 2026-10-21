@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture — AI Comms Inspector</title>
+  <link rel="icon" type="image/svg+xml" href="Assets/comm-inspector-favicon_color.svg" />
+  <meta name="description" content="See how AI Comms Inspector fits into your existing contact centre stack, processes conversations end to end, and stays inside your own environment." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- SHARED HEADER — keep in sync with index.html (sub-page hrefs point back to index.html) -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav">
+      <a class="nav__brand" href="index.html" aria-label="AI Comms Inspector — DataSentics, a Bull company">
+        <img src="Assets/comms-inspector-logo_tm.svg" alt="Comms Inspector" class="nav__logo" width="219" height="20" />
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <div class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="modulesMenu">
+            Modules
+            <svg class="nav__dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav__dropdown-menu" id="modulesMenu">
+            <a href="ai-customer-insights.html">AI Customer Insights</a>
+            <a href="ai-call-inspector.html">AI Call Inspector</a>
+            <a href="ai-quality-assurance.html">AI Quality Assurance</a>
+            <a href="ai-coach.html">AI Coach</a>
+          </div>
+        </div>
+        <div class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="resourcesMenu">
+            Resources
+            <svg class="nav__dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav__dropdown-menu" id="resourcesMenu">
+            <a href="index.html#how">How it works</a>
+            <a href="architecture.html" aria-current="page">Architecture</a>
+            <a href="case-studies.html">Case studies</a>
+            <a href="blog.html">Blog</a>
+          </div>
+        </div>
+        <a href="pricing.html">Pricing</a>
+      </nav>
+      <span class="nav__byline"><span class="nav__backed">built by</span> <img src="Assets/BULL_LOGO_COLOR_RGB.svg" alt="Bull" class="nav__bull" /></span>
+      <span class="nav__cta-divider" aria-hidden="true"></span>
+      <a href="index.html#demo" class="btn btn--primary nav__cta" data-demo-open>Book a walkthrough</a>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <span class="mobile-nav__label">Modules</span>
+      <a href="ai-customer-insights.html">AI Customer Insights</a>
+      <a href="ai-call-inspector.html">AI Call Inspector</a>
+      <a href="ai-quality-assurance.html">AI Quality Assurance</a>
+      <a href="ai-coach.html">AI Coach</a>
+      <span class="mobile-nav__divider" aria-hidden="true"></span>
+      <span class="mobile-nav__label">Resources</span>
+      <a href="index.html#how">How it works</a>
+      <a href="architecture.html" aria-current="page">Architecture</a>
+      <a href="case-studies.html">Case studies</a>
+      <a href="blog.html">Blog</a>
+      <span class="mobile-nav__divider" aria-hidden="true"></span>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#demo" class="btn btn--primary" data-demo-open>Book a walkthrough</a>
+    </div>
+  </header>
+  <!-- END SHARED HEADER -->
+
+  <main id="main">
+    <!-- Hero. No backlink: Architecture is a top-level product page like
+         Pricing, not one of the four modules. -->
+    <section class="subpage-hero">
+      <div class="container">
+        <h1 class="subpage-hero__title">Architecture</h1>
+        <p class="subpage-hero__lead">See how Comms Inspector fits into your existing contact centre stack, and how it turns a conversation into structured insight — end to end, inside your own environment.</p>
+        <div class="subpage-hero__cta">
+          <a href="index.html#demo" class="btn btn--primary btn--lg" data-demo-open>Book a walkthrough</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Where it fits — ecosystem diagram.
+         Built as a responsive CSS grid of real cards (not a fixed-coordinate
+         SVG), so it reflows to a single column on phones. Cards reuse the
+         translucent-on-blue recipe already established for .stack__item. -->
+    <section class="section section--blue-deep reveal" id="fit" aria-labelledby="ecoHeading">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow-label">How it fits</span>
+          <h2 id="ecoHeading" class="section__title">Where does Comms Inspector fit in your architecture?</h2>
+          <p class="section__sub">Comms Inspector sits inside your own environment, reading from what you already run and writing insights back out to it.</p>
+        </div>
+
+        <div class="eco">
+          <div class="eco__card eco__card--wide">
+            <h3 class="eco__card-title">Contact centre</h3>
+            <p class="eco__card-note">e.g., Daktela, Genesys, NICE CXone, …</p>
+          </div>
+
+          <!-- Two independent x-positions in the same gap band: down into
+               the primary flow at the Communication/AI seam, and back up
+               from Knowledge base — both orange, since this is the primary
+               flow's entry and its return leg, not a supporting feed. -->
+          <div class="eco__gap">
+            <span class="eco__link eco__link--v eco__link--down eco__link--primary" aria-hidden="true"></span>
+            <span class="eco__link eco__link--v eco__link--up eco__link--primary eco__link--to-contact" aria-hidden="true"></span>
+          </div>
+
+          <!-- Labelled by the visible legend below rather than a duplicate
+               aria-label, so the boundary has exactly one accessible name. -->
+          <div class="eco__infra" role="group" aria-labelledby="ecoInfraLabel">
+            <span class="eco__infra-label" id="ecoInfraLabel">your own IT infrastructure</span>
+
+            <div class="eco__primary">
+              <div class="eco__card">
+                <h3 class="eco__card-title">Communication</h3>
+                <p class="eco__card-note">Audio recordings, transcripts, emails, chats…</p>
+              </div>
+
+              <span class="eco__link eco__link--h eco__link--primary" aria-hidden="true"></span>
+
+              <div class="eco__card eco__card--accent">
+                <h3 class="eco__card-title">AI Comms Inspector</h3>
+                <ul class="eco__card-list">
+                  <li>Quality dashboard</li>
+                  <li>Chat over results</li>
+                  <li>Agent management UI</li>
+                </ul>
+              </div>
+
+              <span class="eco__link eco__link--h eco__link--primary" aria-hidden="true"></span>
+
+              <div class="eco__card">
+                <h3 class="eco__card-title">Comms Inspector database</h3>
+                <p class="eco__card-note">For further use and integrations</p>
+              </div>
+            </div>
+
+            <div class="eco__support">
+              <div class="eco__support-item">
+                <span class="eco__link eco__link--v eco__link--up eco__link--muted" aria-hidden="true"></span>
+                <div class="eco__card">
+                  <h3 class="eco__card-title">Data warehouse / CDP</h3>
+                  <p class="eco__card-note">e.g., Snowflake, Databricks, BigQuery, …</p>
+                  <div class="eco__subcard">
+                    <span class="eco__subcard-title">Customer 360 profile / data</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="eco__support-item">
+                <span class="eco__link eco__link--v eco__link--up eco__link--muted" aria-hidden="true"></span>
+                <div class="eco__card">
+                  <h3 class="eco__card-title">Knowledge base</h3>
+                  <ul class="eco__card-list">
+                    <li>Docs &amp; methodologies</li>
+                    <li>Internal rules</li>
+                    <li>Example communications</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="eco__disclaimer">Illustrative examples — actual integrations vary by client stack.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Processing pipeline. Five steps, so .flow--five widens the shared
+         .flow grid; the base .flow (4 steps) on the homepage is untouched. -->
+    <section class="section section--white reveal" id="pipeline" aria-labelledby="pipelineHeading">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow-label">Processing pipeline</span>
+          <h2 id="pipelineHeading" class="section__title">From raw conversation to structured insight</h2>
+          <p class="section__sub">Every call, chat or email goes through the same five stages. The pipeline runs inside your own environment end to end.</p>
+        </div>
+
+        <!-- Wrapper exists purely to host the absolutely-positioned trace
+             overlay: an <svg> is not valid as a direct child of <ol>. -->
+        <div class="flow-trace">
+        <ol class="flow flow--five" aria-label="Processing pipeline: five stages">
+          <li class="flow__step">
+            <div class="flow__head">
+              <div class="flow__num mono">01</div>
+              <span class="icon-chip" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+              </span>
+            </div>
+            <h3 class="flow__title">Ingestion</h3>
+            <p class="flow__body">Calls, chats and emails come in from your existing systems, with no manual export, no separate upload step.</p>
+            <ul class="flow__list">
+              <li>Structured intake from telephony, chat and email channels</li>
+              <li>Metadata retained (agent, timestamp, queue) for full traceability</li>
+              <li>Scheduled or near-real-time pickup</li>
+            </ul>
+          </li>
+          <li class="flow__connector" aria-hidden="true"></li>
+          <li class="flow__step">
+            <div class="flow__head">
+              <div class="flow__num mono">02</div>
+              <span class="icon-chip" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg>
+              </span>
+            </div>
+            <h3 class="flow__title">Speech-to-text &amp; pre-processing</h3>
+            <p class="flow__body">Audio is transcribed and speakers are separated.</p>
+            <ul class="flow__list">
+              <li>Speech-to-text with speaker diarisation and timestamps</li>
+              <li>PII anonymisation before analysis — no personal data enters the LLM step</li>
+              <li>Language detection and chunking for consistent processing</li>
+            </ul>
+          </li>
+          <li class="flow__connector" aria-hidden="true"></li>
+          <li class="flow__step">
+            <div class="flow__head">
+              <div class="flow__num mono">03</div>
+              <span class="icon-chip" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287z"/><path d="M19 3v4"/><path d="M17 5h4"/></svg>
+              </span>
+            </div>
+            <h3 class="flow__title">LLM analysis</h3>
+            <p class="flow__body">A library of business questions runs against every conversation, so each one gets checked the same way, every time.</p>
+            <ul class="flow__list">
+              <li>Configurable question library, managed no-code by business users</li>
+              <li>Every answer carries a confidence score</li>
+              <li>Human-in-the-loop review for anything below threshold</li>
+            </ul>
+          </li>
+          <li class="flow__connector" aria-hidden="true"></li>
+          <li class="flow__step">
+            <div class="flow__head">
+              <div class="flow__num mono">04</div>
+              <span class="icon-chip" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+              </span>
+            </div>
+            <h3 class="flow__title">Structured output</h3>
+            <p class="flow__body">Every conversation becomes clean, structured data, ready to plug into what you already run, not a new silo.</p>
+            <ul class="flow__list">
+              <li>Structured insight records with confidence scores attached</li>
+              <li>Full audit trail — every answer traces back to its source moment</li>
+              <li>Stored in your own environment, not ours</li>
+            </ul>
+          </li>
+          <li class="flow__connector" aria-hidden="true"></li>
+          <li class="flow__step">
+            <div class="flow__head">
+              <div class="flow__num mono">05</div>
+              <span class="icon-chip" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+              </span>
+            </div>
+            <h3 class="flow__title">Activation</h3>
+            <p class="flow__body">Insights reach the teams and systems that need them automatically.</p>
+            <ul class="flow__list">
+              <li>CRM enrichment and campaign triggers</li>
+              <li>Compliance and audit queues</li>
+              <li>Dashboards and reporting for CX and management</li>
+            </ul>
+          </li>
+        </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA band -->
+    <section class="section section--grey reveal cta-band" aria-labelledby="archCtaHeading">
+      <div class="container">
+        <h2 id="archCtaHeading" class="section__title">See it running in your own environment</h2>
+        <p class="cta-band__sub">Book a walkthrough and we will map Comms Inspector onto the stack you already have.</p>
+        <div class="cta-band__actions">
+          <a href="index.html#demo" class="btn btn--primary btn--lg" data-demo-open>Book a walkthrough</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- SHARED FOOTER — keep in sync with index.html -->
+  <footer class="site-footer section--blue-deep">
+    <!-- Bull symbol watermark — same treatment as claimsense.app's dark
+         final-CTA section: low-opacity monogram, lower-right, decorative only. -->
+    <img src="Assets/Bull_symbol_white.svg" alt="" aria-hidden="true" class="footer__watermark" />
+    <div class="container footer__grid">
+      <!-- Column 1 — brand -->
+      <div class="footer__col footer__col--brand">
+        <img src="Assets/comms-inspector-logo_tm-white.svg" alt="Comms Inspector" class="footer__logo-mark" />
+        <p class="footer__tagline">Analyse 100% of your customer conversations — insights, compliance, quality, coaching.</p>
+        <span class="footer__rule" aria-hidden="true"></span>
+        <p class="footer__built">
+          <!-- White Bull logo on the dark footer (brand-correct variant; the
+               "Built by Bull" strip uses the colour variant for its light band). -->
+          <a class="footer__bull-link" href="https://www.bull.com/en/about-bull" target="_blank" rel="noopener" aria-label="About Bull (opens in a new tab)">
+            <img src="Assets/BULL_LOGO_WHITE_RGB.svg" alt="Bull" class="footer__bull" />
+          </a>
+          <span>AI Comms Inspector is built by DataSentics, a Bull company.</span>
+        </p>
+      </div>
+
+      <!-- Column 2 — Product (anchors to existing sections) -->
+      <nav class="footer__col" aria-label="Product">
+        <h2 class="footer__heading">Product</h2>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="index.html#delivers">Modules</a></li>
+          <li><a class="footer__link" href="pricing.html">Pricing</a></li>
+          <li><a class="footer__link" href="index.html#stack">Deployment</a></li>
+          <li><a class="footer__link" href="index.html#demo" data-demo-open>Book a walkthrough</a></li>
+        </ul>
+      </nav>
+
+      <!-- Column 3 — Modules -->
+      <nav class="footer__col" aria-label="Modules">
+        <h2 class="footer__heading">Modules</h2>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="ai-customer-insights.html">AI Customer Insights</a></li>
+          <li><a class="footer__link" href="ai-call-inspector.html">AI Call Inspector</a></li>
+          <li><a class="footer__link" href="ai-quality-assurance.html">AI Quality Assurance</a></li>
+          <li><a class="footer__link" href="ai-coach.html">AI Coach</a></li>
+        </ul>
+      </nav>
+
+      <!-- Column 4 — Resources -->
+      <nav class="footer__col" aria-label="Resources">
+        <h2 class="footer__heading">Resources</h2>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="index.html#how">How it works</a></li>
+          <li><a class="footer__link" href="architecture.html">Architecture</a></li>
+          <li><a class="footer__link" href="case-studies.html">Case studies</a></li>
+          <li><a class="footer__link" href="blog.html">Blog</a></li>
+          <li><a class="footer__link" href="index.html#faq">FAQ</a></li>
+          <li><a class="footer__link" href="https://datasentics.com/13-may-webinar-ai-communication-inspector-find-insights-in-every-interaction-with-clients" target="_blank" rel="noopener">Webinar: Find insights in every interaction ↗</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer__base">
+      <div class="container footer__base-inner">
+        <span>&copy; <span id="year"></span> AI Comms Inspector. All rights reserved.</span>
+        <a href="privacy-policy.html" class="footer__link footer__link--subtle">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <!-- END SHARED FOOTER -->
+
+  <script src="script.js"></script>
+</body>
+</html>

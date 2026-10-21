@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI Comms Inspector — one-pager</title>
+<link rel="icon" type="image/svg+xml" href="Assets/comm-inspector-favicon_color.svg" />
+<meta name="robots" content="noindex, nofollow" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* Self-hosted Bull headline face, shared with the website */
+@font-face { font-family:"Tosh A"; src:url("Assets/Fonts/ToshA-Light.woff2") format("woff2"); font-weight:300; font-display:swap; }
+@font-face { font-family:"Tosh A"; src:url("Assets/Fonts/ToshA-Medium.woff2") format("woff2"); font-weight:500; font-display:swap; }
+@font-face { font-family:"Tosh A"; src:url("Assets/Fonts/ToshA-Black.woff2") format("woff2"); font-weight:900; font-display:swap; }
+
+:root{
+  --orange:#FF5539; --orange-tint:#FFE4DF;
+  --blue-deep:#001f63;
+  --white:#fff; --grey-50:#f7f8fa; --grey-100:#eef1f5; --hairline:#E5E7EB;
+  --ink:#0d1b3e; --ink-soft:#475069;
+  --on-blue:#fff; --on-blue-soft:#b9c6ec; --hairline-blue:rgba(255,255,255,.16);
+  --font-body:"Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-display:"Tosh A","Roboto",system-ui,sans-serif;
+  --font-mono:"Roboto Mono",ui-monospace,Consolas,monospace;
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+@page{ size:A4; margin:0; }
+html,body{ background:#e9edf3; }
+body{ font-family:var(--font-body); color:var(--ink); line-height:1.5; font-size:12px; -webkit-font-smoothing:antialiased; }
+
+img{ max-width:100%; display:block; }
+.mono{ font-family:var(--font-mono); font-feature-settings:"tnum" 1; letter-spacing:-.01em; }
+.accent{ color:var(--orange); }
+.t-light{ font-weight:300; letter-spacing:-.012em; }
+
+/* ---- The printable A4 sheet ---- */
+.sheet{
+  width:210mm; min-height:297mm; height:297mm;
+  background:var(--white);
+  margin:0 auto; overflow:hidden;
+  display:flex; flex-direction:column;
+  position:relative;
+}
+.pad{ padding-inline:13mm; }
+
+/* ================= MASTHEAD ================= */
+.masthead{
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:6mm; padding-bottom:8px;
+  border-bottom:1px solid var(--hairline);
+}
+.masthead__logo{ height:21px; width:auto; }
+.masthead__byline{ display:inline-flex; align-items:center; gap:8px; }
+.masthead__backed{ font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:var(--ink-soft); }
+.masthead__bull{ height:18px; width:auto; }
+
+/* ================= HERO ================= */
+.hero{ display:grid; grid-template-columns:1.14fr .86fr; gap:24px; align-items:center;
+  padding-top:10px; padding-bottom:11px; }
+.eyebrow-trust{ list-style:none; display:flex; flex-wrap:wrap; gap:7px 15px;
+  text-transform:uppercase; letter-spacing:.13em; font-size:9px; font-weight:700; color:var(--ink-soft); }
+.eyebrow-trust li{ display:inline-flex; align-items:center; }
+.eyebrow-trust li::before{ content:""; width:5px; height:5px; margin-right:7px; border-radius:50%; background:var(--orange); }
+
+.hero__h1{ font-family:var(--font-display); font-weight:900; font-size:29px; line-height:1.05;
+  letter-spacing:-.025em; margin-top:11px; color:var(--ink); }
+.hero__subhead{ margin-top:10px; font-size:12px; color:var(--ink-soft); max-width:48ch; }
+
+/* Compact stat callout — keeps the coverage message without the full graphic */
+.hero__stat{ margin-top:13px; background:var(--grey-50); border:1px solid var(--hairline);
+  border-left:3px solid var(--orange); border-radius:9px; padding:10px 14px;
+  font-size:11px; color:var(--ink-soft); }
+.hero__stat strong{ font-family:var(--font-mono); font-weight:600; color:var(--orange); font-size:13.5px; }
+.hero__stat .mono{ color:var(--ink); font-weight:600; }
+
+/* Outcomes card (right column) */
+.outcomes-card{ background:var(--white); border:1px solid var(--hairline); border-radius:14px;
+  padding:16px 18px; box-shadow:0 6px 24px rgba(13,27,62,.08); }
+.outcomes-card__label{ font-size:9.5px; letter-spacing:.14em; color:var(--ink-soft); }
+.outcomes-list{ list-style:none; margin-top:12px; display:flex; flex-direction:column; gap:11px; }
+.outcomes-list li{ display:flex; align-items:flex-start; gap:11px; }
+.outcomes-tick{ flex-shrink:0; width:21px; height:21px; border-radius:50%; background:var(--orange); color:#000;
+  display:grid; place-items:center; font-size:11px; font-weight:700; line-height:1; margin-top:1px; }
+.outcomes-t{ font-size:12px; font-weight:700; color:var(--ink); }
+.outcomes-d{ display:block; font-size:10px; color:var(--ink-soft); margin-top:2px; line-height:1.3; }
+
+/* ================= BUILT BY BULL STRIP ================= */
+.trust{ background:var(--orange-tint); margin-top:2px;
+  display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; align-items:center; gap:18px;
+  padding-top:8px; padding-bottom:8px; }
+.trust__eyebrow{ font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:var(--ink-soft); }
+.trust__desc{ font-size:10.5px; color:var(--ink); margin-top:3px; max-width:34ch; }
+.trust__num{ font-family:var(--font-display); font-weight:900; font-size:22px; line-height:1; color:var(--ink); }
+.trust__label{ font-size:9.5px; color:var(--ink-soft); margin-top:4px; }
+.trust__stat{ border-left:1px solid rgba(13,27,62,.12); padding-left:16px; }
+
+/* ================= SECTION SCAFFOLD ================= */
+.block{ padding-top:12px; padding-bottom:0; }
+.eyebrow-label{ font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:var(--orange); }
+.block__title{ font-family:var(--font-display); font-weight:500; font-size:16px; line-height:1.1;
+  letter-spacing:-.015em; color:var(--ink); margin-top:3px; }
+
+/* icon chip shared across sections */
+.icon-chip{ flex-shrink:0; width:34px; height:34px; display:grid; place-items:center;
+  border-radius:9px; background:var(--grey-100); border:1px solid var(--hairline); color:var(--orange); }
+.icon-chip .icon{ width:18px; height:18px; display:block; }
+
+/* ---- modules 2x2 ---- */
+.modules{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:9px; }
+.module{ display:flex; gap:12px; border:1px solid var(--hairline); border-radius:12px; padding:12px; background:var(--white); }
+.module__title{ font-size:13px; font-weight:700; color:var(--ink); }
+.module__desc{ font-size:10.5px; color:var(--ink-soft); margin-top:3px; line-height:1.38; }
+.module__tag{ display:inline-block; margin-top:6px; font-size:8.5px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); }
+
+/* ---- deployment differentiators ---- */
+.diffs{ display:grid; grid-template-columns:1fr 1fr; gap:8px 20px; margin-top:9px; }
+.diff{ display:flex; gap:10px; align-items:flex-start; }
+.diff__tick{ flex-shrink:0; width:17px; height:17px; border-radius:50%; background:var(--ink); color:#fff;
+  display:grid; place-items:center; font-size:9px; font-weight:700; line-height:1; margin-top:1px; }
+.diff__t{ font-size:11.5px; font-weight:700; color:var(--ink); }
+.diff__d{ font-size:10px; color:var(--ink-soft); }
+
+/* ---- pricing ---- */
+.pricing{ margin-top:9px; border:1px solid var(--hairline); border-radius:12px; overflow:hidden;
+  display:grid; grid-template-columns:1fr 1fr 1fr; }
+.tier{ padding:11px 14px; border-right:1px solid var(--hairline); }
+.tier:last-child{ border-right:0; }
+.tier__name{ font-size:12px; font-weight:700; color:var(--ink); }
+.tier__price{ font-family:var(--font-mono); font-weight:600; font-size:18px; color:var(--orange); margin-top:4px; letter-spacing:-.02em; }
+.tier__price span{ font-size:10px; color:var(--ink-soft); font-weight:500; }
+.tier__meta{ font-size:10px; color:var(--ink-soft); margin-top:6px; line-height:1.45; }
+.tier__meta .mono{ color:var(--ink); font-weight:600; }
+.pricing__note{ font-size:10px; color:var(--ink-soft); margin-top:7px; }
+.pricing__note strong{ color:var(--ink); font-weight:700; }
+
+/* ================= CTA FOOTER ================= */
+.cta{ margin-top:auto; background:var(--blue-deep); color:var(--on-blue);
+  padding:14px 13mm; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.cta__title{ font-family:var(--font-display); font-weight:500; font-size:16px; line-height:1.15; letter-spacing:-.015em; }
+.cta__sub{ font-size:10.5px; color:var(--on-blue-soft); margin-top:5px; max-width:46ch; }
+.cta__presenter{ display:flex; align-items:center; gap:10px; margin-top:12px; }
+.cta__avatar{ width:38px; height:38px; border-radius:50%; object-fit:cover; border:1.5px solid var(--hairline-blue); }
+.cta__name{ font-size:11px; font-weight:700; color:#fff; }
+.cta__role{ font-size:9.5px; color:var(--on-blue-soft); }
+.cta__right{ text-align:right; flex-shrink:0; }
+.cta__btn{ display:inline-block; background:var(--orange); color:#000; font-weight:700; font-size:12px;
+  padding:11px 18px; border-radius:8px; }
+.cta__url{ font-size:10px; color:var(--on-blue-soft); margin-top:10px; }
+.cta__bull{ height:20px; width:auto; margin-top:12px; margin-left:auto; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- MASTHEAD -->
+  <header class="masthead pad">
+    <img class="masthead__logo" src="Assets/comms-inspector-logo_tm.svg" alt="AI Comms Inspector" />
+    <span class="masthead__byline">
+      <span class="masthead__backed">Built by</span>
+      <img class="masthead__bull" src="Assets/BULL_LOGO_COLOR_RGB.svg" alt="Bull" />
+    </span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero pad">
+    <div>
+      <ul class="eyebrow-trust">
+        <li>EU-based</li><li>GDPR by design</li><li>Runs in your cloud</li>
+      </ul>
+      <h1 class="hero__h1">Find insights in <span class="accent">every</span> interaction with clients</h1>
+      <p class="hero__subhead">AI Comms Inspector analyses every customer conversation — calls, chats and emails — and automatically surfaces what matters to your business.</p>
+      <p class="hero__stat"><strong>100%</strong> of conversations read — up from under <span class="mono">2%</span> reviewed manually today.</p>
+    </div>
+
+    <aside class="outcomes-card">
+      <span class="outcomes-card__label mono">WHAT IT DELIVERS</span>
+      <ul class="outcomes-list">
+        <li>
+          <span class="outcomes-tick">✓</span>
+          <div><span class="outcomes-t">Sales &amp; engagement insights</span>
+          <span class="outcomes-d">Life events, financial needs and voice of customer</span></div>
+        </li>
+        <li>
+          <span class="outcomes-tick">✓</span>
+          <div><span class="outcomes-t">Compliance checked</span>
+          <span class="outcomes-d">Regulated processes flagged, with evidence</span></div>
+        </li>
+        <li>
+          <span class="outcomes-tick">✓</span>
+          <div><span class="outcomes-t">Quality supervised</span>
+          <span class="outcomes-d">Every conversation scored — not a 2% sample</span></div>
+        </li>
+        <li>
+          <span class="outcomes-tick">✓</span>
+          <div><span class="outcomes-t">Agents coached</span>
+          <span class="outcomes-d">Tailored feedback for every operator</span></div>
+        </li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- BUILT BY BULL -->
+  <section class="trust pad">
+    <div>
+      <span class="trust__eyebrow">Built by Bull</span>
+      <p class="trust__desc">A leading European technology group focused on sovereign AI and data.</p>
+    </div>
+    <div class="trust__stat"><div class="trust__num">3K+</div><div class="trust__label">engineers &amp; experts</div></div>
+    <div class="trust__stat"><div class="trust__num">32</div><div class="trust__label">countries served</div></div>
+    <div class="trust__stat"><div class="trust__num">13%</div><div class="trust__label">of revenue in R&amp;D</div></div>
+  </section>
+
+  <!-- MODULES -->
+  <section class="block pad">
+    <span class="eyebrow-label">Modules</span>
+    <h2 class="block__title">One platform. <span class="accent">Four modules.</span></h2>
+    <div class="modules">
+      <div class="module">
+        <span class="icon-chip"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg></span>
+        <div>
+          <div class="module__title">AI Customer Insights</div>
+          <p class="module__desc">Detects sales and engagement signals — life events, needs and voice of customer — from every conversation.</p>
+          <span class="module__tag">CRM · CX · Data Science</span>
+        </div>
+      </div>
+      <div class="module">
+        <span class="icon-chip"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.062 6.13z"/></svg></span>
+        <div>
+          <div class="module__title">AI Call Inspector</div>
+          <p class="module__desc">Multi-level call categorisation and checks for regulated processes — <span class="mono">KYC</span>, <span class="mono">MiFID&nbsp;II</span> and <span class="mono">GDPR</span>.</p>
+          <span class="module__tag">Compliance · Product · Contact centre</span>
+        </div>
+      </div>
+      <div class="module">
+        <span class="icon-chip"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span>
+        <div>
+          <div class="module__title">AI Quality Assurance</div>
+          <p class="module__desc">Checks agents follow your process and supervises chat and sales-conversation quality across teams.</p>
+          <span class="module__tag">Sales support · Operations</span>
+        </div>
+      </div>
+      <div class="module">
+        <span class="icon-chip"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg></span>
+        <div>
+          <div class="module__title">AI Coach</div>
+          <p class="module__desc">Automated, tailored call feedback for each operator, aligned to your call scripts and propositions.</p>
+          <span class="module__tag">Contact centre · Collections</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPLOYMENT + PRICING -->
+  <section class="block pad">
+    <span class="eyebrow-label">Deployment &amp; assurance</span>
+    <h2 class="block__title">Deployed your way, customised to your needs</h2>
+    <div class="diffs">
+      <div class="diff"><span class="diff__tick">✓</span><div><span class="diff__t">Your cloud or ours.</span> <span class="diff__d">Run it in your own Azure, AWS or GCP — data and IP stay yours.</span></div></div>
+      <div class="diff"><span class="diff__tick">✓</span><div><span class="diff__t">EU-sovereign by design.</span> <span class="diff__d">GDPR from the ground up, on Bull's own GPU and open models.</span></div></div>
+      <div class="diff"><span class="diff__tick">✓</span><div><span class="diff__t">Live in weeks.</span> <span class="diff__d">No labeling, no model training — changes in minutes, not months.</span></div></div>
+      <div class="diff"><span class="diff__tick">✓</span><div><span class="diff__t">Every result explainable.</span> <span class="diff__d">Each detection links to transcript, question and model version.</span></div></div>
+    </div>
+
+    <div class="pricing">
+      <div class="tier">
+        <div class="tier__name">Essential</div>
+        <div class="tier__price">€10k<span> / year</span></div>
+        <p class="tier__meta">Up to <span class="mono">10,000</span> calls / year<br>10 questions on every call</p>
+      </div>
+      <div class="tier">
+        <div class="tier__name">Advanced</div>
+        <div class="tier__price">€20k<span> / year</span></div>
+        <p class="tier__meta">Up to <span class="mono">20,000</span> calls / year<br>10 questions on every call</p>
+      </div>
+      <div class="tier">
+        <div class="tier__name">Enterprise</div>
+        <div class="tier__price">€50k<span> / year</span></div>
+        <p class="tier__meta">Up to <span class="mono">100,000</span> calls / year<br>100 questions on every call</p>
+      </div>
+    </div>
+    <p class="pricing__note"><strong>One annual price, sized by your call volume.</strong> Services, infrastructure and model tokens all included — part of Bull's AI Assurance model.</p>
+  </section>
+
+  <!-- CTA FOOTER -->
+  <footer class="cta">
+    <div>
+      <div class="cta__title">See it on your own communication</div>
+      <p class="cta__sub">Get a walkthrough from an AI use-case architect who designs customer-intelligence use cases every day.</p>
+      <div class="cta__presenter">
+        <img class="cta__avatar" src="Assets/jirina-nedbalkova.png" alt="" onerror="this.remove()" />
+        <div>
+          <div class="cta__name">Jiřina Nedbálková</div>
+          <div class="cta__role">AI Use Case Architect &amp; Customer Intelligence Lead</div>
+        </div>
+      </div>
+    </div>
+    <div class="cta__right">
+      <span class="cta__btn">Book a walkthrough</span>
+      <div class="cta__url">datasentics.com · AI Comms Inspector</div>
+      <img class="cta__bull" src="Assets/BULL_LOGO_WHITE_RGB.svg" alt="Bull" />
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

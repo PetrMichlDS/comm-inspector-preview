@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I spent years paying consultants to guess what our customers thought — AI Comms Inspector Blog</title>
+  <link rel="icon" type="image/svg+xml" href="Assets/comm-inspector-favicon_color.svg" />
+  <meta name="description" content="A decade ago, understanding our customers was a months-long project with a six-figure price tag. Today the same question is answered before lunch." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="blog.css?v=10" />
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- SHARED HEADER - keep in sync with index.html. Blog sits as the fourth Resources item. -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav">
+      <a class="nav__brand" href="index.html" aria-label="AI Comms Inspector — DataSentics, a Bull company">
+        <img src="Assets/comms-inspector-logo_tm.svg" alt="Comms Inspector" class="nav__logo" width="219" height="20" />
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <div class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="modulesMenu">
+            Modules
+            <svg class="nav__dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav__dropdown-menu" id="modulesMenu">
+            <a href="ai-customer-insights.html">AI Customer Insights</a>
+            <a href="ai-call-inspector.html">AI Call Inspector</a>
+            <a href="ai-quality-assurance.html">AI Quality Assurance</a>
+            <a href="ai-coach.html">AI Coach</a>
+          </div>
+        </div>
+        <div class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="resourcesMenu">
+            Resources
+            <svg class="nav__dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="nav__dropdown-menu" id="resourcesMenu">
+            <a href="index.html#how">How it works</a>
+            <a href="architecture.html">Architecture</a>
+            <a href="case-studies.html">Case studies</a>
+            <a href="blog.html" aria-current="page">Blog</a>
+          </div>
+        </div>
+        <a href="pricing.html">Pricing</a>
+      </nav>
+      <span class="nav__byline"><span class="nav__backed">built by</span> <img src="Assets/BULL_LOGO_COLOR_RGB.svg" alt="Bull" class="nav__bull" /></span>
+      <span class="nav__cta-divider" aria-hidden="true"></span>
+      <a href="index.html#demo" class="btn btn--primary nav__cta" data-demo-open>Book a walkthrough</a>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <span class="mobile-nav__label">Modules</span>
+      <a href="ai-customer-insights.html">AI Customer Insights</a>
+      <a href="ai-call-inspector.html">AI Call Inspector</a>
+      <a href="ai-quality-assurance.html">AI Quality Assurance</a>
+      <a href="ai-coach.html">AI Coach</a>
+      <span class="mobile-nav__divider" aria-hidden="true"></span>
+      <span class="mobile-nav__label">Resources</span>
+      <a href="index.html#how">How it works</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="case-studies.html">Case studies</a>
+      <a href="blog.html" aria-current="page">Blog</a>
+      <span class="mobile-nav__divider" aria-hidden="true"></span>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#demo" class="btn btn--primary" data-demo-open>Book a walkthrough</a>
+    </div>
+  </header>
+  <!-- END SHARED HEADER -->
+
+  <main id="main">
+    <article>
+      <header class="article-hero">
+        <div class="container">
+          <a class="article-hero__back" href="blog.html">‹ All articles</a>
+          <span class="article-hero__kicker"><a href="blog.html#series">Series · Article 02 of 3 · A personal account</a></span>
+          <h1 class="article-hero__title">I spent years paying consultants to guess what our customers thought</h1>
+          <p class="article-hero__perex">A decade ago, understanding our customers was a months-long project with a six-figure price tag. Today the same question is answered before lunch.</p>
+          <div class="article-hero__byline">
+            <div class="blog-author">
+              <img class="blog-author__photo" src="Assets/david-vopelka.webp" alt="David Vopelka" width="48" height="48" />
+              <span><strong>David Vopelka</strong><br />Business AI Cluster Lead at Bull</span>
+            </div>
+            <div class="article-hero__meta">
+              <span>Oct 2026</span>
+              <span>6 min read</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="article-body-wrap">
+        <div class="container">
+          <div class="article-col">
+            <div class="article-body">
+<p>Ten years ago I was working in one of the largest banking groups in Europe, responsible for parts of its digital transformation. Every significant decision we faced — whether to launch a new offering, whether to lower the price of a product for a particular segment, whether to rebuild a customer journey — started with the same question. What do our customers actually experience with us?</p>
+  <p>And every time, the same machinery started up.</p>
+  <h2>The machinery</h2>
+  <p>We ran joint projects with Big Four consultancies, working in collaborative mode. We collected feedback notes and customer messages and had people read through them. We pulled samples of call transcripts. We sat and listened to recorded conversations between operators and clients. We asked colleagues in the branches and the contact centre what they were hearing. We organised focus groups. We paid external agencies for research on top of all that.</p>
+  <p>Then we tried to compile everything into one coherent insight that could answer the original question well enough for a decision.</p>
+  <p>It was a priority, so it got resourced accordingly: hundreds of consultant man-days, dozens of my own, and a real budget. The bank could afford it. But looking back, the cost that mattered most was not the money.</p>
+  <h2>The real cost</h2>
+  <p>It was time. A proper answer took months. By the time it arrived, the market had moved and half the question with it.</p>
+  <p>It was sampling. However many transcripts we read, they were a fraction of a fraction of what customers had told us. We were extrapolating from a keyhole.</p>
+  <p>And it was selection. Because each question was so expensive to answer, we only asked the big ones. The hundreds of smaller, sharper questions — the follow-ups, the “wait, why did they say that?” — never got asked at all. Curiosity had a price, and the price was too high to indulge.</p>
+  <p>I want to be fair to everyone involved: the people were excellent and the method was the best available. It was the tools that were inadequate.</p>
+  <h2>The same question, today</h2>
+  <p>Take the same question — should we lower the price of this product for this segment? — and ask it now. Every call transcript, every email between a representative and a client, every voicebot and chatbot session, every conversation customers have had with AI features in the app: all of it sits on one pile. AI agents read the entire pile. Not a summary of a sample; the whole thing.</p>
+  <p>They come back with what customers have actually said about that product, that price and that segment, how often, in what tone, and with the evidence attached. If you ask for it, you get a structured report you could take to the board. What used to be a project is now a query.</p>
+  <aside class="callout callout--quote">
+    <p>“The most valuable questions in my banking years were the ones we never asked, because asking them cost too much.”</p>
+  </aside>
+  <h2>What changes for a manager</h2>
+  <p>The obvious change is speed. The deeper change is that curiosity becomes affordable. You ask the second question. You ask the third. You ask the question that sounds naïve in a steering committee and turns out to be the one that matters. You ask at four in the afternoon and read the answer with your morning coffee.</p>
+  <p>That is not a productivity gain. It is a different way of running a company: every decision touching the customer made on complete evidence, as a matter of routine.</p>
+  <h2>The catch, and the way through</h2>
+  <p>There is one thing the old way had going for it: the cost was predictable. A consulting project had a price. An AI agent that reads everything and keeps digging does not — the same question can cost a euro or half a million in tokens, and you cannot know in advance how valuable the answer will be. That tension is real, and it is why we believe this belongs on infrastructure you own, running open-weight models, where the cost of thoroughness is compute time rather than a meter. I take that up in the next article.</p>
+  <p class="article-closing">I wish I had had this ten years ago. The leaders who have it today will make decisions I could only have guessed at — and they will make them before lunch.</p>
+            </div>
+          </div>
+
+          <aside class="author-card" aria-label="About the author">
+              <div class="author-card__photo">
+                <picture>
+                  <source media="(min-width: 721px)" srcset="Assets/david-vopelka_2.webp" width="486" height="608" />
+                  <img src="Assets/david-vopelka.webp" alt="David Vopelka" width="400" height="400" loading="lazy" />
+                </picture>
+              </div>
+              <div class="author-card__text">
+                <p class="author-card__name">David Vopelka</p>
+                <p class="author-card__role">Business AI Cluster Lead at Bull</p>
+                <span class="author-card__rule" aria-hidden="true"></span>
+                <p class="author-card__bio">Spent 15+ years in data and AI for banking and insurance. Co-founded DataSentics in 2018, now part of Bull, backed by the French State through APE. Leads Bull&rsquo;s Business AI cluster, where AI products run on open-weight models and infrastructure the client owns, priced on a fixed, transparent basis rather than a token meter.</p>
+                <a class="author-card__link" href="https://www.linkedin.com/in/davidvopelka/" target="_blank" rel="noopener" aria-label="David Vopelka on LinkedIn (opens in a new tab)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg><span>Connect on LinkedIn</span></a>
+              </div>
+          </aside>
+          <nav class="series-card" aria-labelledby="seriesCardTitle">
+            <div class="series-card__head">
+              <div>
+                <span class="series-card__eyebrow">Part of the series</span>
+                <p class="series-card__title" id="seriesCardTitle">Your customers have already told you everything</p>
+              </div>
+              <a class="series-card__all" href="blog.html#series">See the whole series ›</a>
+            </div>
+            <ol>
+              <li><a href="blog-one-prompt-away.html"><span class="series-card__num">01</span><span class="series-card__name">Every conversation your company has ever had with a customer is now one prompt away</span><span class="series-card__foot">7 min read</span></a></li><li><span class="series-card__current" aria-current="page"><span class="series-card__num">02</span><span class="series-card__name">I spent years paying consultants to guess what our customers thought</span><span class="series-card__foot"><span class="series-card__here">You are here</span> · 6 min read</span></span></li><li><a href="blog-500000-in-tokens.html"><span class="series-card__num">03</span><span class="series-card__name">A business question should not cost €500,000 in tokens</span><span class="series-card__foot">6 min read</span></a></li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </article>
+
+    <section class="section section--grey reveal cta-band" aria-labelledby="blogCtaHeading">
+      <div class="container">
+        <h2 id="blogCtaHeading" class="section__title">See what this looks like for your team</h2>
+        <p class="cta-band__sub">Book a walkthrough and we&rsquo;ll show you how AI Comms Inspector applies to your own conversations.</p>
+        <div class="cta-band__actions">
+          <a href="index.html#demo" class="btn btn--primary btn--lg" data-demo-open>Book a walkthrough</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- SHARED FOOTER - keep in sync with index.html -->
+  <footer class="site-footer section--blue-deep">
+    <img src="Assets/Bull_symbol_white.svg" alt="" aria-hidden="true" class="footer__watermark" />
+    <div class="container footer__grid">
+      <div class="footer__col footer__col--brand">
+        <img src="Assets/comms-inspector-logo_tm-white.svg" alt="Comms Inspector" class="footer__logo-mark" />
+        <p class="footer__tagline">Analyse 100% of your customer conversations — insights, compliance, quality, coaching.</p>
+        <span class="footer__rule" aria-hidden="true"></span>
+        <p class="footer__built">
+          <a class="footer__bull-link" href="https://www.bull.com/en/about-bull" target="_blank" rel="noopener" aria-label="About Bull (opens in a new tab)">
+            <img src="Assets/BULL_LOGO_WHITE_RGB.svg" alt="Bull" class="footer__bull" />
+          </a>
+          <span>AI Comms Inspector is built by DataSentics, a Bull company.</span>
+        </p>
+      </div>
+      <nav class="footer__col" aria-label="Product">
+        <h2 class="footer__heading">Product</h2>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="index.html#delivers">Modules</a></li>
+          <li><a class="footer__link" href="pricing.html">Pricing</a></li>
+          <li><a class="footer__link" href="index.html#stack">Deployment</a></li>
+          <li><a class="footer__link" href="index.html#demo" data-demo-open>Book a walkthrough</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__col" aria-label="Modules">
+        <h2 class="footer__heading">Modules</h2>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="ai-customer-insights.html">AI Customer Insights</a></li>
+          <li><a class="footer__link" href="ai-call-inspector.html">AI Call Inspector</a></li>
+          <li><a class="footer__link" href="ai-quality-assurance.html">AI Quality Assurance</a></li>
+          <li><a class="footer__link" href="ai-coach.html">AI Coach</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__col" aria-label="Resources">
+        <h2 class="footer__heading">Resources</h2>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="index.html#how">How it works</a></li>
+          <li><a class="footer__link" href="architecture.html">Architecture</a></li>
+          <li><a class="footer__link" href="case-studies.html">Case studies</a></li>
+          <li><a class="footer__link" href="blog.html">Blog</a></li>
+          <li><a class="footer__link" href="index.html#faq">FAQ</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__base">
+      <div class="container footer__base-inner">
+        <span>&copy; <span id="year"></span> AI Comms Inspector. All rights reserved.</span>
+        <a href="privacy-policy.html" class="footer__link footer__link--subtle">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <!-- END SHARED FOOTER -->
+
+  <script src="script.js"></script>
+</body>
+</html>

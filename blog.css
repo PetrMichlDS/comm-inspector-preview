@@ -1,0 +1,219 @@
+/* =====================================================================
+   Blog styles (trial). Loaded AFTER styles.css, uses its tokens only
+   (--orange, --blue-deep, --ink, --hairline, radii, shadows).
+   Kept in a separate file so the production stylesheet is untouched
+   while the layout is being tuned. Once approved, append to styles.css.
+   ===================================================================== */
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- Shared bits ---------- */
+.blog-tag {
+  display: inline-block; background: var(--grey-100); color: var(--ink-soft);
+  border-radius: 6px; padding: 3px 9px; font-size: 12px; font-weight: 600; line-height: 1.4;
+}
+.blog-kicker {
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--orange);
+}
+.blog-author { display: flex; align-items: center; gap: 10px; font-size: var(--fs-meta); color: var(--ink-soft); }
+.blog-author__photo { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: var(--orange-tint); }
+.blog-author strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- Index: filter bar ---------- */
+.blog-filterbar { background: var(--white); border-bottom: 1px solid var(--hairline); }
+.blog-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-block: 18px; }
+/* 14px + the filter bar's 18px top padding = 32px from the H1 to the first pill */
+.subpage-hero--blog { padding-bottom: 14px; }
+.blog-filters__label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #7a8399; margin-right: 6px; }
+.blog-filter {
+  appearance: none; border: 1px solid var(--hairline); background: var(--white); color: var(--ink-soft);
+  font: 600 14px/1 var(--font-body); padding: 10px 16px; border-radius: 999px; cursor: pointer;
+  transition: border-color .15s var(--ease), background .15s var(--ease), color .15s var(--ease);
+}
+.blog-filter:hover { border-color: var(--orange); color: var(--ink); }
+.blog-filter[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.blog-filters__count { margin-left: auto; font-size: var(--fs-meta); color: #7a8399; }
+@media (max-width: 700px) { .blog-filters__count { margin-left: 0; width: 100%; } }
+
+/* ---------- Index: series band (dark) ---------- */
+.series-band {
+  scroll-margin-top: 70px;
+  position: relative; overflow: hidden; background: var(--blue-deep); color: #fff;
+  padding-block: clamp(56px, 7vw, 96px);
+}
+.series-band::before { content: ""; position: absolute; left: 0; top: 0; width: 5px; height: 100%; background: var(--orange); }
+.series-band::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px); background-size: 24px 24px;
+}
+.series-band > .container { position: relative; z-index: 1; }
+.series-band__eyebrow { display: block; margin-bottom: 14px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--orange); }
+.series-band__title {
+  font-family: var(--font-display); font-weight: 900; letter-spacing: -.02em; line-height: 1.05;
+  font-size: clamp(28px, 4vw, 46px); color: #fff; max-width: 20ch;
+}
+.series-band__lede { margin-top: 18px; max-width: 62ch; font-size: clamp(16px, 1.4vw, 18px); font-weight: 300; line-height: var(--lh-prose); color: #dfe3f2; }
+
+/* ---------- Index: article rows (full content width) ---------- */
+.blog-rows { margin-top: clamp(32px, 4vw, 52px); }
+.blog-row {
+  position: relative; display: grid; grid-template-columns: 1fr minmax(220px, 300px);
+  gap: clamp(20px, 3vw, 44px); align-items: center; padding-block: clamp(24px, 3vw, 36px);
+  border-top: 1px solid var(--hairline-blue);
+}
+.blog-row:last-child { border-bottom: 1px solid var(--hairline-blue); }
+.blog-row[hidden] { display: none; }
+.blog-row__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-size: var(--fs-meta); color: var(--on-blue-soft); }
+.blog-row__title {
+  margin-top: 12px; font-family: var(--font-display); font-weight: 500; letter-spacing: -.015em;
+  line-height: 1.15; font-size: clamp(22px, 2.5vw, 32px); max-width: 26ch;
+}
+.blog-row__title a { color: #fff; }
+.blog-row__title a::after { content: ""; position: absolute; inset: 0; }
+.blog-row:hover .blog-row__title a { color: #FFADA0; }
+.blog-row:focus-within { outline: 3px solid var(--orange); outline-offset: 4px; border-radius: 4px; }
+.blog-row__perex { margin-top: 12px; max-width: 56ch; font-size: var(--fs-body); line-height: var(--lh-prose); color: #dfe3f2; }
+.blog-row__foot { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.blog-row__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.series-band .blog-tag { background: rgba(255,255,255,.1); color: #dfe3f2; }
+.series-band .blog-author { color: var(--on-blue-soft); }
+.series-band .blog-author strong { color: #fff; }
+.series-band .blog-kicker { color: #FF9280; }
+
+/* Typographic cover tile: stands in for photography until real art exists */
+.blog-cover {
+  position: relative; aspect-ratio: 16/10; border-radius: var(--r-card); overflow: hidden;
+  background: rgba(255,255,255,.06); border: 1px solid var(--hairline-blue);
+  display: flex; flex-direction: column; justify-content: space-between; padding: 16px 18px;
+}
+.blog-cover::before { content: ""; position: absolute; left: 0; top: 0; width: 4px; height: 100%; background: var(--orange); }
+.blog-cover__num { font-family: var(--font-display); font-weight: 900; font-size: clamp(44px, 5vw, 64px); line-height: 1; color: var(--orange); letter-spacing: -.03em; }
+.blog-cover__label { font-size: 12px; font-weight: 500; letter-spacing: .04em; color: var(--on-blue-soft); }
+@media (max-width: 760px) {
+  .blog-row { grid-template-columns: 1fr; }
+  .blog-cover { order: -1; aspect-ratio: 16/6; flex-direction: row; align-items: center; }
+}
+
+/* ---------- Article: dark hero ---------- */
+.article-hero {
+  --hero-measure: 40rem;                      /* perex and byline share one right edge */
+  position: relative; overflow: hidden; background: var(--blue-deep); color: #fff;
+  padding-block: clamp(40px, 5vw, 72px) clamp(36px, 4vw, 56px);
+}
+.article-hero::before { content: ""; position: absolute; left: 0; top: 0; width: 5px; height: 100%; background: var(--orange); }
+.article-hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px); background-size: 24px 24px;
+}
+.article-hero > .container { position: relative; z-index: 1; }
+.article-hero__back { display: inline-block; margin-bottom: 22px; font-size: var(--fs-meta); font-weight: 600; color: var(--on-blue-soft); }
+.article-hero__back:hover { color: #fff; }
+.article-hero__kicker { display: block; margin-bottom: 22px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: #FF9280; }
+.article-hero__kicker a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,146,128,.4); text-underline-offset: 5px; transition: text-decoration-color .15s var(--ease), color .15s var(--ease); }
+.article-hero__kicker a:hover { color: #FFADA0; text-decoration-color: currentColor; }
+.article-hero__title {
+  font-family: var(--font-display); font-weight: 900; letter-spacing: -.02em; line-height: 1.06;
+  font-size: clamp(28px, 4.4vw, 52px); color: #fff; max-width: 22ch; text-wrap: balance;
+}
+.article-hero__perex { margin-top: clamp(28px, 3vw, 40px); max-width: var(--hero-measure); font-size: clamp(17px, 1.6vw, 20px); font-weight: 300; line-height: 1.55; color: #dfe3f2; }
+.article-hero__byline { margin-top: clamp(32px, 3.6vw, 48px); max-width: var(--hero-measure); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; }
+.article-hero__byline .blog-author__photo { width: 48px; height: 48px; }
+.article-hero__byline .blog-author { gap: 14px; line-height: 1.4; }
+.article-hero__byline .blog-author { color: var(--on-blue-soft); }
+.article-hero__byline .blog-author strong { color: #fff; }
+.article-hero__meta { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: var(--fs-meta); color: var(--on-blue-soft); }
+
+/* ---------- Article: body ---------- */
+.article-body-wrap { background: var(--white); padding-block: clamp(40px, 5vw, 72px); }
+.article-body { max-width: 68ch; font-size: 17.5px; line-height: 1.7; color: var(--ink); }
+.article-body p { margin: 0 0 1.15em; }
+.article-body h2 { margin: 2.1em 0 .55em; font-family: var(--font-display); font-weight: 500; letter-spacing: -.01em; line-height: 1.2; font-size: clamp(22px, 2.4vw, 28px); color: var(--blue-deep); }
+.article-body h2::before { content: ""; display: block; width: 28px; height: 3px; background: var(--orange); margin-bottom: 12px; }
+.article-body a { color: var(--blue-deep); text-decoration: underline; text-underline-offset: 2px; }
+.article-body strong { font-weight: 700; }
+
+.callout { margin: 2em 0; padding: 22px 24px; background: var(--orange-tint); border-left: 4px solid var(--orange); border-radius: 6px; }
+.callout__title { margin: 0 0 10px; font-family: var(--font-display); font-weight: 500; font-size: 18px; color: var(--blue-deep); }
+.callout ul { margin: 0; padding-left: 1.1em; }
+.callout li { margin-bottom: .5em; font-size: 16.5px; line-height: 1.55; }
+.callout--quote p { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(20px, 2.2vw, 25px); line-height: 1.35; color: var(--ink); }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.compare > div { background: var(--white); border-radius: 6px; padding: 16px; }
+.compare strong { display: block; margin-bottom: 6px; font-family: var(--font-display); font-weight: 500; font-size: 17px; color: var(--orange); }
+.compare p { margin: 0; font-size: 15.5px; line-height: 1.55; }
+@media (max-width: 560px) { .compare { grid-template-columns: 1fr; } }
+.article-closing { margin-top: 2em; padding-top: 1.4em; border-top: 1px solid var(--hairline); font-weight: 500; font-size: 18.5px; }
+
+/* "Part of the series" card, below the article: full content width, same dark identity as the series band */
+.series-card {
+  position: relative; overflow: hidden; margin-top: clamp(48px, 6vw, 80px);
+  padding: clamp(24px, 3.5vw, 44px); background: var(--blue-deep); color: #fff; border-radius: var(--r-card-lg);
+}
+.series-card::before { content: ""; position: absolute; left: 0; top: 0; width: 5px; height: 100%; background: var(--orange); }
+.series-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px); background-size: 24px 24px;
+}
+.series-card > * { position: relative; z-index: 1; }
+.series-card__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+.series-card__eyebrow { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: #FF9280; }
+.series-card__title { margin: 10px 0 0; font-family: var(--font-display); font-weight: 900; letter-spacing: -.02em; line-height: 1.1; font-size: clamp(24px, 3vw, 36px); color: #fff; max-width: 22ch; }
+.series-card__all { font-size: var(--fs-meta); font-weight: 700; color: #FFADA0; white-space: nowrap; }
+.series-card__all:hover { color: #fff; }
+.series-card ol { list-style: none; margin: clamp(22px, 3vw, 32px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.6vw, 18px); }
+.series-card li { display: flex; }
+.series-card li > a, .series-card .series-card__current {
+  display: flex; flex-direction: column; gap: 10px; width: 100%; padding: 20px;
+  background: rgba(255,255,255,.06); border: 1px solid var(--hairline-blue); border-radius: var(--r-card); color: #fff;
+  transition: transform .2s var(--ease), border-color .15s var(--ease), background .15s var(--ease);
+}
+.series-card li > a:hover { transform: translateY(-3px); border-color: var(--orange); background: rgba(255,255,255,.1); }
+.series-card .series-card__current { border-color: var(--orange); background: rgba(255,85,57,.14); }
+.series-card__num { font-family: var(--font-display); font-weight: 900; font-size: 30px; line-height: 1; letter-spacing: -.02em; color: var(--orange); }
+.series-card__name { font-family: var(--font-display); font-weight: 500; font-size: 17px; line-height: 1.3; color: #fff; }
+.series-card__foot { margin-top: auto; padding-top: 6px; font-size: 13px; font-weight: 600; color: var(--on-blue-soft); }
+.series-card__here { color: #FFADA0; text-transform: uppercase; letter-spacing: .1em; font-size: 12px; font-weight: 700; }
+@media (max-width: 860px) { .series-card ol { grid-template-columns: 1fr; } .series-card li > a, .series-card .series-card__current { flex-direction: row; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; } .series-card__foot { margin-top: 0; width: 100%; padding-left: 44px; } }
+
+/* ---------- Article: author card (Figma "medailonek": peach card, orange ellipse, photo breaking out of it) ---------- */
+/* Article column: body text and author card share one measure, so the bio reads as the article's signature */
+.article-col { max-width: 68ch; font-size: 17.5px; }
+.author-card {
+  --pw: clamp(210px, 21vw, 270px);            /* photo width; ellipse and card height scale from it */
+  position: relative; overflow: hidden; background: var(--orange-tint); border-radius: var(--r-card-lg);
+  width: 80%; margin-top: clamp(40px, 5vw, 64px);   /* a step below the series card (100%), a step above the text column */
+  display: grid; grid-template-columns: var(--pw) 1fr; column-gap: clamp(24px, 3vw, 40px);
+  align-items: center; min-height: calc(var(--pw) * 1.45);
+}
+.author-card__photo { position: relative; align-self: stretch; }
+.author-card__photo::before {                 /* ellipse: right edge sits at 80% of the photo, as in the design */
+  content: ""; position: absolute; z-index: 0; border-radius: 50%;
+  width: calc(var(--pw) * 2.12); height: calc(var(--pw) * 2.44); left: calc(var(--pw) * -1.32); top: calc(var(--pw) * -.37);
+  background: linear-gradient(20deg, #FF7761, #FF5539);
+}
+.author-card__photo img { position: absolute; z-index: 1; left: 0; bottom: 0; width: 100%; height: auto; aspect-ratio: 486 / 608; display: block; }
+.author-card__text { padding: clamp(32px, 4vw, 52px) clamp(24px, 3.6vw, 48px) clamp(32px, 4vw, 52px) 0; }
+.author-card__name { margin: 0; font-family: var(--font-display); font-weight: 900; letter-spacing: .01em; line-height: 1.15; font-size: clamp(26px, 2.5vw, 34px); color: var(--blue-deep); }
+.author-card__role { margin: 8px 0 0; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.35; color: var(--blue-deep); opacity: .72; }
+.author-card__rule { display: block; width: 88px; height: 5px; margin: clamp(18px, 2.2vw, 26px) 0; background: var(--orange); }
+.author-card__bio { margin: 0; max-width: 56ch; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.55; color: var(--blue-deep); opacity: .85; }
+.author-card__link {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 10px 16px;
+  border: 1.5px solid var(--blue-deep); border-radius: 999px; font-size: 15px; font-weight: 700; color: var(--blue-deep);
+  transition: background .15s var(--ease), color .15s var(--ease), border-color .15s var(--ease);
+}
+.author-card__link svg { width: 18px; height: 18px; flex-shrink: 0; }
+.author-card__link:hover { background: var(--blue-deep); color: #fff; }
+
+@media (max-width: 1000px) { .author-card { width: 100%; } }
+@media (max-width: 720px) {
+  /* Narrow screens: the cut-out's hard crop edges would show, so swap to the round portrait. */
+  .author-card { grid-template-columns: 1fr; min-height: 0; row-gap: 0; justify-items: center; text-align: left; }
+  .author-card__photo { align-self: auto; width: 168px; height: 168px; margin-top: 32px; }
+  .author-card__photo::before { display: none; }
+  .author-card__photo img { position: static; width: 168px; height: 168px; aspect-ratio: 1; border-radius: 50%; border: 4px solid var(--orange); object-fit: cover; }
+  .author-card__text { padding: 24px var(--gutter) 36px; justify-self: stretch; }
+}
