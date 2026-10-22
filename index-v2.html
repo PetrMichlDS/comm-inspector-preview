@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=20261022" />
+  <link rel="stylesheet" href="styles.css?v=20261024" />
 
   <!-- Set a `js` flag before first paint so enhancement-only styles
        (e.g. the coverage bars animating up from zero) never flash
@@ -193,51 +193,10 @@
     </section>
 
     <!-- ============================================================= -->
-    <!-- 2b — PROOF BAR                                                -->
-    <!-- Outcome: replace generic Bull corporate stats with concrete   -->
-    <!-- (anonymised, naming-pending) product proof — per              -->
-    <!-- content-draft-v1 §2. Names stay anonymised until the          -->
-    <!-- Raiffeisenbank CZ naming approval clears; swap the wording    -->
-    <!-- then, no layout change needed.                                -->
-    <!-- ============================================================= -->
-    <section class="section section--white reveal" id="proof" aria-labelledby="proofHeading">
-      <div class="container">
-        <div class="section__head">
-          <span class="eyebrow-label">Enterprise proof</span>
-          <h2 id="proofHeading" class="section__title">Proven in production</h2>
-          <p class="section__sub">AI Comms Inspector already processes customer conversations at enterprise scale and turns them into measurable business outcomes.</p>
-        </div>
-        <div class="proof-grid">
-          <article class="proof-card proof-card--featured proof-card--linked">
-            <span class="proof-card__label">Production scale</span>
-            <h3 class="proof-card__title">30M+ calls analysed every year</h3>
-            <p class="proof-card__body">Automated supervision and quality control running in production for a major financial-services company in Asia.</p>
-            <a href="case-studies.html" class="proof-card__cta">Read the full story <span aria-hidden="true">&rarr;</span></a>
-          </article>
-          <article class="proof-card">
-            <span class="proof-card__label">Commercial impact</span>
-            <h3 class="proof-card__title">Higher conversion</h3>
-            <p class="proof-card__body">AI-generated sales signals help target more relevant offers.</p>
-          </article>
-          <article class="proof-card">
-            <span class="proof-card__label">Operational impact</span>
-            <h3 class="proof-card__title">Quality control at scale</h3>
-            <p class="proof-card__body">Every selected interaction assessed consistently against predefined business, process and compliance rules.</p>
-          </article>
-          <article class="proof-card">
-            <span class="proof-card__label">Delivery credibility</span>
-            <h3 class="proof-card__title">300+ enterprise AI projects</h3>
-            <p class="proof-card__body">Proven delivery experience at enterprise scale. Built on <a href="https://www.bull.com/en/" target="_blank" class="proof-card__link">Bull Group</a>'s experience from more than 300 enterprise AI projects.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================= -->
     <!-- 3 — BEFORE -> WITH                                            -->
     <!-- Outcome: scannable shift from status quo to outcome.          -->
     <!-- ============================================================= -->
-    <section class="section section--tint reveal" id="before" aria-labelledby="beforeHeading">
+    <section class="section section--white reveal" id="before" aria-labelledby="beforeHeading">
       <div class="container">
         <span class="eyebrow-label">The impact</span>
         <h2 id="beforeHeading" class="section__title">What changes when you analyse every conversation</h2>
@@ -292,9 +251,137 @@
       </div>
     </section>
 
+    <section class="section section--grey reveal" id="pains" aria-labelledby="painsHeading">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow-label">What a sample hides</span>
+          <h2 id="painsHeading" class="section__title">What you cannot see from a sample</h2>
+          <p class="section__sub">Your customers tell you all of this every day, on calls, chats and emails. Most companies hear a few of those conversations and guess the rest.</p>
+        </div>
+        <ol class="pains">
+          <li class="pains__row reveal">
+            <div class="pains__problem">
+              <p class="pains__label">The problem</p>
+              <p class="pains__text">Buying signals are spoken in service calls that sales never hears.</p>
+            </div>
+            <span class="pains__line" aria-hidden="true"></span>
+            <div class="pains__answer">
+              <p class="pains__label">We answer</p>
+              <p class="pains__q">Where are we leaving money on the table in conversations we already have?</p>
+              <p class="pains__for">For: Sales, CRM, customer value management</p>
+            </div>
+          </li>
+          <li class="pains__row reveal">
+            <div class="pains__problem">
+              <p class="pains__label">The problem</p>
+              <p class="pains__text">Churn models track behaviour, not the call where a customer says they are leaving.</p>
+            </div>
+            <span class="pains__line" aria-hidden="true"></span>
+            <div class="pains__answer">
+              <p class="pains__label">We answer</p>
+              <p class="pains__q">Which customers are about to leave us, and why?</p>
+              <p class="pains__for">For: Customer experience, retention, CRM</p>
+            </div>
+          </li>
+          <li class="pains__row reveal">
+            <div class="pains__problem">
+              <p class="pains__label">The problem</p>
+              <p class="pains__text">Call reasons are picked by the agent, so nobody sees the real ones.</p>
+            </div>
+            <span class="pains__line" aria-hidden="true"></span>
+            <div class="pains__answer">
+              <p class="pains__label">We answer</p>
+              <p class="pains__q">Which complaints are costing us customers?</p>
+              <p class="pains__for">For: Customer experience, operations, complaints</p>
+            </div>
+          </li>
+          <li class="pains__row reveal">
+            <div class="pains__problem">
+              <p class="pains__label">The problem</p>
+              <p class="pains__text">Rules apply to every call, but compliance checks cover only a few.</p>
+            </div>
+            <span class="pains__line" aria-hidden="true"></span>
+            <div class="pains__answer">
+              <p class="pains__label">We answer</p>
+              <p class="pains__q">Are our agents saying things that could get us fined?</p>
+              <p class="pains__for">For: Compliance, risk, legal</p>
+            </div>
+          </li>
+          <li class="pains__row reveal">
+            <div class="pains__problem">
+              <p class="pains__label">The problem</p>
+              <p class="pains__text">A few calls per agent, scored by different people, is not a standard.</p>
+            </div>
+            <span class="pains__line" aria-hidden="true"></span>
+            <div class="pains__answer">
+              <p class="pains__label">We answer</p>
+              <p class="pains__q">Which teams, sites or outsourcers deliver a visibly different quality of service?</p>
+              <p class="pains__for">For: Contact centre, operations, quality</p>
+            </div>
+          </li>
+          <li class="pains__row reveal">
+            <div class="pains__problem">
+              <p class="pains__label">The problem</p>
+              <p class="pains__text">Feedback reaches the agent long after the call it is about.</p>
+            </div>
+            <span class="pains__line" aria-hidden="true"></span>
+            <div class="pains__answer">
+              <p class="pains__label">We answer</p>
+              <p class="pains__q">What should each agent learn from their own calls, right after they end?</p>
+              <p class="pains__for">For: Contact centre, team leaders</p>
+            </div>
+          </li>
+        </ol>
+        <div class="pains__cta">
+          <a href="#demo" class="btn btn--primary btn--lg" data-demo-open>Book a walkthrough</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 2b — PROOF BAR                                                -->
+    <!-- Outcome: replace generic Bull corporate stats with concrete   -->
+    <!-- (anonymised, naming-pending) product proof — per              -->
+    <!-- content-draft-v1 §2. Names stay anonymised until the          -->
+    <!-- Raiffeisenbank CZ naming approval clears; swap the wording    -->
+    <!-- then, no layout change needed.                                -->
+    <!-- ============================================================= -->
+    <section class="section section--white reveal" id="proof" aria-labelledby="proofHeading">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow-label">Enterprise proof</span>
+          <h2 id="proofHeading" class="section__title">Proven in production</h2>
+          <p class="section__sub">AI Comms Inspector already processes customer conversations at enterprise scale and turns them into measurable business outcomes.</p>
+        </div>
+        <div class="proof-grid">
+          <article class="proof-card proof-card--featured proof-card--linked">
+            <span class="proof-card__label">Production scale</span>
+            <h3 class="proof-card__title">30M+ calls analysed every year</h3>
+            <p class="proof-card__body">Automated supervision and quality control running in production for a major financial-services company in Asia.</p>
+            <a href="case-studies.html" class="proof-card__cta">Read the full story <span aria-hidden="true">&rarr;</span></a>
+          </article>
+          <article class="proof-card">
+            <span class="proof-card__label">Commercial impact</span>
+            <h3 class="proof-card__title">Higher conversion</h3>
+            <p class="proof-card__body">AI-generated sales signals help target more relevant offers.</p>
+          </article>
+          <article class="proof-card">
+            <span class="proof-card__label">Operational impact</span>
+            <h3 class="proof-card__title">Quality control at scale</h3>
+            <p class="proof-card__body">Every selected interaction assessed consistently against predefined business, process and compliance rules.</p>
+          </article>
+          <article class="proof-card">
+            <span class="proof-card__label">Delivery credibility</span>
+            <h3 class="proof-card__title">300+ enterprise AI projects</h3>
+            <p class="proof-card__body">Proven delivery experience at enterprise scale. Built on <a href="https://www.bull.com/en/" target="_blank" class="proof-card__link">Bull Group</a>'s experience from more than 300 enterprise AI projects.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- Positioning callout — a quiet visual pause before Modules;
          sets up "who benefits" ahead of "what it does". -->
-    <section class="positioning-bar" aria-label="Who this is for">
+    <section class="positioning-bar positioning-bar--tint" aria-label="Who this is for">
       <div class="container positioning-bar__inner">
         <span class="positioning-bar__label mono">WHO IT'S FOR</span>
         <div class="positioning-bar__copy">
@@ -410,6 +497,37 @@
     </section>
 
     <!-- ============================================================= -->
+    <!-- 5a — FOUNDER NOTE  (David Vopelka: half quote, half commentary) -->
+    <!-- Outcome: recognition + trust in a named person, then one       -->
+    <!-- personal CTA. Replaces the worked-example + business-value     -->
+    <!-- pair (both are slated for the module pages). Copy is condensed -->
+    <!-- from blog-paying-consultants-to-guess.html; David signs off    -->
+    <!-- the wording before this ships.                                 -->
+    <!-- ============================================================= -->
+    <section class="section section--grey reveal" id="founder-note" aria-labelledby="founderHeading">
+      <div class="container">
+        <article class="founder-card">
+          <figure class="founder-card__media">
+            <img class="founder-card__photo" src="Assets/david-vopelka_2.webp" alt="David Vopelka" width="486" height="608" loading="lazy" decoding="async" />
+            <figcaption class="founder-card__caption">
+              <span class="founder-card__name">David Vopelka</span>
+              <span class="founder-card__role">Business AI Cluster Lead at Bull</span>
+            </figcaption>
+          </figure>
+          <div class="founder-card__copy">
+            <span class="eyebrow-label">I&rsquo;ve been on your side of this</span>
+            <h2 id="founderHeading" class="section__title founder-card__title">The best questions were the ones we never asked</h2>
+            <p class="founder-card__body">Even at one of Europe&rsquo;s largest banking groups, each answer about our customers cost months and a real budget, so we only asked the big questions. The sharper ones, the follow-ups, the &ldquo;wait, why did they say that?&rdquo;, never got asked. Curiosity had a price, and it was too high. Today the same question is a query over every conversation, answered with the evidence attached.</p>
+            <div class="founder-card__action">
+              <a href="#demo" class="btn btn--primary btn--lg" data-demo-open>Book a call with me</a>
+              <p class="founder-card__micro">Bring the question you could never afford to ask.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
     <!-- 5 — HOW IT WORKS  (priority visual: horizontal flow)          -->
     <!-- Outcome: understand the flow in under 5s; clearly more        -->
     <!-- than transcription.                                           -->
@@ -471,37 +589,6 @@
     </section>
 
     <!-- ============================================================= -->
-    <!-- 5a — FOUNDER NOTE  (David Vopelka: half quote, half commentary) -->
-    <!-- Outcome: recognition + trust in a named person, then one       -->
-    <!-- personal CTA. Replaces the worked-example + business-value     -->
-    <!-- pair (both are slated for the module pages). Copy is condensed -->
-    <!-- from blog-paying-consultants-to-guess.html; David signs off    -->
-    <!-- the wording before this ships.                                 -->
-    <!-- ============================================================= -->
-    <section class="section section--grey reveal" id="founder-note" aria-labelledby="founderHeading">
-      <div class="container">
-        <article class="founder-card">
-          <figure class="founder-card__media">
-            <img class="founder-card__photo" src="Assets/david-vopelka_2.webp" alt="David Vopelka" width="486" height="608" loading="lazy" decoding="async" />
-            <figcaption class="founder-card__caption">
-              <span class="founder-card__name">David Vopelka</span>
-              <span class="founder-card__role">Business AI Cluster Lead at Bull</span>
-            </figcaption>
-          </figure>
-          <div class="founder-card__copy">
-            <span class="eyebrow-label">I&rsquo;ve been on your side of this</span>
-            <h2 id="founderHeading" class="section__title founder-card__title">The best questions were the ones we never asked</h2>
-            <p class="founder-card__body">Even at one of Europe&rsquo;s largest banking groups, each answer about our customers cost months and a real budget, so we only asked the big questions. The sharper ones, the follow-ups, the &ldquo;wait, why did they say that?&rdquo;, never got asked. Curiosity had a price, and it was too high. Today the same question is a query over every conversation, answered with the evidence attached.</p>
-            <div class="founder-card__action">
-              <a href="#demo" class="btn btn--primary btn--lg" data-demo-open>Book a call with me</a>
-              <p class="founder-card__micro">Bring the question you could never afford to ask.</p>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============================================================= -->
     <!-- 5b — PROVEN RESULTS  (case study)                             -->
     <!-- Outcome: show the product already working in production,      -->
     <!-- not just how it works in theory — per content-draft-v1 §8.    -->
@@ -534,45 +621,6 @@
               <p>Valuable cross-sell and up-sell signals were extracted from customer conversations with the contact centre and fed into CRM campaigns.</p>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================= -->
-    <!-- 6 — FITS YOUR STACK  (dark "signature panel")                 -->
-    <!-- Outcome: pre-empt run-it-safely / adoption / build-it-myself. -->
-    <!-- Re-themed --blue-deep per Petr's request — matches            -->
-    <!-- claimsense.app's rhythm of breaking up white/grey bands with  -->
-    <!-- a dark navy section, and this site's own .section__head       -->
-    <!-- comment already earmarked centred-head sections (this one     -->
-    <!-- uses .section__head-center) as "the blue signature panels."   -->
-    <!-- ============================================================= -->
-    <section class="section section--blue-deep reveal" id="stack" aria-labelledby="stackHeading">
-      <div class="container">
-        <div class="section__head-center">
-          <h2 id="stackHeading" class="section__title">Deployed your way, customised to your needs</h2>
-        </div>
-
-        <div class="stack">
-          <article class="stack__item">
-            <h3 class="stack__title">Deploy in your environment</h3>
-            <p class="stack__body">Runs in your Azure, AWS or GCP environment and connects with your communication sources, data platform, CRM and reporting tools.</p>
-          </article>
-
-          <article class="stack__item">
-            <h3 class="stack__title">Configured for your use cases</h3>
-            <p class="stack__body">Business questions, taxonomies and outputs are tailored to your needs—from sales and service to compliance, risk and quality.</p>
-          </article>
-
-          <article class="stack__item">
-            <h3 class="stack__title">Delivered end to end</h3>
-            <p class="stack__body">We cover analysis, speech-to-text, data processing, configuration, integration, testing, training and go-live.</p>
-          </article>
-
-          <article class="stack__item">
-            <h3 class="stack__title">Production-ready and supported</h3>
-            <p class="stack__body">Monitoring, audit trails, retention controls and SLA-based support keep the solution reliable, explainable and secure.</p>
-          </article>
         </div>
       </div>
     </section>
@@ -675,183 +723,10 @@
     </section>
 
     <!-- ============================================================= -->
-    <!-- 7b — FAQ                                                      -->
-    <!-- Outcome: answer the recurring evaluation questions on-page.   -->
-    <!-- Two independent disclosure layers: each question is its own   -->
-    <!-- accordion, and the list itself shows 4 of 12 until expanded.  -->
-    <!-- Both are .js-gated, so with JS off all 12 Q&As are visible.   -->
-    <!-- ============================================================= -->
-    <section class="section section--white reveal" id="faq" aria-labelledby="faqHeading">
-      <div class="container">
-        <div class="section__head">
-          <h2 id="faqHeading" class="section__title">Common questions</h2>
-          <p class="section__sub">Quick answers to the questions we hear most from teams evaluating AI Comms Inspector.</p>
-        </div>
-
-        <div class="faq__list">
-          <div class="faq__item">
-            <h3 class="faq__q-wrap">
-              <button class="faq__q" aria-expanded="false" aria-controls="faqA-1">
-                <span class="faq__q-text">What is AI Comms Inspector?</span>
-                <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </h3>
-            <div class="faq__a" id="faqA-1" role="region">
-              <p>AI Comms Inspector analyses customer conversations and turns them into structured, actionable insights for CRM, contact centre, customer experience, sales, compliance and risk processes.</p>
-            </div>
-          </div>
-
-          <div class="faq__item">
-            <h3 class="faq__q-wrap">
-              <button class="faq__q" aria-expanded="false" aria-controls="faqA-2">
-                <span class="faq__q-text">What types of communication can it analyse?</span>
-                <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </h3>
-            <div class="faq__a" id="faqA-2" role="region">
-              <p>It can process call recordings, meeting recordings, existing transcripts, chats, emails and agent notes. Audio can be converted into text before analysis.</p>
-            </div>
-          </div>
-
-          <div class="faq__item">
-            <h3 class="faq__q-wrap">
-              <button class="faq__q" aria-expanded="false" aria-controls="faqA-3">
-                <span class="faq__q-text">What can the solution identify?</span>
-                <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </h3>
-            <div class="faq__a" id="faqA-3" role="region">
-              <p>It can detect customer needs, life events, sales opportunities, product feedback, service issues, compliance risks and process gaps based on business questions defined with your team.</p>
-            </div>
-          </div>
-
-          <div class="faq__item">
-            <h3 class="faq__q-wrap">
-              <button class="faq__q" aria-expanded="false" aria-controls="faqA-4">
-                <span class="faq__q-text">How does AI Comms Inspector work?</span>
-                <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </h3>
-            <div class="faq__a" id="faqA-4" role="region">
-              <p>The solution captures communication data, prepares and analyses it against predefined questions, and delivers the results as structured data, dashboards, alerts or signals for other business systems.</p>
-            </div>
-          </div>
-
-          <button class="faq__toggle" data-faq-more aria-expanded="false" aria-controls="faqMore">
-            View all frequently asked questions
-            <svg class="faq__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-
-          <div class="faq__more" id="faqMore">
-            <div class="faq__item">
-              <h3 class="faq__q-wrap">
-                <button class="faq__q" aria-expanded="false" aria-controls="faqA-5">
-                  <span class="faq__q-text">Can it classify and summarise conversations?</span>
-                  <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </h3>
-              <div class="faq__a" id="faqA-5" role="region">
-                <p>Yes. It can automatically generate conversation summaries and classify interactions using a tailored, multi-level taxonomy.</p>
-              </div>
-            </div>
-
-            <div class="faq__item">
-              <h3 class="faq__q-wrap">
-                <button class="faq__q" aria-expanded="false" aria-controls="faqA-6">
-                  <span class="faq__q-text">Can it support quality assurance and compliance monitoring?</span>
-                  <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </h3>
-              <div class="faq__a" id="faqA-6" role="region">
-                <p>Yes. The solution can evaluate whether agents follow required scripts, processes and regulatory rules, while providing the relevant conversation context as supporting evidence.</p>
-              </div>
-            </div>
-
-            <div class="faq__item">
-              <h3 class="faq__q-wrap">
-                <button class="faq__q" aria-expanded="false" aria-controls="faqA-7">
-                  <span class="faq__q-text">Are the results explainable?</span>
-                  <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </h3>
-              <div class="faq__a" id="faqA-7" role="region">
-                <p>Yes. Each detected insight can be linked to the relevant part of the conversation, the question evaluated and other supporting information, allowing users to review the result.</p>
-              </div>
-            </div>
-
-            <div class="faq__item">
-              <h3 class="faq__q-wrap">
-                <button class="faq__q" aria-expanded="false" aria-controls="faqA-8">
-                  <span class="faq__q-text">Can the outputs be integrated into our existing systems?</span>
-                  <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </h3>
-              <div class="faq__a" id="faqA-8" role="region">
-                <p>Yes. Results can be delivered to CRM, data warehouses, campaign tools, reporting platforms and dashboards as structured fields, files or other agreed formats.</p>
-              </div>
-            </div>
-
-            <div class="faq__item">
-              <h3 class="faq__q-wrap">
-                <button class="faq__q" aria-expanded="false" aria-controls="faqA-9">
-                  <span class="faq__q-text">Can the solution be customised for different business teams?</span>
-                  <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </h3>
-              <div class="faq__a" id="faqA-9" role="region">
-                <p>Yes. The same platform can be configured for different use cases across sales, service, contact centre operations, compliance, risk, product management, customer experience and data teams.</p>
-              </div>
-            </div>
-
-            <div class="faq__item">
-              <h3 class="faq__q-wrap">
-                <button class="faq__q" aria-expanded="false" aria-controls="faqA-10">
-                  <span class="faq__q-text">Where can AI Comms Inspector be deployed?</span>
-                  <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </h3>
-              <div class="faq__a" id="faqA-10" role="region">
-                <p>It can be deployed in your Azure, AWS or GCP environment and integrated with your existing communication sources, data platform and business applications. The delivery can include analysis, configuration, integration, testing, training, monitoring and ongoing support.</p>
-              </div>
-            </div>
-
-            <div class="faq__item">
-              <h3 class="faq__q-wrap">
-                <button class="faq__q" aria-expanded="false" aria-controls="faqA-11">
-                  <span class="faq__q-text">Can the AI understand different languages and dialects?</span>
-                  <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </h3>
-              <div class="faq__a" id="faqA-11" role="region">
-                <p>Yes. For instance, in one implementation, the AI successfully supervised millions of calls in "Taglish" (a mix of Tagalog and English) for a large-scale collections centre.</p>
-              </div>
-            </div>
-
-            <div class="faq__item">
-              <h3 class="faq__q-wrap">
-                <button class="faq__q" aria-expanded="false" aria-controls="faqA-12">
-                  <span class="faq__q-text">What are the specific deliverables of the implementation package?</span>
-                  <svg class="faq__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </h3>
-              <div class="faq__a" id="faqA-12" role="region">
-                <p>The package includes data ingestion support, prompt definition, report customisation, monitoring setup, and full team enablement.</p>
-              </div>
-            </div>
-
-            <button class="faq__collapse" data-faq-less aria-label="Show fewer questions">
-              <svg class="faq__chevron faq__chevron--up" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6,9 12,15 18,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================= -->
     <!-- 8 — FINAL CTA                                                 -->
     <!-- Outcome: single, obvious next step.                           -->
     <!-- ============================================================= -->
-    <section class="section section--grey final-cta reveal" id="demo" aria-labelledby="finalHeading">
+    <section class="section section--tint final-cta reveal" id="demo" aria-labelledby="finalHeading">
       <div class="container final-cta__inner">
         <div class="final-cta__copy">
           <h2 id="finalHeading" class="section__title">See what's hiding<br class="final-cta__title-break"> in your own<br class="final-cta__title-break"> conversations</h2>
@@ -919,6 +794,7 @@
         </form>
       </div>
     </section>
+
   </main>
 
   <!-- ============================================================= -->
@@ -950,7 +826,7 @@
         <ul class="footer__list">
           <li><a class="footer__link" href="#delivers">Modules</a></li>
           <li><a class="footer__link" href="pricing.html">Pricing</a></li>
-          <li><a class="footer__link" href="#stack">Deployment</a></li>
+          <li><a class="footer__link" href="architecture.html">Deployment</a></li>
           <li><a class="footer__link" href="#demo" data-demo-open>Book a walkthrough</a></li>
         </ul>
       </nav>
@@ -974,7 +850,7 @@
           <li><a class="footer__link" href="architecture.html">Architecture</a></li>
           <li><a class="footer__link" href="case-studies.html">Case studies</a></li>
           <li><a class="footer__link" href="blog.html">Blog</a></li>
-          <li><a class="footer__link" href="#faq">FAQ</a></li>
+          <li><a class="footer__link" href="faq.html">FAQ</a></li>
           <li><a class="footer__link" href="https://datasentics.com/13-may-webinar-ai-communication-inspector-find-insights-in-every-interaction-with-clients" target="_blank" rel="noopener">Webinar: Find insights in every interaction ↗</a></li>
         </ul>
       </nav>
