@@ -1167,11 +1167,14 @@ a { color: inherit; text-decoration: none; }
 .proof-card__logo {
   flex-shrink: 0;
   width: 140px; height: 56px;
+  /* Optical alignment: the label's cap height starts ~5px below its line
+     box (13px text, 1.55 line-height), so drop the logo to match. */
+  margin-top: 5px;
 }
 .proof-card__logo img { width: 100%; height: 100%; object-fit: contain; }
 @media (max-width: 640px) {
   .proof-card--logo { flex-direction: column; gap: 16px; }
-  .proof-card__logo { order: -1; }
+  .proof-card__logo { order: -1; margin-top: 0; }
 }
 
 /* --- 5b. Proven Results: case study + secondary reference --- */
