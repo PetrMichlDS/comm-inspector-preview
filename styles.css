@@ -1167,9 +1167,9 @@ a { color: inherit; text-decoration: none; }
 .proof-card__logo {
   flex-shrink: 0;
   width: 140px; height: 56px;
-  /* Optical alignment: the label's cap height starts ~5px below its line
-     box (13px text, 1.55 line-height), so drop the logo to match. */
-  margin-top: 5px;
+  /* Optical alignment: the logo's top edge sits level with the top of the
+     headline capitals (label line 20px + 8px gap + ~3px to the cap line). */
+  margin-top: 31px;
 }
 .proof-card__logo img { width: 100%; height: 100%; object-fit: contain; }
 @media (max-width: 640px) {
