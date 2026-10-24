@@ -1156,6 +1156,23 @@ a { color: inherit; text-decoration: none; }
   .proof-grid { grid-template-columns: 1fr; }
   .proof-card--featured { grid-column: 1; }
 }
+/* Featured card with the client logo: text left, logo right. DOM order is
+   text first; on small screens the logo is lifted above the text with
+   `order` only, so reading order is unchanged. */
+.proof-card--logo {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: clamp(24px, 4vw, 48px);
+}
+.proof-card--logo .proof-card__text { flex: 1; min-width: 0; }
+.proof-card__logo {
+  flex-shrink: 0;
+  width: 140px; height: 56px;
+}
+.proof-card__logo img { width: 100%; height: 100%; object-fit: contain; }
+@media (max-width: 640px) {
+  .proof-card--logo { flex-direction: column; gap: 16px; }
+  .proof-card__logo { order: -1; }
+}
 
 /* --- 5b. Proven Results: case study + secondary reference --- */
 .case-study__meta {
