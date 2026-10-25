@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=20261028" />
+  <link rel="stylesheet" href="styles.css?v=20261030" />
 
   <!-- Set a `js` flag before first paint so enhancement-only styles
        (e.g. the coverage bars animating up from zero) never flash
@@ -744,46 +744,78 @@
     <!-- 8 — FINAL CTA                                                 -->
     <!-- Outcome: single, obvious next step.                           -->
     <!-- ============================================================= -->
-    <section class="section section--tint final-cta reveal" id="demo" aria-labelledby="finalHeading">
-      <div class="container final-cta__inner">
-        <div class="final-cta__copy">
-          <h2 id="finalHeading" class="section__title">See what's hiding<br class="final-cta__title-break"> in your own<br class="final-cta__title-break"> conversations</h2>
-          <p class="section__sub">Meet the team, see the solution in action, and identify the best use cases for your business.</p>
-          <ol class="cta-points">
-            <li class="cta-point">
-              <span class="cta-point__num" aria-hidden="true">1</span>
-              <div class="cta-point__body">
-                <span class="cta-point__title">A walkthrough</span>
-                <span class="cta-point__desc">Most teams only ever review a fraction of their conversations. In one walkthrough, we'll show you what AI Comms Inspector finds across 100% of them.</span>
-              </div>
-            </li>
-            <li class="cta-point">
-              <span class="cta-point__num" aria-hidden="true">2</span>
-              <div class="cta-point__body">
-                <span class="cta-point__title">Focused on your role</span>
-                <span class="cta-point__desc">Whether you own CRM, compliance, QA or coaching, we centre the session on the outcomes your team is measured on.</span>
-              </div>
-            </li>
-            <li class="cta-point">
-              <span class="cta-point__num" aria-hidden="true">3</span>
-              <div class="cta-point__body">
-                <span class="cta-point__title">A clear path to live</span>
-                <span class="cta-point__desc">Integrations, deployment in your cloud, and what it takes to move from pilot to production.</span>
-              </div>
-            </li>
-          </ol>
-          <p class="cta-trust">Trusted where every conversation counts — including a 30M+ calls-a-year production deployment, built by Bull.</p>
+    <!-- Team: three people the visitor will meet in the session. -->
+    <section class="section section--tint reveal" id="team" aria-labelledby="teamHeading">
+      <div class="container">
+        <div class="section__head-center">
+          <h2 id="teamHeading" class="section__title">You get our brains, not only a platform</h2>
+          <p class="section__sub">For years we ran customer intelligence inside banks, insurers, and telcos. Now we have built that experience into the AI agents at the core of Comms Inspector, and the people below work with you on them.</p>
+        </div>
+        <p class="eyebrow-label team__label">The people you will meet in the session</p>
+        <div class="team__grid">
+      <article class="team__card reveal" data-delay="1">
+        <div class="team__person"><img src="Assets/v2/david-vopelka-avatar.jpg" alt="David Vopelka" width="200" height="200" loading="lazy"><div><strong>David Vopelka</strong><span>Business AI Cluster Lead at Bull · Co-founder, DataSentics</span></div></div>
+        <div class="team__years"><div class="team__years-num">15+</div><span>years in customer intelligence and data/AI consulting</span></div>
+        <p>Co-founded DataSentics and led 20+ data-driven innovations for 10+ financial institutions. Before that, marketing automation lead at Erste Group.</p>
+        <div class="team__tags"><span class="team__badge">Erste Group</span><span class="team__badge">CPEX</span><span class="team__badge">NN</span><span class="team__badge">VIG</span><span class="team__badge">Moneta</span><span class="team__badge">Home Credit</span><span class="team__badge">AXA</span><span class="team__badge">KBC</span><span class="team__badge">UNIQA</span></div>
+        <p class="team__li"><a href="https://www.linkedin.com/in/davidvopelka/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Connect on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+      </article>
+      <article class="team__card reveal" data-delay="2">
+        <div class="team__person"><img src="Assets/v2/jirina-nedbalkova-avatar.jpg" alt="Jiřina Nedbálková" width="200" height="200" loading="lazy"><div><strong>Jiřina Nedbálková</strong><span>AI Use Case Architect &amp; Customer Intelligence Lead</span></div></div>
+        <div class="team__years"><div class="team__years-num">20+</div><span>years in financial services, telecom and consultancy</span></div>
+        <p>Jiřina helps organisations turn data into actionable insights, build smarter customer engagement strategies, and implement AI solutions that deliver measurable business value.</p>
+        <div class="team__tags"><span class="team__badge">ING</span><span class="team__badge">Komerční banka</span><span class="team__badge">Česká spořitelna</span><span class="team__badge">Raiffeisenbank</span><span class="team__badge">Home Credit</span><span class="team__badge">O2</span><span class="team__badge">T-Mobile</span></div>
+        <p class="team__li"><a href="https://www.linkedin.com/in/jirinanedbalkova" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Connect on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+      </article>
+      <article class="team__card reveal" data-delay="3">
+        <div class="team__person"><img src="Assets/v2/jiri-jelinek-avatar.jpg" alt="Jiří Jelínek" width="200" height="200" loading="lazy"><div><strong>Jiří Jelínek</strong><span>AI Consultant, digital marketing and personalisation</span></div></div>
+        <div class="team__years"><div class="team__years-num">15+</div><span>years in digital marketing and AdTech</span></div>
+        <p>Personalisation project owner for Erste Group and NN Group, product lead for AdPicker at CPEX, the largest Czech online publisher network.</p>
+        <div class="team__tags"><span class="team__badge">Erste Group</span><span class="team__badge">NN Group</span><span class="team__badge">CPEX</span><span class="team__badge">AXA</span><span class="team__badge">AdPicker</span><span class="team__badge">Adform</span><span class="team__badge">Mindshare</span></div>
+      </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How we work together: three separate decisions, then the bridge to the form. -->
+    <section class="section section--white together reveal" id="together" aria-labelledby="togetherHeading">
+      <div class="container">
+        <div class="section__head-center">
+          <h2 id="togetherHeading" class="section__title">How we work together</h2>
+          <p class="section__sub">Three steps. Each one is a separate decision, and you continue only if the previous step gave you a reason to.</p>
+        </div>
+        <div class="together__steps">
+          <div class="together__step reveal" data-delay="1"><div class="together__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></div><h3>A use-case session</h3><p>One hour. You bring a decision you face this year; we show what your customer conversations could answer about it, and what they cannot.</p></div>
+          <div class="together__step reveal" data-delay="2"><div class="together__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 13l2 2 4-4"/></svg></div><h3>A one-off analysis</h3><p>One use case, your full history, analysed once. You get a board-ready report with the evidence, as a fixed-scope project delivered in weeks, at a fixed price.</p></div>
+          <div class="together__step together__step--live reveal" data-delay="3"><div class="together__icon"><span class="together__ring" aria-hidden="true"></span><span class="together__ring together__ring--2" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 4v4M9 13h.01M15 13h.01M9 16h6"/></svg></div><h3>Your analytical agents <span class="together__live"><i aria-hidden="true"></i>continuous</span></h3><p>If the analysis proves its value, the agents work on your conversations every day. We set them up around your CRM, your processes, and the signals that matter to you, and they surface insights and triggers as new conversations arrive.</p></div>
+        </div>
+        <div class="together__faq reveal">
+          <details><summary>What the one-off analysis includes</summary><p>A board-ready report with the evidence behind each finding, the customer lists your teams can act on, and the three fixes that would move the numbers most. We need one export of recordings or transcripts, chats, and emails, read-only, inside your own cloud. Fixed price quoted on your volume.</p></details>
+          <details><summary>Where it runs, and who owns what</summary><p>In your own Azure, AWS, or GCP environment, in the EU, on models you are not renting. Your conversations never leave your perimeter and you keep the intellectual property. That is the one thing we will say about the engine.</p></details>
+          <details><summary>Who this is not for</summary><p>If you have a few thousand conversations a year, a good analyst can read them. If you keep no recordings or transcripts, there is nothing to read yet. If what you want is another dashboard, there are cheaper ones. We will tell you so in the session.</p></details>
+        </div>
+        <div class="together__bridge reveal">
+          <p>Only the first step needs a decision today.</p>
+          <a class="btn together__btn" href="#demo" data-demo-open>Continue to the form&nbsp;&darr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--grey reveal" id="demo" aria-labelledby="finalHeading">
+      <div class="container">
+        <div class="section__head-center">
+          <h2 id="finalHeading" class="section__title">Start with one decision</h2>
+          <p class="section__sub">Choose a decision you face this year. David, Jiřina, or Jiří will spend an hour with you on what your customer conversations can say about it.</p>
         </div>
 
-        <!-- Demo request form. Submits to Web3Forms; script.js intercepts
-             the submit to show the inline confirmation copy below.
-             Single-step only. No competing CTAs. -->
-        <form class="demo-form" id="demoForm" action="https://api.web3forms.com/submit" method="post" novalidate>
+        <!-- Use-case session request. Submits to Web3Forms; script.js intercepts
+             the submit and swaps the fields for the confirmation below. -->
+        <form class="demo-form decision__form" id="demoForm" action="https://api.web3forms.com/submit" method="post" novalidate>
           <input type="hidden" name="access_key" value="8cf94256-3ecf-442a-9c0c-69c4c50f3c9d" />
-          <input type="hidden" name="subject" value="New walkthrough request — AI Comms Inspector" />
+          <input type="hidden" name="subject" value="New use-case session request (preview v2) — AI Comms Inspector" />
           <div class="demo-form__fields" id="demoFormFields">
             <div class="demo-form__row">
-              <label for="df-name">Full name</label>
+              <label for="df-name">Name</label>
               <input id="df-name" name="name" type="text" autocomplete="name" required />
             </div>
             <div class="demo-form__row">
@@ -795,19 +827,22 @@
               <input id="df-company" name="company" type="text" autocomplete="organization" required />
             </div>
             <div class="demo-form__row">
-              <label for="df-message">Message <span class="optional">(optional)</span></label>
-              <textarea id="df-message" name="message" rows="3"></textarea>
+              <label for="df-role">Your role <span class="optional">(optional), so we can prepare the session around it</span></label>
+              <input id="df-role" name="role" type="text" autocomplete="organization-title" />
             </div>
-            <button type="submit" class="btn btn--primary btn--lg btn--block">Book a walkthrough</button>
+            <button type="submit" class="btn btn--primary btn--lg btn--block">Book a use-case session</button>
             <p class="demo-form__note" id="demoFormNote" role="status" aria-live="polite"></p>
-            <p class="demo-form__privacy">By submitting this form, you agree to our <a href="privacy-policy.html">Privacy Policy</a>. We'll never share your information.</p>
+            <p class="decision__after">Jiřina will email you within one working day with a link to pick a time.</p>
+            <p class="demo-form__privacy">By submitting this form, you agree to our <a href="privacy-policy.html?hp=v2">Privacy Policy</a>.</p>
+            <p class="demo-form__privacy">Prefer to watch first? <a href="https://comms-inspector.com/index-v2.html#webinar" target="_blank" rel="noopener">The 30-minute on-demand webinar.</a></p>
           </div>
-          <div class="demo-form__success" id="demoFormSuccess" role="status" aria-live="polite" hidden>
-            <div class="demo-form__success-icon" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 26 26"><path d="M5 13L11 19L21 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="decision__success" id="demoFormSuccess" role="status" aria-live="polite" hidden>
+            <h3>Your use-case session request is in</h3>
+            <p>Within one working day, Jiřina will email you details about the session and a link to pick a time that suits you.</p>
+            <div class="decision__who">
+              <img src="Assets/v2/jirina-nedbalkova-avatar.jpg" alt="Jiřina Nedbálková" width="60" height="60" />
+              <div><strong>Jiřina Nedbálková</strong><span>AI Use Case Architect &amp; Customer Intelligence Lead</span></div>
             </div>
-            <h3 class="demo-form__success-title">Thank you. Your walkthrough request is in.</h3>
-            <p class="demo-form__success-sub">We will email you within one business day to schedule it. A confirmation is on its way to your inbox now.</p>
           </div>
         </form>
       </div>
