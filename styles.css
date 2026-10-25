@@ -2137,7 +2137,6 @@ a.module-card__tag:hover { background: var(--orange-tint); color: var(--orange);
 }
 
 .decision__form { max-width: 560px; margin-inline: auto; }
-.decision__after { margin: 14px 0 0; font-size: var(--fs-meta); color: var(--ink-soft); }
 .decision__form:has(.decision__success:not([hidden])) { background: none; border: 0; box-shadow: none; padding: 0; }
 .decision__success { background: var(--blue-deep); color: var(--on-blue); border-radius: var(--r-card-lg); padding: clamp(28px, 4vw, 44px); text-align: center; }
 .decision__success[hidden] { display: none; }
