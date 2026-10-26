@@ -1983,13 +1983,13 @@ a.module-card__tag:hover { background: var(--orange-tint); color: var(--orange);
    ================================================================= */
 .founder-card {
   display: grid; grid-template-columns: minmax(220px, 300px) 1fr;
-  gap: clamp(28px, 4vw, 48px); align-items: start;
+  gap: clamp(28px, 4vw, 48px); align-items: stretch;
   background: var(--white); border: 1px solid var(--hairline);
   border-radius: var(--r-card-lg); box-shadow: var(--shadow-md);
   padding: clamp(20px, 3vw, 36px);
 }
-.founder-card__media { margin: 0; }   /* the photo carries its own background; its top edge lines up with the eyebrow */
-.founder-card__photo { display: block; width: 100%; height: auto; aspect-ratio: 840 / 1027; object-fit: cover; object-position: center top; border-radius: var(--r-btn); }
+.founder-card__media { margin: 0; display: flex; flex-direction: column; }   /* the photo carries its own background; its top edge lines up with the eyebrow. The photo fills whatever height the text column sets (cropped at the bottom, never below 320px), so the role line ends level with the microtext. */
+.founder-card__photo { display: block; width: 100%; height: auto; flex: 1 1 0; min-height: 320px; object-fit: cover; object-position: center top; border-radius: var(--r-btn); }
 .founder-card__caption {
   display: flex; flex-direction: column; gap: 2px;
   padding: 14px 0 0;
@@ -2002,9 +2002,12 @@ a.module-card__tag:hover { background: var(--orange-tint); color: var(--orange);
 .founder-card__body { margin-top: 20px; max-width: none; font-size: clamp(16px, 1.3vw, 18px); font-weight: 400; line-height: var(--lh-prose); color: var(--ink-soft); text-wrap: pretty; }
 .founder-card__action { margin-top: clamp(24px, 3vw, 32px); display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .founder-card__micro { font-size: var(--fs-meta); color: var(--ink-soft); }
+/* The "today" sentence starts its own line: it separates before from now without extra vertical space. */
+.founder-card__now { display: block; }
 @media (max-width: 860px) {
   .founder-card { grid-template-columns: 1fr; }
   .founder-card__media { max-width: 300px; }
+  .founder-card__photo { flex: none; min-height: 0; aspect-ratio: 840 / 1027; }
 }
 
 /* PAINS UNDER THE IMPACT (#pains) */
