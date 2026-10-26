@@ -1982,34 +1982,29 @@ a.module-card__tag:hover { background: var(--orange-tint); color: var(--orange);
    and wraps with text-wrap: pretty (see CLAUDE.md).
    ================================================================= */
 .founder-card {
-  display: grid; grid-template-columns: minmax(240px, 340px) 1fr;
-  gap: clamp(28px, 5vw, 64px); align-items: stretch;
+  display: grid; grid-template-columns: minmax(220px, 300px) 1fr;
+  gap: clamp(28px, 4vw, 48px); align-items: start;
   background: var(--white); border: 1px solid var(--hairline);
   border-radius: var(--r-card-lg); box-shadow: var(--shadow-md);
   padding: clamp(20px, 3vw, 36px);
 }
-.founder-card__media {
-  position: relative; margin: 0; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  background: var(--orange-tint); border-radius: var(--r-card);
-  padding: clamp(24px, 3vw, 36px) 0 0;   /* no side padding: the photo sits flush against the panel's left edge */
-}
-.founder-card__photo { align-self: flex-start; width: 90.6%; height: auto; aspect-ratio: 486 / 608; object-fit: contain; object-position: bottom; }
+.founder-card__media { margin: 0; }   /* the photo carries its own background; its top edge lines up with the eyebrow */
+.founder-card__photo { display: block; width: 100%; height: auto; aspect-ratio: 840 / 1027; object-fit: cover; object-position: center top; border-radius: var(--r-btn); }
 .founder-card__caption {
   display: flex; flex-direction: column; gap: 2px;
-  padding: 14px clamp(24px, 3vw, 36px);
-  background: var(--white); border-top: 1px solid var(--hairline);
+  padding: 14px 0 0;
 }
 .founder-card__name { font-family: var(--font-display); font-weight: 500; font-size: 18px; color: var(--ink); }
 .founder-card__role { font-size: var(--fs-meta); color: var(--ink-soft); }
-.founder-card__copy { align-self: center; padding-block: clamp(4px, 1vw, 12px); }
-.founder-card__title { max-width: 20ch; text-wrap: balance; }
-.founder-card__body { margin-top: 20px; max-width: 58ch; font-size: clamp(16px, 1.3vw, 18px); font-weight: 400; line-height: var(--lh-prose); color: var(--ink-soft); text-wrap: pretty; }
+.founder-card__copy { align-self: start; }
+.founder-card__copy .eyebrow-label { display: block; line-height: 1; }   /* box top = text top, so the photo's top edge lines up with the eyebrow */
+.founder-card__title { max-width: 26ch; text-wrap: balance; }
+.founder-card__body { margin-top: 20px; max-width: none; font-size: clamp(16px, 1.3vw, 18px); font-weight: 400; line-height: var(--lh-prose); color: var(--ink-soft); text-wrap: pretty; }
 .founder-card__action { margin-top: clamp(24px, 3vw, 32px); display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .founder-card__micro { font-size: var(--fs-meta); color: var(--ink-soft); }
 @media (max-width: 860px) {
   .founder-card { grid-template-columns: 1fr; }
-  .founder-card__media { max-width: 320px; }
+  .founder-card__media { max-width: 300px; }
 }
 
 /* PAINS UNDER THE IMPACT (#pains) */
