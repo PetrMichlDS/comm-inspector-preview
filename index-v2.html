@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=20261039" />
+  <link rel="stylesheet" href="styles.css?v=20261040" />
 
   <!-- Set a `js` flag before first paint so enhancement-only styles
        (e.g. the coverage bars animating up from zero) never flash
@@ -603,6 +603,77 @@
             <p class="flow__body">Insights are delivered as structured data, dashboards and signals for CRM, campaigns, reporting and customer profile enrichment.</p>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- Demo video, behind a work-email gate. Behaviour lives in script.js (data-vid-* component, "Gated demo video" block).
+         No square video file exists for this page, so the 16:9 file is used on mobile too (vid--wide);
+         no mp4 is requested until the gate is unlocked. -->
+    <section class="section section--blue-deep vid vid--wide" id="demo-video" aria-labelledby="vidHeading"
+             data-section="video" data-step="proof"
+             data-vid-root
+             data-vid-src="Assets/video/comms-inspector-demo-16x9.mp4"
+             data-vid-subject="Video gate: Comms Inspector platform demo (preview)"
+             data-vid-source="video-gate-homepage-preview"
+             data-vid-form-id="video_gate_homepage_preview">
+      <div class="container vid__inner">
+        <h2 id="vidHeading" class="vid__sr">Comms Inspector demo video</h2>
+
+        <p class="vid__lead">Most teams hear only 1&ndash;5% of customer conversations. See what Comms Inspector finds in the rest.</p>
+
+        <div class="vid__frame" data-vid-frame>
+          <div class="vid__stage" data-vid-stage>
+            <picture>
+              <img class="vid__poster" src="Assets/video/comms-inspector-demo-poster-16x9.webp" width="1920" height="1080" alt="Comms Inspector demo: the AI Customer Insights, AI Call Inspector and AI Quality Assurance modules" />
+            </picture>
+            <video class="vid__video" data-vid-el preload="none" playsinline disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback"></video>
+            <span class="vid__badge" data-vid-badge>2:37</span>
+            <div class="vid__playlayer" data-vid-playlayer>
+              <button class="vid__play" data-vid-play type="button" aria-label="Play demo video">
+                <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+            <div class="vid__controls" data-vid-controls hidden>
+              <button class="vid__btn" data-vid-toggle type="button" aria-label="Pause"></button>
+              <input class="vid__seek" data-vid-seek type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek" />
+              <span class="vid__time" data-vid-time>0:00 / 2:37</span>
+              <button class="vid__btn" data-vid-mute type="button" aria-label="Mute"></button>
+              <button class="vid__btn" data-vid-fs type="button" aria-label="Enter fullscreen">
+                <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p class="vid__note">Insights for sales, checks for compliance, scores for quality and answers in plain language, from every call, chat and email.</p>
+        <p class="vid__lock" data-vid-lock>
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>
+          <span>Enter your work email to watch the demo.</span>
+        </p>
+        <div class="vid__cta" data-vid-cta hidden>
+          <p class="vid__cta-title">Want to see it on your own conversations?</p>
+          <a href="#demo" class="btn btn--primary" data-demo-open>Book a use-case session</a>
+        </div>
+      </div>
+
+      <div class="vid__gate" data-vid-gate hidden>
+        <div class="vid__gate-box" role="dialog" aria-modal="true" aria-labelledby="vidGateTitle">
+          <button class="vid__gate-close" data-vid-gate-close type="button" aria-label="Close">&times;</button>
+          <h3 id="vidGateTitle" class="vid__gate-title">See what 100% of customer conversations can tell you</h3>
+          <form data-vid-gate-form action="https://api.web3forms.com/submit" method="post" novalidate>
+            <input type="hidden" name="access_key" value="1f0674fa-be4b-41b7-9f59-8e1a3639d5d9" />
+            <input type="hidden" name="subject" value="" />
+            <input type="hidden" name="source" value="" />
+            <input type="hidden" name="page" value="" />
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" hidden />
+            <label class="vid__sr" for="vidGateEmail">Work email</label>
+            <input class="vid__gate-input" id="vidGateEmail" data-vid-gate-email type="email" name="email" autocomplete="email" placeholder="Work email" required />
+            <p class="vid__gate-error" data-vid-gate-error role="alert" hidden></p>
+            <button type="submit" class="btn btn--primary btn--block vid__gate-submit">Watch the demo</button>
+            <p class="vid__gate-note">The video starts right away. One conversation, seen through three modules.</p>
+            <p class="vid__gate-consent">By continuing, you agree that Comms Inspector may contact you about its solution. See our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+          </form>
+        </div>
       </div>
     </section>
 

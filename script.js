@@ -661,3 +661,288 @@
     });
   }
 })();
+
+/* =================================================================
+   Gated demo video ([data-vid-root] component)
+   Soft e-mail gate, ported from the product video on claimsense.app. Every play path
+   (centre button, control-bar toggle, click on the stage) ends in play(), so one guard
+   covers them all; it opens the dialog until the visitor has given a work e-mail.
+   Config comes from data attributes on the root (src, src-small, subject, source, form-id).
+   The <video> has no src until the gate is unlocked, so no mp4 is fetched before that and
+   only one file is ever chosen (matchMedia, 640px, keep in sync with the CSS breakpoint).
+   Only an unlock flag + timestamp is stored, never the e-mail. */
+(function () {
+  var GATE_KEY = "ci_video_gate_v1";
+  var SMALL = "(max-width: 640px)";
+
+  var ICON_PLAY = '<svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+  var ICON_PAUSE = '<svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+  var ICON_VOL = '<svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>';
+  var ICON_MUTED = '<svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>';
+
+  /* Consumer mailbox providers common in our European markets, plus the global ones and the
+     throwaway services (same list as claimsense.app). A hit is not a hard error: the visitor
+     is asked for a work address instead. Exact domains only, no pattern guessing. */
+  var FREE_MAIL = ("gmail.com googlemail.com yahoo.com yahoo.co.uk yahoo.de yahoo.fr yahoo.es yahoo.it " +
+    "yahoo.ie yahoo.gr yahoo.se yahoo.dk yahoo.no yahoo.pl yahoo.com.br ymail.com rocketmail.com " +
+    "hotmail.com hotmail.co.uk hotmail.de hotmail.fr hotmail.es hotmail.it hotmail.se hotmail.be hotmail.nl " +
+    "outlook.com outlook.de outlook.fr outlook.es outlook.it outlook.cz outlook.pt live.com live.co.uk " +
+    "live.de live.fr live.it live.nl live.se live.dk msn.com passport.com " +
+    "icloud.com me.com mac.com aol.com aim.com " +
+    "proton.me protonmail.com protonmail.ch pm.me tuta.com tutanota.com tutanota.de hushmail.com " +
+    "zoho.com fastmail.com fastmail.fm hey.com mail.com email.com usa.com " +
+    "gmx.de gmx.net gmx.at gmx.ch gmx.com gmx.co.uk web.de t-online.de freenet.de arcor.de " +
+    "posteo.de mailbox.org 1und1.de " +
+    "orange.fr wanadoo.fr free.fr laposte.net sfr.fr neuf.fr bbox.fr numericable.fr aliceadsl.fr " +
+    "libero.it virgilio.it alice.it tiscali.it tin.it inwind.it fastwebnet.it email.it " +
+    "terra.es telefonica.net ono.com ya.com " +
+    "sapo.pt iol.pt clix.pt netcabo.pt " +
+    "seznam.cz email.cz centrum.cz centrum.sk volny.cz post.cz atlas.cz tiscali.cz quick.cz " +
+    "azet.sk zoznam.sk pobox.sk " +
+    "wp.pl onet.pl onet.eu op.pl o2.pl interia.pl interia.eu gazeta.pl poczta.fm poczta.onet.pl " +
+    "freemail.hu citromail.hu indamail.hu vipmail.hu " +
+    "abv.bg mail.bg dir.bg " +
+    "yahoo.ro mail.ru inbox.ru list.ru bk.ru yandex.com yandex.ru ya.ru rambler.ru ukr.net " +
+    "telenet.be skynet.be proximus.be scarlet.be voo.be " +
+    "ziggo.nl kpnmail.nl home.nl hetnet.nl xs4all.nl planet.nl chello.nl casema.nl " +
+    "bluewin.ch sunrise.ch hispeed.ch gmx.li " +
+    "aon.at chello.at a1.net " +
+    "telia.com telia.se spray.se bredband.net comhem.se " +
+    "online.no broadpark.no getmail.no start.no " +
+    "mail.dk sol.dk stofanet.dk post.tele.dk " +
+    "luukku.com suomi24.fi elisanet.fi saunalahti.fi kolumbus.fi " +
+    "mail.ee hot.ee inbox.lv one.lv mail.lt " +
+    "eircom.net btinternet.com virginmedia.com sky.com talktalk.net ntlworld.com blueyonder.co.uk " +
+    "mailinator.com guerrillamail.com 10minutemail.com yopmail.com temp-mail.org trashmail.com " +
+    "sharklasers.com getnada.com dispostable.com maildrop.cc").split(" ");
+  var FREE_MAIL_SET = {};
+  FREE_MAIL.forEach(function (d) { FREE_MAIL_SET[d] = 1; });
+  var isFreeMail = function (addr) {
+    var at = String(addr).lastIndexOf("@");
+    if (at < 0) return false;
+    return FREE_MAIL_SET[String(addr).slice(at + 1).trim().toLowerCase()] === 1;
+  };
+
+  /* The flag is the only thing stored. Storage can throw outright (private windows,
+     blocked site data), so every access is guarded; blocked storage just means the gate shows again. */
+  var readGate = function () {
+    try { if (localStorage.getItem(GATE_KEY)) return true; } catch (e) {}
+    try { if (document.cookie.indexOf(GATE_KEY + "=1") !== -1) return true; } catch (e) {}
+    return false;
+  };
+  var saveGate = function () {
+    try { localStorage.setItem(GATE_KEY, JSON.stringify({ t: Date.now() })); } catch (e) {}
+    try { document.cookie = GATE_KEY + "=1; max-age=31536000; path=/; SameSite=Lax"; } catch (e) {}
+  };
+  var track = function (name, params) {
+    try { if (typeof gtag === "function") gtag("event", name, params || {}); } catch (e) {}
+  };
+  var fmt = function (s) {
+    if (!isFinite(s) || s < 0) s = 0;
+    var m = Math.floor(s / 60), r = Math.floor(s % 60);
+    return m + ":" + (r < 10 ? "0" : "") + r;
+  };
+
+  var initVideo = function (root) {
+    var $ = function (sel) { return root.querySelector(sel); };
+    var frame = $("[data-vid-frame]");
+    var stage = $("[data-vid-stage]");
+    var video = $("[data-vid-el]");
+    var playLayer = $("[data-vid-playlayer]");
+    var playBtn = $("[data-vid-play]");
+    var controls = $("[data-vid-controls]");
+    var toggle = $("[data-vid-toggle]");
+    var seek = $("[data-vid-seek]");
+    var timeEl = $("[data-vid-time]");
+    var muteBtn = $("[data-vid-mute]");
+    var fsBtn = $("[data-vid-fs]");
+    var badge = $("[data-vid-badge]");
+    var lock = $("[data-vid-lock]");
+    var cta = $("[data-vid-cta]");
+    var gate = $("[data-vid-gate]");
+    var form = $("[data-vid-gate-form]");
+    var emailEl = $("[data-vid-gate-email]");
+    var errEl = $("[data-vid-gate-error]");
+    var closeBtn = $("[data-vid-gate-close]");
+    if (!(frame && stage && video && playBtn && controls && toggle && seek && gate && form && emailEl)) return;
+
+    var unlocked = readGate();
+    var wantPlay = false;
+    var playPromise = null;
+
+    /* Hidden fields come from the data attributes, so a second page only changes the markup. */
+    form.elements.subject.value = root.getAttribute("data-vid-subject") || "";
+    form.elements.source.value = root.getAttribute("data-vid-source") || "";
+    form.elements.page.value = window.location.pathname;
+
+    /* Returning visitor: no badge, no lock line, no dialog. */
+    var hideGateUi = function () {
+      if (badge) badge.hidden = true;
+      if (lock) lock.hidden = true;
+    };
+    if (unlocked) hideGateUi();
+
+    if (!(stage.requestFullscreen || stage.webkitRequestFullscreen || video.webkitEnterFullscreen)) fsBtn.hidden = true;
+
+    /* --- Render: play button, control bar, labels. All driven from the real media state --- */
+    var render = function () {
+      var started = frame.classList.contains("is-started");
+      var playing = started && !video.paused && !video.ended;
+      playLayer.hidden = playing;
+      controls.hidden = !started;
+      toggle.innerHTML = playing ? ICON_PAUSE : ICON_PLAY;
+      toggle.setAttribute("aria-label", playing ? "Pause" : "Play");
+      muteBtn.innerHTML = video.muted ? ICON_MUTED : ICON_VOL;
+      muteBtn.setAttribute("aria-label", video.muted ? "Unmute" : "Mute");
+    };
+    var renderTime = function () {
+      var d = video.duration;
+      var t = video.currentTime || 0;
+      timeEl.textContent = fmt(t) + " / " + fmt(d);
+      if (isFinite(d) && d > 0) seek.value = String((t / d) * 100);
+      seek.setAttribute("aria-valuetext", fmt(t) + " of " + fmt(d));
+    };
+
+    /* --- Playback intent. play() resolves late; a pause issued before then must still win --- */
+    var reconcile = function () {
+      if (wantPlay && video.paused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+      else if (!wantPlay && !video.paused) video.pause();
+    };
+    var play = function () {
+      if (!unlocked) { openGate(); return; }
+      if (!video.getAttribute("src")) {
+        /* Only now does the browser learn the file name, and only one of the two is chosen. */
+        var small = window.matchMedia(SMALL).matches;
+        var src = (small && root.getAttribute("data-vid-src-small")) || root.getAttribute("data-vid-src");
+        video.setAttribute("src", src);
+      }
+      frame.classList.add("is-started");
+      if (video.ended) video.currentTime = 0;
+      wantPlay = true;
+      var p = video.play();
+      playPromise = p && p.then ? p : null;
+      if (playPromise) playPromise.then(function () { playPromise = null; reconcile(); }, function () { playPromise = null; reconcile(); });
+      render();
+    };
+    var pause = function () {
+      wantPlay = false;
+      if (playPromise) playPromise.then(reconcile, reconcile);
+      else video.pause();
+      render();
+    };
+    var toggleVideo = function () { if (wantPlay) pause(); else play(); };
+
+    playBtn.addEventListener("click", play);
+    toggle.addEventListener("click", toggleVideo);
+    stage.addEventListener("click", function (e) {
+      if (e.target.closest("[data-vid-controls]") || e.target.closest("[data-vid-play]")) return;
+      toggleVideo();
+    });
+    ["play", "pause", "ended", "volumechange", "loadedmetadata", "durationchange"].forEach(function (n) {
+      video.addEventListener(n, function () {
+        if (n === "pause" || n === "ended") wantPlay = false;
+        render();
+        renderTime();
+      });
+    });
+    video.addEventListener("timeupdate", renderTime);
+    seek.addEventListener("input", function () {
+      if (isFinite(video.duration)) video.currentTime = (seek.value / 100) * video.duration;
+    });
+    muteBtn.addEventListener("click", function () { video.muted = !video.muted; render(); });
+    fsBtn.addEventListener("click", function () {
+      var d = document;
+      if (d.fullscreenElement || d.webkitFullscreenElement) {
+        (d.exitFullscreen || d.webkitExitFullscreen).call(d);
+      } else if (stage.requestFullscreen) stage.requestFullscreen();
+      else if (stage.webkitRequestFullscreen) stage.webkitRequestFullscreen();
+      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+    });
+
+    /* --- Dialog --- */
+    var showError = function (msg) {
+      errEl.textContent = msg;
+      errEl.hidden = false;
+    };
+    var closeGate = function (focusBack) {
+      if (gate.hidden) return;
+      gate.hidden = true;
+      document.documentElement.classList.remove("vid-gate-open");
+      if (focusBack) { try { playBtn.focus(); } catch (e) {} }
+    };
+    var openGate = function () {
+      if (unlocked || !gate.hidden) return;
+      gate.hidden = false;
+      document.documentElement.classList.add("vid-gate-open");
+      errEl.hidden = true;
+      track("video_gate_open");
+      try { emailEl.focus(); } catch (e) {}
+    };
+    closeBtn.addEventListener("click", function () { closeGate(true); });
+    /* A click on the dimmed backdrop (not inside the box) closes it. */
+    gate.addEventListener("click", function (e) { if (e.target === gate) closeGate(true); });
+    gate.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { e.stopPropagation(); closeGate(true); return; }
+      if (e.key !== "Tab") return;
+      var f = Array.prototype.slice.call(gate.querySelectorAll("button:not([disabled]), input[type=email], a[href]"));
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    emailEl.addEventListener("input", function () { errEl.hidden = true; });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (form.__busy) return;
+      var val = String(emailEl.value || "").trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+        showError("Please enter a valid email address.");
+        return;
+      }
+      if (isFreeMail(val)) {
+        showError("That looks like a personal address. Please use your work email.");
+        track("video_gate_freemail");
+        return;
+      }
+      var btn = form.querySelector("button[type=submit]");
+      var label = btn.textContent;
+      var release = function () { form.__busy = false; btn.disabled = false; btn.textContent = label; };
+      form.__busy = true;
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+      errEl.hidden = true;
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      var fail = function () { release(); showError("Something went wrong. Please try again or email us directly."); };
+      fetch(form.getAttribute("action"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data)
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (result) {
+          if (!(result && result.success)) { fail(); return; }
+          release();
+          unlocked = true;
+          saveGate();
+          hideGateUi();
+          track("video_gate_submit");
+          /* GA4 conversion for ad measurement and audience exclusion. No form data is sent. */
+          track("generate_lead", { form_id: root.getAttribute("data-vid-form-id") || "video_gate" });
+          closeGate(false);
+          if (cta) cta.hidden = false;
+          /* Safari can refuse play() this long after the click; the centre button then stays up
+             and the next click starts it. The gate is already done either way. */
+          play();
+          try { (frame.classList.contains("is-started") ? toggle : playBtn).focus(); } catch (err) {}
+        })
+        .catch(fail);
+    });
+
+    render();
+    renderTime();
+  };
+
+  document.querySelectorAll("[data-vid-root]").forEach(initVideo);
+})();
