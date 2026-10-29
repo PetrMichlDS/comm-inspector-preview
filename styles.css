@@ -2068,7 +2068,7 @@ a.module-card__tag:hover { background: var(--orange-tint); color: var(--orange);
 .team__label { display: block; text-align: center; margin-bottom: 24px; }
 .team__grid { display: grid; grid-template-columns: 1fr; gap: clamp(20px, 2.5vw, 32px); align-items: stretch; }
 @media (min-width: 900px) { .team__grid { grid-template-columns: repeat(3, 1fr); } }
-.team__card { background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-card-lg); padding: clamp(22px, 2.4vw, 32px); box-shadow: var(--shadow-sm); }
+.team__card { display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-card-lg); padding: clamp(22px, 2.4vw, 32px); box-shadow: var(--shadow-sm); }
 .team__card p { margin-top: 0; margin-bottom: 14px; font-size: var(--fs-compact); color: var(--ink-soft); text-wrap: pretty; }
 .team__card p:last-child { margin-bottom: 0; }
 .team__person { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
@@ -2078,12 +2078,13 @@ a.module-card__tag:hover { background: var(--orange-tint); color: var(--orange);
 .team__years { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
 .team__years-num { flex: none; font-family: var(--font-display); font-weight: 900; font-size: clamp(25px, 3vw, 36px); line-height: 1; color: var(--orange); }
 .team__years span { font-size: var(--fs-meta); line-height: 1.35; color: var(--ink-soft); }
-.team__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--hairline); }
+.team__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; margin-bottom: 24px; padding-top: 16px; border-top: 1px solid var(--hairline); }
 .team__badge { display: inline-flex; padding: 4px 12px; border-radius: 999px; font-size: var(--fs-meta); font-weight: 500; background: rgba(255,85,57,.12); color: var(--orange-hover); }
-.team__tags + p { margin-top: 16px; }
-.team__li a { display: inline-flex; align-items: center; gap: 8px; color: var(--blue-deep); font-weight: 600; text-decoration: none; }
+.team__card .team__li { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--hairline); }
+.team__li a { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; color: var(--blue-deep); font-weight: 600; text-decoration: none; }
 .team__li a:hover { text-decoration: underline; }
 .team__li svg { width: 20px; height: 20px; }
+.team__li .team__li-arrow { width: 14px; height: 14px; flex: none; }
 
 .together { position: relative; isolation: isolate; }
 .together::before {
